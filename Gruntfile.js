@@ -1,4 +1,4 @@
-// Generated on 2016-01-02 using generator-angular 0.14.0
+// Generated on 2015-12-06 using generator-angular 0.14.0
 'use strict';
 
 // # Globbing
@@ -8,6 +8,7 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
+  grunt.loadNpmTasks('grunt-protractor-runner');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -211,16 +212,16 @@ module.exports = function (grunt) {
         fileTypes:{
           js: {
             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-              detect: {
-                js: /'(.*\.js)'/gi
-              },
-              replace: {
-                js: '\'{{filePath}}\','
-              }
+            detect: {
+              js: /'(.*\.js)'/gi
+            },
+            replace: {
+              js: '\'{{filePath}}\','
             }
           }
+        }
       }
-    }, 
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -421,8 +422,31 @@ module.exports = function (grunt) {
     karma: {
       unit: {
         configFile: 'test/karma.conf.js',
-        singleRun: true
+        singleRun: true,
+        plugins:[
+          'karma-jasmine',
+          'karma-coverage',
+          'karma-phantomjs-launcher'
+        ]
       }
+    },
+
+    // protractor configuration
+    protractor: {
+      options: {
+        configFile: 'test/protractor.conf.js', // Default config file
+        keepAlive: true, // If false, the grunt process stops when the test fails.
+        noColor: false, // If true, protractor will not use colors in its output.
+        args: {
+          // Arguments passed to the command
+        }
+      },
+      all: {   // Grunt requires at least one target to run so you can simply put 'all: {}' here too.
+        //options: {
+        //  configFile: "e2e.conf.js", // Target-specific config file
+        //  args: {} // Target-specific arguments
+        //}
+      },
     }
   });
 
@@ -454,6 +478,11 @@ module.exports = function (grunt) {
     'postcss',
     'connect:test',
     'karma'
+  ]);
+
+  grunt.registerTask('e2e', [
+    'test',
+    'protractor:all'
   ]);
 
   grunt.registerTask('build', [

@@ -1,6 +1,6 @@
 // Karma configuration
 // http://karma-runner.github.io/0.12/config/configuration-file.html
-// Generated on 2016-01-02 using
+// Generated on 2015-12-06 using
 // generator-karma 1.0.1
 
 module.exports = function(config) {
@@ -35,8 +35,24 @@ module.exports = function(config) {
       // endbower
       "app/scripts/**/*.js",
       "test/mock/**/*.js",
-      "test/spec/**/*.js"
+      "test/unit/spec/**/*.js"
     ],
+
+    // coverage reporter generates the coverage
+    reporters: ['progress', 'coverage'],
+
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      'app/scripts/**/*.js': ['coverage']
+    },
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      type : 'html',
+      dir : 'reports/unit/coverage/'
+    },
 
     // list of files / patterns to exclude
     exclude: [
