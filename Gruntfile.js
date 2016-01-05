@@ -481,7 +481,11 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('e2e', [
-    'test',
+    'clean:server',
+    'wiredep',
+    'concurrent:test',
+    'postcss',
+    'connect:test',
     'protractor:all'
   ]);
 
