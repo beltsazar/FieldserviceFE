@@ -8,7 +8,6 @@
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
-  grunt.loadNpmTasks('grunt-protractor-runner');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -17,7 +16,8 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    protractor: 'grunt-protractor-runner'
   });
 
   // Configurable paths for the application
