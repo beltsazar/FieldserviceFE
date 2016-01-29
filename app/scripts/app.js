@@ -24,12 +24,18 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+      .when('/cities', {
+        templateUrl: 'views/city_list.html',
+        controller: 'CityList',
+        controllerAs: 'ctrl'
+      })
+      .when('/cities/:id', {
+        templateUrl: 'views/city_details.html',
+        controller: 'CityDetails',
+        controllerAs: 'ctrl'
       })
       .otherwise({
         redirectTo: '/'
       });
+
   });

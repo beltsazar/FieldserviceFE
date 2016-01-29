@@ -1,0 +1,20 @@
+<div class="row">
+  <h1>Cities</h1>
+
+  <table class="table">
+    <caption>List of Cities</caption>
+    <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="city in ctrl.cities">
+      <th scope="row"><a href="{{city._links.self.href | path}}">+</a></th>
+      <td>{{city.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

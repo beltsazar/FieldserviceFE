@@ -1,0 +1,17 @@
+<div class="row">
+  <h1>City</h1>
+
+  <form>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="enter city name" ng-model="ctrl.city.name">
+    </div>
+
+    <button type="submit" class="btn btn-default" ng-click="ctrl.saveCity();">Save</button>
+    <button type="submit" class="btn btn-default" ng-click="ctrl.newCity();">New</button>
+    <button type="submit" class="btn btn-default" ng-click="ctrl.deleteCity();">Delete</button>
+
+  </form>
+
+</div>
