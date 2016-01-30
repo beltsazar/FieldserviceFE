@@ -1,5 +1,4 @@
-<div class="row">
-  <h1>Cities</h1>
+ <h1>Cities</h1>
 
   <table class="table">
     <caption>List of Cities</caption>
@@ -11,10 +10,10 @@
     </thead>
     <tbody>
     <tr ng-repeat="city in ctrl.cities">
-      <th scope="row"><a href="{{city._links.self.href | path}}">+</a></th>
+      <th scope="row"><a ng-href="#{{city._links.self.href | path}}">+</a></th>
       <td>{{city.name}}</td>
     </tr>
     </tbody>
   </table>
 
-</div>
+ <a class="btn btn-default btn-primary" href="#/cities/create" role="button">Create</a>
