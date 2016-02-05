@@ -4,13 +4,13 @@
     <caption>List of Cities</caption>
     <thead>
     <tr>
-      <th></th>
+      <th class="col-md-1"></th>
       <th>Name</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="city in ctrl.cities">
-      <th scope="row"><a ng-href="#{{city._links.self.href | path}}">+</a></th>
+      <th class="col-md-1" scope="row"><a ng-href="#{{city._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
       <td>{{city.name}}</td>
     </tr>
     </tbody>

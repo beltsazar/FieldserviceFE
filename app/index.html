@@ -40,8 +40,8 @@
 
           <ul class="nav navbar-nav">
             <li class="active"><a href="#/">Home</a></li>
+            <li><a ng-href="#/addresses">Addresses</a></li>
             <li><a ng-href="#/cities">Cities</a></li>
-            <li><a ng-href="#/">Contact</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -61,7 +61,7 @@
 
     <div class="container-fluid">
       <div class="row">
-          <div class="col-xs-12">
+          <div class="col-md-12">
             <div ng-view=""></div>
           </div>
       </div>
@@ -103,10 +103,14 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/services/city.js"></script>
+        <script src="scripts/services/cities.js"></script>
         <script src="scripts/controllers/cityDetails.js"></script>
         <script src="scripts/filters/path.js"></script>
         <script src="scripts/controllers/cityList.js"></script>
+        <script src="scripts/services/addresses.js"></script>
+        <script src="scripts/controllers/addressList.js"></script>
+        <script src="scripts/controllers/addressDetails.js"></script>
+        <script src="scripts/filters/id.js"></script>
         <!-- endbuild -->
 </body>
 </html>

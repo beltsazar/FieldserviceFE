@@ -1,0 +1,23 @@
+<h1>Address</h1>
+
+<form>
+
+  <div class="form-group">
+    <label for="name">House Number</label>
+    <input type="text" class="form-control" id="name" placeholder="enter house number" ng-model="ctrl.address.number">
+  </div>
+
+  <div class="form-group">
+    <label for="city">City</label>
+
+    <select id="city" name="city" class="form-control" ng-model="ctrl.entities.city">
+      <option ng-repeat="city in ctrl.entities.cities" value="{{city._links.self.href}}" >{{city.name}}</option>
+    </select>
+  </div>
+
+  <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.createAddress();">Create</button>
+  <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.saveAddress();">Save</button>
+  <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.deleteAddress();">Delete</button>
+  <a ng-href="#/addresses">Back to list</a>
+</form>
+

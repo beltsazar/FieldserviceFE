@@ -36,30 +36,10 @@ angular.module('fieldserviceFeApp').controller('CityDetails', function ($resourc
   };
 
   // Maak nieuwe resource
-  this.newCity = function() {
+  this.createCity = function() {
     Cities.add({}, ctrl.city).$promise.then(function(response) {
-      console.log($filter('path')(response._links.self.href))
-
       $location.path($filter('path')(response._links.self.href));
     });
   };
 
 });
-
-
-//var result = City.get();
-//CityResource.get().$promise.then(function(result) {
-//  console.log(result);
-//  ctrl.cities = result._embedded.cities;
-//
-//});
-//
-//this.model = {};
-//
-//this.gotoURL = function(some) {
-//  console.log('hoi', some);
-//}
-
-//var city = new CityResource();
-//
-//city.name = this.model.name;
