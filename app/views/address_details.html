@@ -8,17 +8,25 @@
   </div>
 
   <div class="form-group">
-    <label for="city">City</label>
+    <label for="street">Street</label>
+    <select id="street" name="street" class="form-control" ng-model="ctrl.entities.street">
+      <option ng-repeat="street in ctrl.entities.streets" value="{{street._links.self.href}}" >{{street.name}}</option>
+    </select>
+  </div>
 
+  <div class="form-group">
+    <label for="city">City</label>
     <select id="city" name="city" class="form-control" ng-model="ctrl.entities.city">
       <option ng-repeat="city in ctrl.entities.cities" value="{{city._links.self.href}}" >{{city.name}}</option>
     </select>
   </div>
 
-  <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.createAddress();">Create</button>
-  <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.saveAddress();">Save</button>
-  <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.deleteAddress();">Delete</button>
-  <a ng-href="#/addresses">Back to list</a>
+  <div class="form-group">
+    <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.createAddress();">Create</button>
+    <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.saveAddress();">Save</button>
+    <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.deleteAddress();">Delete</button>
+    <a ng-href="#/addresses">Back to list</a>
+  </div>
 
 </form>
 

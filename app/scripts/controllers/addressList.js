@@ -14,6 +14,7 @@ angular.module('fieldserviceFeApp').controller('AddressList', function (Addresse
   ctrl.addresses = [];
 
   Addresses.get({projection: 'full'}).$promise.then(function(result) {
+    console.log('addresses loaded')
     ctrl.addresses = result._embedded.addresses;
   });
 

@@ -8,9 +8,11 @@
       <input type="text" class="form-control" id="name" placeholder="enter city name" ng-model="ctrl.city.name">
     </div>
 
-    <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.createCity();">Create</button>
-    <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.saveCity();">Save</button>
-    <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.deleteCity();">Delete</button>    <a ng-href="#/cities">Back to list</a>
+    <div class="form-group">
+      <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.createCity();">Create</button>
+      <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.saveCity();">Save</button>
+      <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.deleteCity();">Delete</button>    <a ng-href="#/cities">Back to list</a>
+    </div>
   </form>
 
 
