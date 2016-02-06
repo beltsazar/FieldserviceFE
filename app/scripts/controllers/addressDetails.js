@@ -52,13 +52,27 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
 
   this.saveAddress = function() {
     Addresses.update({id : ctrl.id}, ctrl.address).$promise.then(function(response) {
-    }).then(function() {
-      return Addresses.updateEntity({id : ctrl.id, entity: 'street'}, ctrl.entities.street).$promise.then(function(response){
+
+      Addresses.updateEntity({id : ctrl.id, entity: 'street'}, ctrl.entities.street).$promise.then(function(response){
+
+        Addresses.updateEntity({id : ctrl.id, entity: 'city'}, ctrl.entities.city).$promise.then(function(response){
+          $location.path('/addresses');
+        }).catch(function(response){
+
+        }).finally(function() {
+
+        });
+
+      }).catch(function(response){
+
+      }).finally(function() {
+
       });
-    }).then(function() {
-      Addresses.updateEntity({id : ctrl.id, entity: 'city'}, ctrl.entities.city).$promise.then(function(response){
-        $location.path('/addresses');
-      });
+
+    }).catch(function(response){
+
+    }).finally(function() {
+
     });
 
   };
@@ -69,14 +83,15 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
 
     Addresses.add({}, ctrl.address).$promise.then(function(response) {
       generatedId = $filter('id')(response._links.self.href);
-    }).then(function() {
-      // Save street using id of newly created address
-      return Addresses.updateEntity({id : generatedId, entity: 'street'}, ctrl.entities.street).$promise.then(function() {
+
+      Addresses.updateEntity({id : generatedId, entity: 'street'}, ctrl.entities.street).$promise.then(function() {
+
+        Addresses.updateEntity({id : generatedId, entity: 'city'}, ctrl.entities.city).$promise.then(function() {
+          $location.path('/addresses');
+        });
+
       });
-    }).then(function() {
-      Addresses.updateEntity({id : generatedId, entity: 'city'}, ctrl.entities.city).$promise.then(function() {
-        $location.path('/addresses');
-      });
+
     });
 
   };
