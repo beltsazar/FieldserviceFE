@@ -44,6 +44,16 @@ angular
         controller: 'AddressDetails',
         controllerAs: 'ctrl'
       })
+      .when('/streets', {
+        templateUrl: 'views/street_list.html',
+        controller: 'StreetList',
+        controllerAs: 'ctrl'
+      })
+      .when('/streets/:id', {
+        templateUrl: 'views/street_details.html',
+        controller: 'StreetDetails',
+        controllerAs: 'ctrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

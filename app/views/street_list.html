@@ -1,0 +1,19 @@
+ <h1>Streets</h1>
+
+  <table class="table">
+    <caption>List of Streets</caption>
+    <thead>
+    <tr>
+      <th class="col-md-1"></th>
+      <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="streets in ctrl.streets">
+      <th class="col-md-1" scope="row"><a ng-href="#{{streets._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+      <td>{{streets.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+ <a class="btn btn-default btn-primary" href="#/streets/create" role="button">Create</a>
