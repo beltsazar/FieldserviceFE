@@ -4,19 +4,19 @@
 
   <div class="form-group">
     <label for="name">House Number</label>
-    <input type="text" class="form-control" id="name" placeholder="enter house number" ng-model="ctrl.address.number">
+    <input type="text" class="form-control" id="name" placeholder="enter house number" ng-model="ctrl.model.address.number">
   </div>
 
   <div class="form-group">
     <label for="street">Street</label>
-    <select id="street" name="street" class="form-control" ng-model="ctrl.entities.street">
+    <select id="street" name="street" class="form-control" ng-model="ctrl.model.street">
       <option ng-repeat="street in ctrl.entities.streets" value="{{street._links.self.href}}" >{{street.name}}</option>
     </select>
   </div>
 
   <div class="form-group">
     <label for="city">City</label>
-    <select id="city" name="city" class="form-control" ng-model="ctrl.entities.city">
+    <select id="city" name="city" class="form-control" ng-model="ctrl.model.city">
       <option ng-repeat="city in ctrl.entities.cities" value="{{city._links.self.href}}" >{{city.name}}</option>
     </select>
   </div>
