@@ -42,7 +42,7 @@ angular.module('fieldserviceFeApp').controller('CityDetails', function ($resourc
   // Maak nieuwe resource
   this.createCity = function() {
     Cities.add({}, ctrl.model.city).$promise.then(function(response) {
-      $location.path($filter('path')(response._links.self.href));
+      $location.path('/cities');
     });
   };
 

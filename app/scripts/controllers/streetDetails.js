@@ -41,7 +41,7 @@ angular.module('fieldserviceFeApp').controller('StreetDetails', function ($resou
   // Maak nieuwe resource
   this.createStreet = function() {
     Streets.add({}, ctrl.model.street).$promise.then(function(response) {
-      $location.path($filter('path')(response._links.self.href));
+      $location.path('/streets');
     });
   };
 
