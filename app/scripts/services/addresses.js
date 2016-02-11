@@ -9,7 +9,7 @@
  */
 angular.module('fieldserviceFeApp').factory('Addresses', function ($resource) {
 
-  return $resource('http://localhost:8080/addresses/:id/:entity', {}, {
+  return $resource('http://192.168.1.112:8080/addresses/:search/:findBy/:id/:entity', {}, {
     add: {
       method:'POST'
     },
@@ -19,6 +19,12 @@ angular.module('fieldserviceFeApp').factory('Addresses', function ($resource) {
     updateEntity: {
       method:'PUT',
       headers: { 'Content-Type': 'text/uri-list' }
+    },
+    findByArea: {
+      params: {
+        search: 'search',
+        findBy: 'findByArea'
+      }
     }
   });
 

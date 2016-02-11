@@ -9,7 +9,7 @@
  */
 angular.module('fieldserviceFeApp').factory('Streets', function ($resource) {
 
-  return $resource('http://localhost:8080/streets/:id', {}, {
+  return $resource('http://192.168.1.112:8080/streets/:id', {}, {
     add: {
       method:'POST'
     },

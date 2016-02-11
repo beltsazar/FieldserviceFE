@@ -13,7 +13,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (Areas, $res
 
   ctrl.areas = [];
 
-  Areas.get().$promise.then(function(result) {
+  Areas.get({sort : 'number'}).$promise.then(function(result) {
     ctrl.areas = result._embedded.areas;
   });
 

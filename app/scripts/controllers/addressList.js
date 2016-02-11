@@ -12,8 +12,10 @@ angular.module('fieldserviceFeApp').controller('AddressList', function (Addresse
   var ctrl = this;
 
   ctrl.addresses = [];
-
-  Addresses.get().$promise.then(function(result) {
+  Addresses.get({
+    projection: 'entities',
+    sort: ['city.name', 'street.name', 'number']
+  }).$promise.then(function(result) {
     ctrl.addresses = result._embedded.addresses;
   });
 
