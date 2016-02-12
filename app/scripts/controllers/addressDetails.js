@@ -7,19 +7,21 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AddressDetails', function ($resource, $routeParams, $location, $filter, $q, Addresses, Streets, Cities) {
+angular.module('fieldserviceFeApp').controller('AddressDetails', function ($resource, $routeParams, $location, $filter, $q, Addresses, Streets, Cities, Areas) {
 
   var ctrl = this;
 
   ctrl.model = {
     address: {},
-    street: null,
-    city: null
+    street: {},
+    city: {},
+    area: {}
   };
 
   ctrl.entities = {
     cities: [],
-    street: null
+    streets: [],
+    areas: []
   };
   ctrl.id = $routeParams.id;
 
@@ -38,6 +40,12 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
         ctrl.model.city = response._links.self.href;
       });
 
+      // Get area entity
+      Addresses.get({id: ctrl.id, entity: 'area'}).$promise.then(function (response) {
+        ctrl.model.area = response._links.self.href;
+      });
+
+
     });
   }
 
@@ -51,6 +59,11 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
     ctrl.entities.cities = result._embedded.cities;
   });
 
+  // Haal de totale lijst van steden op
+  Areas.get().$promise.then(function (result) {
+    ctrl.entities.areas = result._embedded.areas;
+  });
+
   // Save de bewerkte resource
 
   this.saveAddress = function () {
@@ -59,7 +72,15 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
       Addresses.updateEntity({id: ctrl.id, entity: 'street'}, ctrl.model.street).$promise.then(function (response) {
 
         Addresses.updateEntity({id: ctrl.id, entity: 'city'}, ctrl.model.city).$promise.then(function (response) {
-          $location.path('/addresses');
+
+          Addresses.updateEntity({id: ctrl.id, entity: 'area'}, ctrl.model.area).$promise.then(function (response) {
+            $location.path('/addresses');
+          }).catch(function (response) {
+
+          }).finally(function () {
+
+          });
+
         }).catch(function (response) {
 
         }).finally(function () {
@@ -90,7 +111,11 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
       Addresses.updateEntity({id: generatedId, entity: 'street'}, ctrl.model.street).$promise.then(function () {
 
         Addresses.updateEntity({id: generatedId, entity: 'city'}, ctrl.model.city).$promise.then(function () {
-          $location.path('/addresses');
+
+          Addresses.updateEntity({id: generatedId, entity: 'area'}, ctrl.model.area).$promise.then(function () {
+            $location.path('/addresses');
+          });
+
         });
 
       });
