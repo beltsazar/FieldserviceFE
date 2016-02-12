@@ -7,9 +7,9 @@
  * # city
  * Factory in the fieldserviceFeApp.
  */
-angular.module('fieldserviceFeApp').factory('Addresses', function ($resource) {
+angular.module('fieldserviceFeApp').factory('Addresses', function ($resource, config) {
 
-  return $resource('http://192.168.1.112:8080/addresses/:search/:findBy/:id/:entity', {}, {
+  return $resource(config.api.hostname + '/addresses/:search/:findBy/:id/:entity', {}, {
     add: {
       method:'POST'
     },
