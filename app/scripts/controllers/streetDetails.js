@@ -27,21 +27,21 @@ angular.module('fieldserviceFeApp').controller('StreetDetails', function ($resou
   // Save de bewerkte resource
   this.saveStreet = function() {
     Streets.update({id : ctrl.id}, ctrl.model.street).$promise.then(function() {
-      $location.path('/streets');
+      $location.path('/admin/streets');
     });
   };
 
   // Verwijder de resource
   this.deleteStreet = function() {
     Streets.delete({id : ctrl.id}, ctrl.model.street).$promise.then(function() {
-      $location.path('/streets');
+      $location.path('/admin/streets');
     });
   };
 
   // Maak nieuwe resource
   this.createStreet = function() {
     Streets.add({}, ctrl.model.street).$promise.then(function(response) {
-      $location.path('/streets');
+      $location.path('/admin/streets');
     });
   };
 

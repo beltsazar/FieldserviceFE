@@ -42,21 +42,21 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($resourc
   // Save de bewerkte resource
   this.saveArea = function() {
     Areas.update({id : ctrl.id}, ctrl.model.area).$promise.then(function() {
-      $location.path('/areas');
+      $location.path('/admin/areas');
     });
   };
 
   // Verwijder de resource
   this.deleteArea = function() {
     Areas.delete({id : ctrl.id}, ctrl.model.area).$promise.then(function() {
-      $location.path('/areas');
+      $location.path('/admin/areas');
     });
   };
 
   // Maak nieuwe resource
   this.createArea = function() {
     Areas.add({}, ctrl.model.area).$promise.then(function(response) {
-      $location.path('/areas');
+      $location.path('/admin/areas');
     });
   };
 

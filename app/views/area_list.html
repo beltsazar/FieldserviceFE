@@ -10,10 +10,10 @@
     </thead>
     <tbody>
     <tr ng-repeat="area in ctrl.areas">
-      <th class="col-md-1" scope="row"><a ng-href="#{{area._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+      <th class="col-md-1" scope="row"><a ng-href="#/admin{{area._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
       <td>{{area.number}}</td>
     </tr>
     </tbody>
   </table>
 
- <a class="btn btn-default btn-primary" href="#/areas/create" role="button">Create</a>
+ <a class="btn btn-default btn-primary" href="#/admin/areas/create" role="button">Create</a>

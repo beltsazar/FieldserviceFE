@@ -25,42 +25,42 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/cities', {
+      .when('/admin/cities', {
         templateUrl: 'views/city_list.html',
         controller: 'CityList',
         controllerAs: 'ctrl'
       })
-      .when('/cities/:id', {
+      .when('/admin/cities/:id', {
         templateUrl: 'views/city_details.html',
         controller: 'CityDetails',
         controllerAs: 'ctrl'
       })
-      .when('/addresses', {
+      .when('/admin/addresses', {
         templateUrl: 'views/address_list.html',
         controller: 'AddressList',
         controllerAs: 'ctrl'
       })
-      .when('/addresses/:id', {
+      .when('/admin/addresses/:id', {
         templateUrl: 'views/address_details.html',
         controller: 'AddressDetails',
         controllerAs: 'ctrl'
       })
-      .when('/streets', {
+      .when('/admin/streets', {
         templateUrl: 'views/street_list.html',
         controller: 'StreetList',
         controllerAs: 'ctrl'
       })
-      .when('/streets/:id', {
+      .when('/admin/streets/:id', {
         templateUrl: 'views/street_details.html',
         controller: 'StreetDetails',
         controllerAs: 'ctrl'
       })
-      .when('/areas', {
+      .when('/admin/areas', {
         templateUrl: 'views/area_list.html',
         controller: 'AreaList',
         controllerAs: 'ctrl'
       })
-      .when('/areas/:id', {
+      .when('/admin/areas/:id', {
         templateUrl: 'views/area_details.html',
         controller: 'AreaDetails',
         controllerAs: 'ctrl'

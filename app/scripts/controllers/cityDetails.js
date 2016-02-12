@@ -28,21 +28,21 @@ angular.module('fieldserviceFeApp').controller('CityDetails', function ($resourc
   // Save de bewerkte resource
   this.saveCity = function() {
     Cities.update({id : ctrl.id}, ctrl.model.city).$promise.then(function() {
-      $location.path('/cities');
+      $location.path('/admin/cities');
     });
   };
 
   // Verwijder de resource
   this.deleteCity = function() {
     Cities.delete({id : ctrl.id}, ctrl.model.city).$promise.then(function() {
-      $location.path('/cities');
+      $location.path('/admin/cities');
     });
   };
 
   // Maak nieuwe resource
   this.createCity = function() {
     Cities.add({}, ctrl.model.city).$promise.then(function(response) {
-      $location.path('/cities');
+      $location.path('/admin/cities');
     });
   };
 

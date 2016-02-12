@@ -74,7 +74,7 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
         Addresses.updateEntity({id: ctrl.id, entity: 'city'}, ctrl.model.city).$promise.then(function (response) {
 
           Addresses.updateEntity({id: ctrl.id, entity: 'area'}, ctrl.model.area).$promise.then(function (response) {
-            $location.path('/addresses');
+            $location.path('/admin/addresses');
           }).catch(function (response) {
 
           }).finally(function () {
@@ -113,7 +113,7 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
         Addresses.updateEntity({id: generatedId, entity: 'city'}, ctrl.model.city).$promise.then(function () {
 
           Addresses.updateEntity({id: generatedId, entity: 'area'}, ctrl.model.area).$promise.then(function () {
-            $location.path('/addresses');
+            $location.path('/admin/addresses');
           });
 
         });
@@ -127,7 +127,7 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
   // Verwijder de resource
   this.deleteAddress = function () {
     Addresses.delete({id: ctrl.id}, ctrl.model.address).$promise.then(function () {
-      $location.path('/addresses');
+      $location.path('/admin/addresses');
     });
   };
 

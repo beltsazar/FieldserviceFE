@@ -20,7 +20,7 @@
       </thead>
       <tbody>
       <tr ng-repeat="address in ctrl.entities.addresses">
-        <th class="col-md-1" scope="row"><a ng-href="#{{address._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+        <th class="col-md-1" scope="row"><a ng-href="#/admin{{address._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
         <td>{{address.number}}</td>
         <td>{{address.street.name}}</td>
         <td>{{address.city.name}}</td>
@@ -32,7 +32,7 @@
       <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.createArea();">Create</button>
       <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.saveArea();">Save</button>
       <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.deleteArea();">Delete</button>
-      <a ng-href="#/areas">Back to list</a>
+      <a ng-href="#/admin/areas">Back to list</a>
     </div>
   </form>
 
