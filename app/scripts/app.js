@@ -65,6 +65,11 @@ angular
         controller: 'AreaDetails',
         controllerAs: 'ctrl'
       })
+      .when('/worksheets/:id', {
+        templateUrl: 'views/worksheet_details.html',
+        controller: 'WorksheetDetails',
+        controllerAs: 'ctrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

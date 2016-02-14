@@ -1,0 +1,78 @@
+
+  <h1>Area</h1>
+
+  <form>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" placeholder="enter area number" ng-model="ctrl.model.area.number">
+    </div>
+
+    <uib-accordion close-others="oneAtATime">
+      <uib-accordion-group ng-repeat="sheet in ctrl.model.workSheet.sheets" >
+        <uib-accordion-heading>
+          {{sheet.name}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </uib-accordion-heading>
+
+          <div class="row" style="margin-bottom:10px" ng-repeat="address in sheet.addresses">
+
+            <div class="col-md-12">
+              <div class="btn-group btn-group-lg" role="group" aria-label="...">
+                <button type="button" class="btn btn-default">{{address.number}}</button>
+                <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></button>
+                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></button>
+                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+              </div>
+            </div>
+
+          </div>
+
+      </uib-accordion-group>
+    </uib-accordion>
+
+    <!--<pre>{{ctrl.model.workSheet.sheets | json}}</pre>-->
+
+
+
+    <!--<ul ng-repeat="street in ctrl.model.workSheet">-->
+
+      <!--<ul ng-repeat="address in street">-->
+        <!--<li ng-if="$first">{{address.street.name}}</li>-->
+        <!--<li><pre>{{address.number}}</pre></li>-->
+      <!--</ul>-->
+
+    <!--</ul>-->
+
+
+
+
+
+    <!--<table class="table">-->
+      <!--<caption>List of Addresses</caption>-->
+      <!--<thead>-->
+      <!--<tr>-->
+        <!--<th class="col-md-1"></th>-->
+        <!--<th>Number</th>-->
+        <!--<th>Street</th>-->
+        <!--<th>City</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--<tr ng-repeat="address in ctrl.entities.addresses">-->
+        <!--<th class="col-md-1" scope="row"><a ng-href="#/admin{{address._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>-->
+        <!--<td>{{address.number}}</td>-->
+        <!--<td>{{address.street.name}}</td>-->
+        <!--<td>{{address.city.name}}</td>-->
+      <!--</tr>-->
+      <!--</tbody>-->
+    <!--</table>-->
+
+    <!--<div class="form-group">-->
+      <!--<button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.createArea();">Create</button>-->
+      <!--<button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.saveArea();">Save</button>-->
+      <!--<button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.deleteArea();">Delete</button>-->
+      <!--<a ng-href="#/admin/areas">Back to list</a>-->
+    <!--</div>-->
+  </form>
+
+
