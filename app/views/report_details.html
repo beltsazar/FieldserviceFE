@@ -1,15 +1,14 @@
 
-  <h1>Area</h1>
+  <h1>Gebied #{{ctrl.model.report.area.number}} {{ctrl.model.sheets[0].city.name}}</h1>
+
+  <!--<pre>{{ctrl.model.report | json}}</pre>-->
+
 
   <form>
 
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" placeholder="enter area number" ng-model="ctrl.model.area.number">
-    </div>
-
     <uib-accordion close-others="oneAtATime">
       <uib-accordion-group ng-repeat="sheet in ctrl.model.sheets" >
+
         <uib-accordion-heading>
           {{sheet.name}} <span class="badge">4</span><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
@@ -33,26 +32,11 @@
                   <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></button>
                 </div>
 
-                  <!--<div class="btn-group" uib-dropdown>-->
-
-                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                      <!--<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>-->
-                    <!--</button>-->
-                    <!--<ul class="dropdown-menu">-->
-                      <!--<li><a href="#">Action</a></li>-->
-                      <!--<li><a href="#">Another action</a></li>-->
-                      <!--<li><a href="#">Something else here</a></li>-->
-                      <!--<li role="separator" class="divider"></li>-->
-                      <!--<li><a href="#">Separated link</a></li>-->
-                    <!--</ul>-->
-                  <!--</div>-->
-
               </div>
 
             </div>
 
           </div>
-
 
       </uib-accordion-group>
     </uib-accordion>

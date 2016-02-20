@@ -7,18 +7,14 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resource, $routeParams, $location, $filter, $interval, Areas, Addresses) {
+angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resource, $routeParams, $location, $filter, $interval, Areas, Addresses, Reports) {
 
   var ctrl = this,
       report;
 
   ctrl.model = {
-    area: {},
+    report: {},
     sheets: []
-  };
-
-  ctrl.entities = {
-    //addresses: []
   };
 
   ctrl.id = $routeParams.id;
@@ -28,10 +24,12 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
    */
   ctrl.init = function () {
 
-    ctrl.getArea();
-    ctrl.getAddresses().$promise.then(function (response) {
-      report = new Canvas(response._embedded.addresses);
-      ctrl.model.sheets = report.sheets;
+    ctrl.getReport().$promise.then(function (response) {
+      ctrl.model.report = response;
+      ctrl.getAddresses(ctrl.model.report.area.id).$promise.then(function (response) {
+        report = new Canvas(response._embedded.addresses);
+        ctrl.model.sheets = report.sheets;
+      });
     });
 
     //$interval(function() {
@@ -42,22 +40,20 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
   };
 
   /**
-   * Get the area
+   * Get the report
    */
-  ctrl.getArea = function () {
-    Areas.get({id: ctrl.id}).$promise.then(function (response) {
-      ctrl.model.area = response;
-    });
+  ctrl.getReport = function () {
+    return Reports.get({id: ctrl.id, projection: 'entities'});
   };
 
 	/**
    * Get the related addresses
    */
-  ctrl.getAddresses = function () {
+  ctrl.getAddresses = function (areaId) {
     return Addresses.findByArea({
-      area: 'areas/' + ctrl.id,
+      area: 'areas/' + areaId,
       projection: 'entities',
-      sort: ['city.name', 'street.name', 'number']
+      sort: ['street.name', 'number']
     });
   };
 
@@ -148,7 +144,7 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
     return canvas;
 
   };
-  
+
   /**
    * Split addresses into streets and make into worksheet
    */
