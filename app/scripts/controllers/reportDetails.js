@@ -10,7 +10,7 @@
 angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resource, $routeParams, $location, $filter, $interval, Areas, Addresses) {
 
   var ctrl = this,
-      workSheet;
+      report;
 
   ctrl.model = {
     area: {},
@@ -18,7 +18,7 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
   };
 
   ctrl.entities = {
-    addresses: []
+    //addresses: []
   };
 
   ctrl.id = $routeParams.id;
@@ -30,8 +30,8 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
 
     ctrl.getArea();
     ctrl.getAddresses().$promise.then(function (response) {
-      workSheet = new WorkSheet(response._embedded.addresses);
-      ctrl.model.sheets = workSheet.sheets;
+      report = new Canvas(response._embedded.addresses);
+      ctrl.model.sheets = report.sheets;
     });
 
     //$interval(function() {
@@ -65,7 +65,7 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
    * Create worksheet and group by streets
    */
 
-  function WorkSheet(addresses) {
+  function Canvas(addresses) {
     this.addresses = addresses;
     this.sheets = [];
     this.sheetIndex = {};
@@ -74,7 +74,7 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
     this.fillSheets(this.addresses);
   }
 
-  WorkSheet.prototype.createSheets = function() {
+  Canvas.prototype.createSheets = function() {
     var sheet = this.addresses[0].street,
         index = 0;
     this.createSheet(sheet, index++);
@@ -87,12 +87,12 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
     }
   };
 
-  WorkSheet.prototype.createSheet = function(sheet, index) {
+  Canvas.prototype.createSheet = function(sheet, index) {
     this.sheets.push(new Sheet(sheet));
     this.sheetIndex[sheet.id] = index++;
   };
 
-  WorkSheet.prototype.fillSheets = function(addresses) {
+  Canvas.prototype.fillSheets = function(addresses) {
     var id,
         sheetIndex;
 
@@ -120,42 +120,40 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
     this.addresses = [];
   }
 
-  ctrl.createWorksheet = function (addresses) {
+  ctrl.createCanvas = function (addresses) {
 
-    var workSheet = [];
+    var canvas = [];
 
-    var groups = {};
-    var groupIndex = 0;
+    var sheets = {};
+    var sheetIndex = 0;
 
     var name = addresses[0].street.name;
 
-    workSheet.push({ group: { name: name}});
-    groups[name] = groupIndex++;
+    canvas.push({ group: { name: name}});
+    sheets[name] = sheetIndex++;
 
     for(var i=1; i < addresses.length; i++) {
 
       if(!angular.equals(addresses[i-1].street.name, addresses[i].street.name)) {
         name = addresses[i].street.name;
-        workSheet.push({ group: { name: name}});
-        groups[name] = groupIndex++;
+        canvas.push({ group: { name: name}});
+        sheets[name] = sheetIndex++;
       }
 
     }
 
-    console.log(workSheet)
-    console.log(groups)
+    console.log(canvas)
+    console.log(sheets)
 
-    return workSheet;
+    return canvas;
 
   };
-
-
-
+  
   /**
    * Split addresses into streets and make into worksheet
    */
-  ctrl.updateWorksheet = function (addresses) {
-    var workSheet = [];
+  ctrl.updateCanvas = function (addresses) {
+    var canvas = [];
 
     var previousStreet = null,
         currentStreet = null;
@@ -170,13 +168,13 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
       if(!angular.equals(previousStreet, currentStreet)) {
         itemNumber=0;
         console.log(++rowNumber + '-' + itemNumber++ + '-' + currentStreet);
-        workSheet.push([]);
+        canvas.push([]);
       }
       else {
         console.log(rowNumber + '-' + itemNumber++ + '-' + currentStreet);
       }
 
-      workSheet[rowNumber].push(addresses[i]);
+      canvas[rowNumber].push(addresses[i]);
 
       previousStreet = currentStreet;
 
@@ -184,9 +182,9 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
 
     console.log('--------------')
 
-    console.log(workSheet);
+    console.log(canvas);
 
-    return workSheet;
+    return canvas;
 
   };
 
