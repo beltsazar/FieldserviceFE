@@ -9,11 +9,12 @@
  */
 angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($resource, $routeParams, $location, $filter, $interval, Areas, Addresses) {
 
-  var ctrl = this;
+  var ctrl = this,
+      workSheet;
 
   ctrl.model = {
     area: {},
-    workSheet: []
+    sheets: []
   };
 
   ctrl.entities = {
@@ -26,22 +27,18 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($re
    * Initialize
    */
   ctrl.init = function () {
+
     ctrl.getArea();
     ctrl.getAddresses().$promise.then(function (response) {
-      ctrl.entities.addresses = response._embedded.addresses;
-      ctrl.model.workSheet = ctrl.createWorksheet(ctrl.entities.addresses);
-
-      ctrl.model.workSheet = new WorkSheet(ctrl.entities.addresses);
-
-
-      console.log('refresh')
+      workSheet = new WorkSheet(response._embedded.addresses);
+      ctrl.model.sheets = workSheet.sheets;
     });
+
     //$interval(function() {
     //  ctrl.getAddresses().$promise.then(function (response) {
-    //    ctrl.entities.addresses = response._embedded.addresses;
-    //    ctrl.model.workSheet.fillSheets()
+    //    workSheet.fillSheets(response._embedded.addresses);
     //  });
-    //},1000);
+    //},3000);
   };
 
   /**
@@ -74,43 +71,49 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($re
     this.sheetIndex = {};
 
     this.createSheets();
-    this.fillSheets();
+    this.fillSheets(this.addresses);
   }
 
   WorkSheet.prototype.createSheets = function() {
-    var name = this.addresses[0].street.name,
+    var sheet = this.addresses[0].street,
         index = 0;
-    this.createSheet(name, index++);
+    this.createSheet(sheet, index++);
 
     for(var i=1; i < this.addresses.length; i++) {
-      name = this.addresses[i].street.name;
-      if(!angular.equals(this.addresses[i-1].street.name, name)) {
-        this.createSheet(name, index++);
+      sheet = this.addresses[i].street;
+      if(!angular.equals(this.addresses[i-1].street.id, sheet.id)) {
+        this.createSheet(sheet, index++);
       }
     }
   };
 
-  WorkSheet.prototype.createSheet = function(name, index) {
-    this.sheets.push(new Sheet(name));
-    this.sheetIndex[name] = index++;
+  WorkSheet.prototype.createSheet = function(sheet, index) {
+    this.sheets.push(new Sheet(sheet));
+    this.sheetIndex[sheet.id] = index++;
   };
 
-  WorkSheet.prototype.fillSheets = function() {
-    var name,
+  WorkSheet.prototype.fillSheets = function(addresses) {
+    var id,
         sheetIndex;
 
+    this.addresses = addresses;
+
+    for(var j=0; j < this.sheets.length; j++) {
+      this.sheets[j].addresses = [];
+    }
+
     for(var i=0; i < this.addresses.length; i++) {
-      name = this.addresses[i].street.name;
-      sheetIndex = this.sheetIndex[name];
+      id = this.addresses[i].street.id;
+      sheetIndex = this.sheetIndex[id];
 
       this.sheets[sheetIndex].addresses.push(this.addresses[i]);
 
     }
   };
 
-
-  function Sheet(name) {
-    this.name = name;
+  function Sheet(street) {
+    this.id = street.id;
+    this.name = street.name;
     this.badges = {
       todo: 0
     };

@@ -9,6 +9,22 @@
     </div>
 
     <table class="table">
+      <caption>List of Reports</caption>
+      <thead>
+      <tr>
+        <th class="col-md-1"></th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="report in ctrl.entities.reports">
+        <th class="col-md-1" scope="row"><a ng-href="#/admin{{report._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+        <td><span ng-if="report.active" class="label label-warning">active</span><span ng-if="!report.active" class="label label-default">closed</span></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table class="table">
       <caption>List of Addresses</caption>
       <thead>
       <tr>
