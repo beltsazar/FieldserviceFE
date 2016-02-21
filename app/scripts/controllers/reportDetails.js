@@ -7,7 +7,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resource, $routeParams, $location, $filter, $interval, Areas, Addresses, Reports) {
+angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resource, $routeParams, $location, $filter, $interval, Addresses, Reports, Visits) {
 
   var ctrl = this,
       report;
@@ -26,9 +26,18 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
 
     ctrl.getReport().$promise.then(function (response) {
       ctrl.model.report = response;
+
       ctrl.getAddresses(ctrl.model.report.area.id).$promise.then(function (response) {
+        // make worksheet object
         report = new Canvas(response._embedded.addresses);
+        // expose sheets property to model
         ctrl.model.sheets = report.sheets;
+
+        // get the visits and enrich the addresses
+        ctrl.getVisits(ctrl.id).$promise.then(function (response) {
+          ctrl.visits = response;
+        });
+
       });
     });
 
@@ -40,10 +49,20 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
   };
 
   /**
-   * Get the report
+   * Get the report itself
    */
   ctrl.getReport = function () {
     return Reports.get({id: ctrl.id, projection: 'entities'});
+  };
+
+  /**
+   * Get the related visits by current report
+   */
+  ctrl.getVisits = function (reportId) {
+    return Visits.findByReport({
+      report: 'reports/' + reportId,
+      projection: 'entities'
+    });
   };
 
 	/**
@@ -67,7 +86,7 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
     this.sheetIndex = {};
 
     this.createSheets();
-    this.fillSheets(this.addresses);
+    this.fillSheets();
   }
 
   Canvas.prototype.createSheets = function() {
@@ -88,11 +107,9 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
     this.sheetIndex[sheet.id] = index++;
   };
 
-  Canvas.prototype.fillSheets = function(addresses) {
+  Canvas.prototype.fillSheets = function() {
     var id,
         sheetIndex;
-
-    this.addresses = addresses;
 
     for(var j=0; j < this.sheets.length; j++) {
       this.sheets[j].addresses = [];
