@@ -7,7 +7,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resource, $routeParams, $location, $filter, $interval, Addresses, Reports, Visits) {
+angular.module('fieldserviceFeApp').controller('ReportDetails', function ($q, $resource, $routeParams, $location, $filter, $interval, Addresses, Reports, Visits) {
 
   var ctrl = this,
       report;
@@ -27,23 +27,20 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
     ctrl.getReport().$promise.then(function (response) {
       ctrl.model.report = response;
 
-      ctrl.getAddresses(ctrl.model.report.area.id).$promise.then(function (response) {
-        // make worksheet object
-        report = new Canvas(response._embedded.addresses);
+      $q.all([ctrl.getAddresses(ctrl.model.report.area.id).$promise, ctrl.getVisits(ctrl.id).$promise]).then(function(response) {
+        report = new Canvas(response[0]._embedded.addresses, response[1]._embedded.visits);
         // expose sheets property to model
         ctrl.model.sheets = report.sheets;
 
-        // get the visits and enrich the addresses
-        ctrl.getVisits(ctrl.id).$promise.then(function (response) {
-          ctrl.visits = response;
-        });
+        ctrl.visits = response[1];
 
       });
+
     });
 
     //$interval(function() {
     //  ctrl.getAddresses().$promise.then(function (response) {
-    //    workSheet.fillSheets(response._embedded.addresses);
+    //    workSheet.addAddressesToSheets(response._embedded.addresses);
     //  });
     //},3000);
   };
@@ -61,7 +58,8 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
   ctrl.getVisits = function (reportId) {
     return Visits.findByReport({
       report: 'reports/' + reportId,
-      projection: 'entities'
+      projection: 'entities',
+      sort: ['addressId', 'iteration']
     });
   };
 
@@ -80,13 +78,16 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
    * Create worksheet and group by streets
    */
 
-  function Canvas(addresses) {
+  function Canvas(addresses, visits) {
     this.addresses = addresses;
+    this.visits = visits;
     this.sheets = [];
     this.sheetIndex = {};
 
     this.createSheets();
-    this.fillSheets();
+    this.addAddressesToSheets();
+    this.addVisitsToAddresses();
+
   }
 
   Canvas.prototype.createSheets = function() {
@@ -107,7 +108,33 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
     this.sheetIndex[sheet.id] = index++;
   };
 
-  Canvas.prototype.fillSheets = function() {
+  Canvas.prototype.addVisitsToAddresses = function() {
+    var addressMap = {};
+
+    for(var i=0; i<this.addresses.length; i++) {
+      addressMap[this.addresses[i].id] = this.addresses[i];
+      this.addresses[i].visits = [];
+    }
+
+    for(var j=0; j<this.visits.length; j++) {
+      var visitAddress = this.visits[j].address,
+          address;
+
+      if(visitAddress !== null) {
+        address = addressMap[visitAddress.id];
+
+        if(angular.isDefined(address)) {
+          address.visits.push(this.visits[j]);
+        }
+
+      }
+
+    }
+
+  };
+
+
+  Canvas.prototype.addAddressesToSheets = function() {
     var id,
         sheetIndex;
 
@@ -132,74 +159,6 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($resou
     };
     this.addresses = [];
   }
-
-  ctrl.createCanvas = function (addresses) {
-
-    var canvas = [];
-
-    var sheets = {};
-    var sheetIndex = 0;
-
-    var name = addresses[0].street.name;
-
-    canvas.push({ group: { name: name}});
-    sheets[name] = sheetIndex++;
-
-    for(var i=1; i < addresses.length; i++) {
-
-      if(!angular.equals(addresses[i-1].street.name, addresses[i].street.name)) {
-        name = addresses[i].street.name;
-        canvas.push({ group: { name: name}});
-        sheets[name] = sheetIndex++;
-      }
-
-    }
-
-    console.log(canvas)
-    console.log(sheets)
-
-    return canvas;
-
-  };
-
-  /**
-   * Split addresses into streets and make into worksheet
-   */
-  ctrl.updateCanvas = function (addresses) {
-    var canvas = [];
-
-    var previousStreet = null,
-        currentStreet = null;
-
-    var rowNumber = -1,
-        itemNumber = 0;
-
-    for(var i=0; i < addresses.length; i++)  {
-
-      currentStreet = addresses[i].street.name;
-
-      if(!angular.equals(previousStreet, currentStreet)) {
-        itemNumber=0;
-        console.log(++rowNumber + '-' + itemNumber++ + '-' + currentStreet);
-        canvas.push([]);
-      }
-      else {
-        console.log(rowNumber + '-' + itemNumber++ + '-' + currentStreet);
-      }
-
-      canvas[rowNumber].push(addresses[i]);
-
-      previousStreet = currentStreet;
-
-    }
-
-    console.log('--------------')
-
-    console.log(canvas);
-
-    return canvas;
-
-  };
 
   ctrl.init();
 

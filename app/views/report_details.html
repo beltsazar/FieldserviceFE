@@ -1,24 +1,23 @@
 
-  <h1>Gebied #{{ctrl.model.report.area.number}} {{ctrl.model.sheets[0].city.name}}</h1>
+  <h1>Gebied #{{ctrl.model.report.area.number}}</h1>
 
-  <pre>{{ctrl.visits | json}}</pre>
-
+  Voor de {{ctrl.model.report.iteration}}e keer aan het bewerken.
 
   <form>
 
     <uib-accordion close-others="oneAtATime">
-      <uib-accordion-group ng-repeat="sheet in ctrl.model.sheets" >
+      <uib-accordion-group ng-repeat="sheet in ctrl.model.sheets" is-open="true">
 
         <uib-accordion-heading>
           {{sheet.name}} <span class="badge">4</span><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
 
           <div class="row" style="margin-bottom:10px" ng-repeat="address in sheet.addresses">
-            <div class="col-xs-3 center-block text-center" xstyle="border: 1px solid #000">
+            <div class="col-xs-3 center-block text-center">
               <h4>{{address.number}}</h4>
             </div>
 
-            <div class="col-xs-9" xstyle="border: 1px solid #000">
+            <div class="col-xs-9">
 
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group btn-group-lg" role="group">
@@ -36,6 +35,20 @@
 
             </div>
 
+            <div class="col-xs-12">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="visit in address.visits">
+                      <pre>{{visit | json}}</pre>
+                      Bezocht op {{visit.creationDate}} voor de {{visit.iteration}}e keer: {{visit.success}}
+
+                    </li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
           </div>
 
       </uib-accordion-group>
