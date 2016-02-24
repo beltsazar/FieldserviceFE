@@ -31,9 +31,6 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($q, $r
         report = new Canvas(response[0]._embedded.addresses, response[1]._embedded.visits);
         // expose sheets property to model
         ctrl.model.sheets = report.sheets;
-
-        ctrl.visits = response[1];
-
       });
 
     });
@@ -43,6 +40,24 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($q, $r
     //    workSheet.addAddressesToSheets(response._embedded.addresses);
     //  });
     //},3000);
+  };
+
+
+  ctrl.openMenu = function(context) {
+    context.isMenuOpen = !context.isMenuOpen;
+  };
+
+  ctrl.addVisit = function(address, success) {
+    ctrl.createVisit(address, success);
+  };
+
+  ctrl.getAddressCurrentIterationVisitState = function(address, iteration) {
+      for(var i=0; i<address.visits.length; i++) {
+        if(angular.equals(address.visits[i].iteration, iteration)) {
+          return address.visits[i].success;
+        }
+      }
+
   };
 
   /**
@@ -74,7 +89,21 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($q, $r
     });
   };
 
-	/**
+  /**
+   * Register a visit
+   */
+  ctrl.createVisit = function (address, success) {
+    Visits.add({}, {
+      address: 'addresses/' + address.id,
+      report: 'reports/' + ctrl.model.report.id,
+      success: success,
+      iteration: ctrl.model.report.iteration
+    }).$promise.then(function(response) {
+      address.visits.push(response);
+    });
+  };
+
+  /**
    * Create worksheet and group by streets
    */
 
@@ -116,19 +145,25 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($q, $r
       this.addresses[i].visits = [];
     }
 
-    for(var j=0; j<this.visits.length; j++) {
-      var visitAddress = this.visits[j].address,
+    // If there are visits, add them to visits property of address
+    if(angular.isDefined(this.visits)) {
+
+      // Loop through all visits' address objects
+      for (var j = 0; j < this.visits.length; j++) {
+        var visitAddress = this.visits[j].address,
           address;
 
-      if(visitAddress !== null) {
-        address = addressMap[visitAddress.id];
+        // If a visited address is found, try to find it in the map of actual addresses
+        if (visitAddress !== null) {
+          address = addressMap[visitAddress.id];
 
-        if(angular.isDefined(address)) {
-          address.visits.push(this.visits[j]);
+          // If a matching address is found in map, add the visit to this addresses visits collection
+          if (angular.isDefined(address)) {
+            address.visits.push(this.visits[j]);
+          }
         }
 
       }
-
     }
 
   };

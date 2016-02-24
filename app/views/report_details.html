@@ -1,5 +1,5 @@
 
-  <h1>Gebied #{{ctrl.model.report.area.number}}</h1>
+  <h1>Gebied #{{ctrl.model.report.area.number}} {{ctrl.model.sheets[0].addresses[0].city.name}}</h1>
 
   Voor de {{ctrl.model.report.iteration}}e keer aan het bewerken.
 
@@ -12,42 +12,50 @@
           {{sheet.name}} <span class="badge">4</span><i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>
 
-          <div class="row" style="margin-bottom:10px" ng-repeat="address in sheet.addresses">
+          <div class="row" style="margin-bottom:20px" ng-repeat="address in sheet.addresses">
+
+            <!--<pre>{{address | json}}</pre>-->
+
             <div class="col-xs-3 center-block text-center">
               <h4>{{address.number}}</h4>
             </div>
 
             <div class="col-xs-9">
+              <fieldset>
+
+                {{ctrl.getAddressCurrentIterationVisitState(address, ctrl.model.report.iteration)}}
 
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group btn-group-lg" role="group">
-                  <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></button>
+                  <button ng-disabled="ctrl.getAddressCurrentIterationVisitState(address, ctrl.model.report.iteration) != undefined" type="button" class="btn btn-success" ng-click="ctrl.createVisit(address, true);"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></button>
                 </div>
                 <div class="btn-group btn-group-lg" role="group">
-                  <button type="button" class="btn btn-info"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                  <button ng-disabled="ctrl.getAddressCurrentIterationVisitState(address, ctrl.model.report.iteration) != undefined" type="button" class="btn btn-info" ng-click="ctrl.createVisit(address, false);"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
                 </div>
 
                 <div class="btn-group btn-group-lg" role="group">
-                  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></button>
+                  <button type="button" class="btn btn-default" ng-click="ctrl.openMenu(this);"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></button>
                 </div>
 
               </div>
+
+              </fieldset>
 
             </div>
 
-            <div class="col-xs-12">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="visit in address.visits">
-                      <pre>{{visit | json}}</pre>
-                      Bezocht op {{visit.creationDate}} voor de {{visit.iteration}}e keer: {{visit.success}}
+            <div class="col-xs-12" style="margin-top: 10px" ng-show="this.isMenuOpen">
+              <!--<div class="panel panel-default">-->
+              <ul class="list-group">
+                <li class="list-group-item" ng-repeat="visit in address.visits">
 
-                    </li>
-                  </ul>
+                  <span ng-if="visit.success" class="label label-success">aanwezig</span>
+                  <span ng-if="!visit.success" class="label label-info">afwezig</span>
+                  {{visit.creationDate}}
+                  <span class="badge">{{visit.iteration}}</span>
+                </li>
+              </ul>
+                <!--</div>-->
 
-                </div>
-              </div>
             </div>
           </div>
 

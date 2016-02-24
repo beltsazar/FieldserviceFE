@@ -5,363 +5,195 @@ var addressesMock = {};
 addressesMock.list = {
   "_embedded" : {
     "addresses" : [ {
+      "id" : 37,
       "number" : 1,
+      "area" : {
+        "id" : 39,
+        "number" : 2
+      },
       "street" : {
+        "id" : 49,
         "name" : "Bereklauw"
       },
-      "area" : {
-        "number" : 1
-      },
       "city" : {
+        "id" : 17,
         "name" : "Monnickendam"
       },
       "_links" : {
         "self" : {
-          "href" : "http://localhost:8080/addresses/50"
+          "href" : "http://localhost:8080/addresses/37"
         },
         "address" : {
-          "href" : "http://localhost:8080/addresses/50{?projection}",
+          "href" : "http://localhost:8080/addresses/37{?projection}",
           "templated" : true
         },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/50/city"
+        "street" : {
+          "href" : "http://localhost:8080/addresses/37/street"
         },
         "area" : {
-          "href" : "http://localhost:8080/addresses/50/area"
+          "href" : "http://localhost:8080/addresses/37/area"
         },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/50/street"
+        "visits" : {
+          "href" : "http://localhost:8080/addresses/37/visits"
+        },
+        "city" : {
+          "href" : "http://localhost:8080/addresses/37/city"
         }
       }
     }, {
-      "number" : 3,
-      "street" : {
-        "name" : "Bereklauw"
-      },
-      "area" : {
-        "number" : 1
-      },
-      "city" : {
-        "name" : "Monnickendam"
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/addresses/51"
-        },
-        "address" : {
-          "href" : "http://localhost:8080/addresses/51{?projection}",
-          "templated" : true
-        },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/51/city"
-        },
-        "area" : {
-          "href" : "http://localhost:8080/addresses/51/area"
-        },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/51/street"
-        }
-      }
-    }, {
+      "id" : 43,
       "number" : 5,
+      "area" : {
+        "id" : 39,
+        "number" : 2
+      },
       "street" : {
+        "id" : 49,
         "name" : "Bereklauw"
       },
-      "area" : {
-        "number" : 1
-      },
       "city" : {
+        "id" : 17,
         "name" : "Monnickendam"
       },
       "_links" : {
         "self" : {
-          "href" : "http://localhost:8080/addresses/52"
+          "href" : "http://localhost:8080/addresses/43"
         },
         "address" : {
-          "href" : "http://localhost:8080/addresses/52{?projection}",
+          "href" : "http://localhost:8080/addresses/43{?projection}",
           "templated" : true
         },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/52/city"
+        "street" : {
+          "href" : "http://localhost:8080/addresses/43/street"
         },
         "area" : {
-          "href" : "http://localhost:8080/addresses/52/area"
+          "href" : "http://localhost:8080/addresses/43/area"
         },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/52/street"
+        "visits" : {
+          "href" : "http://localhost:8080/addresses/43/visits"
+        },
+        "city" : {
+          "href" : "http://localhost:8080/addresses/43/city"
         }
       }
     }, {
-      "number" : 1,
-      "street" : {
-        "name" : "Houtrib"
-      },
-      "area" : {
-        "number" : 1
-      },
-      "city" : {
-        "name" : "Monnickendam"
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/addresses/41"
-        },
-        "address" : {
-          "href" : "http://localhost:8080/addresses/41{?projection}",
-          "templated" : true
-        },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/41/city"
-        },
-        "area" : {
-          "href" : "http://localhost:8080/addresses/41/area"
-        },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/41/street"
-        }
-      }
-    }, {
-      "number" : 124,
-      "street" : {
-        "name" : "Houtrib"
-      },
-      "area" : {
-        "number" : 1
-      },
-      "city" : {
-        "name" : "Monnickendam"
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/addresses/28"
-        },
-        "address" : {
-          "href" : "http://localhost:8080/addresses/28{?projection}",
-          "templated" : true
-        },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/28/city"
-        },
-        "area" : {
-          "href" : "http://localhost:8080/addresses/28/area"
-        },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/28/street"
-        }
-      }
-    }, {
-      "number" : 456,
-      "street" : {
-        "name" : "Houtrib"
-      },
-      "area" : {
-        "number" : 1
-      },
-      "city" : {
-        "name" : "Monnickendam"
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/addresses/27"
-        },
-        "address" : {
-          "href" : "http://localhost:8080/addresses/27{?projection}",
-          "templated" : true
-        },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/27/city"
-        },
-        "area" : {
-          "href" : "http://localhost:8080/addresses/27/area"
-        },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/27/street"
-        }
-      }
-    }, {
-      "number" : 1,
-      "street" : {
-        "name" : "Zwaluwtong"
-      },
-      "area" : {
-        "number" : 1
-      },
-      "city" : {
-        "name" : "Monnickendam"
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/addresses/44"
-        },
-        "address" : {
-          "href" : "http://localhost:8080/addresses/44{?projection}",
-          "templated" : true
-        },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/44/city"
-        },
-        "area" : {
-          "href" : "http://localhost:8080/addresses/44/area"
-        },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/44/street"
-        }
-      }
-    }, {
+      "id" : 24,
       "number" : 3,
-      "street" : {
-        "name" : "Zwaluwtong"
-      },
       "area" : {
-        "number" : 1
+        "id" : 39,
+        "number" : 2
+      },
+      "street" : {
+        "id" : 32,
+        "name" : "Houtrib"
       },
       "city" : {
+        "id" : 17,
         "name" : "Monnickendam"
       },
       "_links" : {
         "self" : {
-          "href" : "http://localhost:8080/addresses/45"
+          "href" : "http://localhost:8080/addresses/24"
         },
         "address" : {
-          "href" : "http://localhost:8080/addresses/45{?projection}",
+          "href" : "http://localhost:8080/addresses/24{?projection}",
           "templated" : true
         },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/45/city"
+        "street" : {
+          "href" : "http://localhost:8080/addresses/24/street"
         },
         "area" : {
-          "href" : "http://localhost:8080/addresses/45/area"
+          "href" : "http://localhost:8080/addresses/24/area"
         },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/45/street"
+        "visits" : {
+          "href" : "http://localhost:8080/addresses/24/visits"
+        },
+        "city" : {
+          "href" : "http://localhost:8080/addresses/24/city"
         }
       }
     }, {
-      "number" : 5,
+      "id" : 30,
+      "number" : 35,
+      "area" : {
+        "id" : 39,
+        "number" : 2
+      },
       "street" : {
+        "id" : 31,
         "name" : "Zwaluwtong"
       },
-      "area" : {
-        "number" : 1
-      },
       "city" : {
+        "id" : 17,
         "name" : "Monnickendam"
       },
       "_links" : {
         "self" : {
-          "href" : "http://localhost:8080/addresses/46"
+          "href" : "http://localhost:8080/addresses/30"
         },
         "address" : {
-          "href" : "http://localhost:8080/addresses/46{?projection}",
+          "href" : "http://localhost:8080/addresses/30{?projection}",
           "templated" : true
         },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/46/city"
+        "street" : {
+          "href" : "http://localhost:8080/addresses/30/street"
         },
         "area" : {
-          "href" : "http://localhost:8080/addresses/46/area"
+          "href" : "http://localhost:8080/addresses/30/area"
         },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/46/street"
+        "visits" : {
+          "href" : "http://localhost:8080/addresses/30/visits"
+        },
+        "city" : {
+          "href" : "http://localhost:8080/addresses/30/city"
         }
       }
     }, {
-      "number" : 7,
-      "street" : {
-        "name" : "Zwaluwtong"
-      },
-      "area" : {
-        "number" : 1
-      },
-      "city" : {
-        "name" : "Monnickendam"
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/addresses/47"
-        },
-        "address" : {
-          "href" : "http://localhost:8080/addresses/47{?projection}",
-          "templated" : true
-        },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/47/city"
-        },
-        "area" : {
-          "href" : "http://localhost:8080/addresses/47/area"
-        },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/47/street"
-        }
-      }
-    }, {
-      "number" : 9,
-      "street" : {
-        "name" : "Zwaluwtong"
-      },
-      "area" : {
-        "number" : 1
-      },
-      "city" : {
-        "name" : "Monnickendam"
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/addresses/48"
-        },
-        "address" : {
-          "href" : "http://localhost:8080/addresses/48{?projection}",
-          "templated" : true
-        },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/48/city"
-        },
-        "area" : {
-          "href" : "http://localhost:8080/addresses/48/area"
-        },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/48/street"
-        }
-      }
-    }, {
+      "id" : 36,
       "number" : 124,
+      "area" : {
+        "id" : 39,
+        "number" : 2
+      },
       "street" : {
+        "id" : 31,
         "name" : "Zwaluwtong"
       },
-      "area" : {
-        "number" : 1
-      },
       "city" : {
+        "id" : 17,
         "name" : "Monnickendam"
       },
       "_links" : {
         "self" : {
-          "href" : "http://localhost:8080/addresses/29"
+          "href" : "http://localhost:8080/addresses/36"
         },
         "address" : {
-          "href" : "http://localhost:8080/addresses/29{?projection}",
+          "href" : "http://localhost:8080/addresses/36{?projection}",
           "templated" : true
         },
-        "city" : {
-          "href" : "http://localhost:8080/addresses/29/city"
+        "street" : {
+          "href" : "http://localhost:8080/addresses/36/street"
         },
         "area" : {
-          "href" : "http://localhost:8080/addresses/29/area"
+          "href" : "http://localhost:8080/addresses/36/area"
         },
-        "street" : {
-          "href" : "http://localhost:8080/addresses/29/street"
+        "visits" : {
+          "href" : "http://localhost:8080/addresses/36/visits"
+        },
+        "city" : {
+          "href" : "http://localhost:8080/addresses/36/city"
         }
       }
     } ]
   },
   "_links" : {
     "self" : {
-      "href" : "http://localhost:8080/addresses/search/findByArea?area=areas/38&projection=entities&sort=city.name&sort=street.name&sort=number"
+      "href" : "http://localhost:8080/addresses/search/findByArea?area=areas%2F39&projection=entities&sort=street.name&sort=number"
     }
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 12,
+    "totalElements" : 5,
     "totalPages" : 1,
     "number" : 0
   }
