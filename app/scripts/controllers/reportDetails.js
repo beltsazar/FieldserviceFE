@@ -51,6 +51,53 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($q, $r
     ctrl.createVisit(address, success);
   };
 
+  ctrl.isVisitEnabled = function (address) {
+
+    var numberOfVisits = address.visits.length,
+        iteration = ctrl.model.report.iteration;
+
+    // If no visits are found at all, the visit should be enabled
+    if(numberOfVisits === 0) {
+      return true;
+    }
+
+    // If the last visit is unsuccesfull AND in a previous iteration, it should be enabled
+    if(numberOfVisits > 0 && address.visits[numberOfVisits - 1].success === false && address.visits[numberOfVisits - 1].iteration < iteration) {
+      return true;
+    }
+
+    // If there is a visit with a success state, it should be disabled
+    //for (var i = 0; i < address.visits.length; i++) {
+    //  if(address.visits[i].success === true) {
+    //    return false;
+    //  }
+    //}
+
+
+
+
+    return false;
+
+  };
+
+
+  ctrl.isVisitSuccess = function (address, iteration) {
+
+    if(address.visits.length === 0) {
+      return false;
+    }
+    else {
+      for(var i=0; i<address.visits.length; i++) {
+        if(address.visits[i].success) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+  };
+
+
   ctrl.getAddressCurrentIterationVisitState = function(address, iteration) {
       for(var i=0; i<address.visits.length; i++) {
         if(angular.equals(address.visits[i].iteration, iteration)) {
@@ -74,7 +121,8 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($q, $r
     return Visits.findByReport({
       report: 'reports/' + reportId,
       projection: 'entities',
-      sort: ['addressId', 'iteration']
+      sort: ['address.id', 'iteration'],
+      size: 1000
     });
   };
 
@@ -140,6 +188,7 @@ angular.module('fieldserviceFeApp').controller('ReportDetails', function ($q, $r
   Canvas.prototype.addVisitsToAddresses = function() {
     var addressMap = {};
 
+    // Make map of addresses and add an empty visits collection to address
     for(var i=0; i<this.addresses.length; i++) {
       addressMap[this.addresses[i].id] = this.addresses[i];
       this.addresses[i].visits = [];
