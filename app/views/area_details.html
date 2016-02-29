@@ -4,50 +4,55 @@
   <form>
 
     <div class="form-group">
-      <label for="name">Name</label>
+      <label for="name">Number</label>
       <input type="text" class="form-control" id="name" placeholder="enter area number" ng-model="ctrl.model.area.number">
     </div>
 
-    <table class="table">
-      <caption>List of Reports</caption>
-      <thead>
-      <tr>
-        <th class="col-md-1"></th>
-        <th>Status</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr ng-repeat="report in ctrl.entities.reports">
-        <th class="col-md-1" scope="row"><a ng-if="report.active" ng-href="#{{report._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-        <td><span ng-if="report.active" class="label label-warning">active</span><span ng-if="!report.active" class="label label-default">closed</span></td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="form-group">
+      <label for="city">City</label>
+      <select id="city" name="city" class="form-control" ng-model="ctrl.model.area.city.id">
+        <option ng-repeat="city in ctrl.entities.cities" value="{{city.id}}">{{city.name}}</option>
+      </select>
+    </div>
+
+    <!--<table class="table">-->
+      <!--<caption>List of Reports</caption>-->
+      <!--<thead>-->
+      <!--<tr>-->
+        <!--<th class="col-md-1"></th>-->
+        <!--<th>Status</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--<tr ng-repeat="report in ctrl.entities.reports">-->
+        <!--<th class="col-md-1" scope="row"><a ng-if="report.active" ng-href="#{{report._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>-->
+        <!--<td><span ng-if="report.active" class="label label-warning">active</span><span ng-if="!report.active" class="label label-default">closed</span></td>-->
+      <!--</tr>-->
+      <!--</tbody>-->
+    <!--</table>-->
 
     <table class="table">
       <caption>List of Addresses</caption>
       <thead>
       <tr>
-        <th class="col-md-1"></th>
+        <th class="col-xs-1"></th>
         <th>Number</th>
         <th>Street</th>
-        <th>City</th>
       </tr>
       </thead>
       <tbody>
       <tr ng-repeat="address in ctrl.entities.addresses">
-        <th class="col-md-1" scope="row"><a ng-href="#/admin{{address._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+        <th class="col-xs-1" scope="row"><a ng-href="#/admin{{address._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
         <td>{{address.number}}</td>
         <td>{{address.street.name}}</td>
-        <td>{{address.city.name}}</td>
       </tr>
       </tbody>
     </table>
 
     <div class="form-group">
-      <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.createArea();">Create</button>
-      <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.saveArea();">Save</button>
-      <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.deleteArea();">Delete</button>
+      <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.create();">Create</button>
+      <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.update();">Update</button>
+      <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.delete();">Delete</button>
       <a ng-href="#/admin/areas">Back to list</a>
     </div>
   </form>

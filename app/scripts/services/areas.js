@@ -17,7 +17,11 @@ angular.module('fieldserviceFeApp').factory('Areas', function ($resource, config
         return angular.fromJson(response)._embedded.areas;
       }
     },
-    add: {
+    updateEntity: {
+      method:'PUT',
+      headers: { 'Content-Type': 'text/uri-list' }
+    },
+    create: {
       method:'POST'
     },
     update: {
