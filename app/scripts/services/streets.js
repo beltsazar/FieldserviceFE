@@ -10,7 +10,14 @@
 angular.module('fieldserviceFeApp').factory('Streets', function ($resource, config) {
 
   return $resource(config.api.hostname + '/streets/:id', {}, {
-    add: {
+    query: {
+      method: 'GET',
+      isArray: true,
+      transformResponse: function(response) {
+        return angular.fromJson(response)._embedded.streets;
+      }
+    },
+    create: {
       method:'POST'
     },
     update: {

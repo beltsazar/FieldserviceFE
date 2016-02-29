@@ -4,14 +4,14 @@
     <caption>List of Streets</caption>
     <thead>
     <tr>
-      <th class="col-md-1"></th>
+      <th class="col-xs-1"></th>
       <th>Name</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="streets in ctrl.streets">
-      <th class="col-md-1" scope="row"><a ng-href="#/admin{{streets._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-      <td>{{streets.name}}</td>
+    <tr ng-repeat="street in ctrl.streets">
+      <th class="col-xs-1" scope="row"><a ng-href="#/admin/streets/{{street.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+      <td>{{street.name}}</td>
     </tr>
     </tbody>
   </table>

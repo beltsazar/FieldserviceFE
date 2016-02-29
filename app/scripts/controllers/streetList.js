@@ -13,8 +13,8 @@ angular.module('fieldserviceFeApp').controller('StreetList', function (Streets, 
 
   ctrl.streets = [];
 
-  Streets.get().$promise.then(function(result) {
-    ctrl.streets = result._embedded.streets;
+  Streets.query().$promise.then(function(result) {
+    ctrl.streets = result;
   });
 
 });
