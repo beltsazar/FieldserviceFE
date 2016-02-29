@@ -13,8 +13,8 @@ angular.module('fieldserviceFeApp').controller('CityList', function (Cities, $re
 
   ctrl.cities = [];
 
-  Cities.get().$promise.then(function(result) {
-    ctrl.cities = result._embedded.cities;
+  Cities.query().$promise.then(function(result) {
+    ctrl.cities = result;
   });
 
 });

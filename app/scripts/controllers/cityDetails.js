@@ -25,25 +25,26 @@ angular.module('fieldserviceFeApp').controller('CityDetails', function ($resourc
     });
   }
 
+  // Maak nieuwe resource
+  this.create = function() {
+    Cities.create({}, ctrl.model.city).$promise.then(function(response) {
+      $location.path('/admin/cities');
+    });
+  };
+
   // Save de bewerkte resource
-  this.saveCity = function() {
+  this.update = function() {
     Cities.update({id : ctrl.id}, ctrl.model.city).$promise.then(function() {
       $location.path('/admin/cities');
     });
   };
 
   // Verwijder de resource
-  this.deleteCity = function() {
+  this.delete = function() {
     Cities.delete({id : ctrl.id}, ctrl.model.city).$promise.then(function() {
       $location.path('/admin/cities');
     });
   };
 
-  // Maak nieuwe resource
-  this.createCity = function() {
-    Cities.add({}, ctrl.model.city).$promise.then(function(response) {
-      $location.path('/admin/cities');
-    });
-  };
 
 });

@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="city in ctrl.cities">
-      <th class="col-md-1" scope="row"><a ng-href="#/admin{{city._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+      <th class="col-xs-1" scope="row"><a ng-href="#/admin/cities/{{city.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
       <td>{{city.name}}</td>
     </tr>
     </tbody>
