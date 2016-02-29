@@ -7,16 +7,17 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AddressList', function (Addresses, $resource, $routeParams) {
+angular.module('fieldserviceFeApp').controller('AddressList', function (Addresses) {
 
   var ctrl = this;
 
   ctrl.addresses = [];
-  Addresses.get({
+
+  Addresses.query({
     projection: 'entities',
-    sort: ['city.name', 'street.name', 'number']
+    sort: ['area.id', 'street.name', 'number']
   }).$promise.then(function(result) {
-    ctrl.addresses = result._embedded.addresses;
+    ctrl.addresses = result;
   });
 
 });

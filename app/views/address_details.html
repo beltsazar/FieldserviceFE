@@ -9,29 +9,22 @@
 
   <div class="form-group">
     <label for="street">Street</label>
-    <select id="street" name="street" class="form-control" ng-model="ctrl.model.street">
-      <option ng-repeat="street in ctrl.entities.streets" value="{{street._links.self.href}}">{{street.name}}</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="city">City</label>
-    <select id="city" name="city" class="form-control" ng-model="ctrl.model.city">
-      <option ng-repeat="city in ctrl.entities.cities" value="{{city._links.self.href}}">{{city.name}}</option>
+    <select id="street" name="street" class="form-control" ng-model="ctrl.model.address.street.id">
+      <option ng-repeat="street in ctrl.entities.streets" value="{{street.id}}">{{street.name}}</option>
     </select>
   </div>
 
   <div class="form-group">
     <label for="area">Area</label>
-    <select id="area" name="area" class="form-control" ng-model="ctrl.model.area">
-      <option ng-repeat="area in ctrl.entities.areas" value="{{area._links.self.href}}">{{area.number}}</option>
+    <select id="area" name="area" class="form-control" ng-model="ctrl.model.address.area.id">
+      <option ng-repeat="area in ctrl.entities.areas" value="{{area.id}}">{{area.number}} - {{area.city.name}}</option>
     </select>
   </div>
 
   <div class="form-group">
-    <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.createAddress();">Create</button>
-    <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.saveAddress();">Save</button>
-    <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.deleteAddress();">Delete</button>
+    <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.create();">Create</button>
+    <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.update();">Update</button>
+    <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.delete();">Delete</button>
     <a ng-href="#/admin/addresses">Back to list</a>
   </div>
 

@@ -12,110 +12,66 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
   var ctrl = this;
 
   ctrl.model = {
-    address: {},
-    street: {},
-    city: {},
-    area: {}
+    address: {}
   };
 
   ctrl.entities = {
-    cities: [],
     streets: [],
     areas: []
   };
+
   ctrl.id = $routeParams.id;
 
   // Haal de resource op bij inladen controller, behalve bij create
   if (ctrl.id !== 'create') {
-    Addresses.get({id: ctrl.id}).$promise.then(function (response) {
+    Addresses.get({id: ctrl.id, projection: 'entities'}).$promise.then(function (response) {
       ctrl.model.address = response;
-
-      // Get street entity
-      Addresses.get({id: ctrl.id, entity: 'street'}).$promise.then(function (response) {
-        ctrl.model.street = response._links.self.href;
-      });
-
-      // Get city entity
-      Addresses.get({id: ctrl.id, entity: 'city'}).$promise.then(function (response) {
-        ctrl.model.city = response._links.self.href;
-      });
-
-      // Get area entity
-      Addresses.get({id: ctrl.id, entity: 'area'}).$promise.then(function (response) {
-        ctrl.model.area = response._links.self.href;
-      });
-
-
+      ctrl.model.address.street.id += '';
+      ctrl.model.address.area.id += '';
     });
   }
 
   // Haal de totale lijst van straten op
-  Streets.get().$promise.then(function (result) {
-    ctrl.entities.streets = result._embedded.streets;
+  Streets.query().$promise.then(function (result) {
+    ctrl.entities.streets = result;
   });
 
-  // Haal de totale lijst van steden op
-  Cities.get().$promise.then(function (result) {
-    ctrl.entities.cities = result._embedded.cities;
+  // Get the areas
+  Areas.query({ projection: 'entities' }).$promise.then(function (result) {
+    ctrl.entities.areas = result;
   });
 
-  // Haal de totale lijst van steden op
-  Areas.get().$promise.then(function (result) {
-    ctrl.entities.areas = result._embedded.areas;
-  });
+  // Maak nieuwe resource
+  this.create = function () {
+    var generatedId = null;
 
-  // Save de bewerkte resource
+    Addresses.create({}, ctrl.model.address).$promise.then(function (response) {
+      generatedId = $filter('id')(response._links.self.href);
 
-  this.saveAddress = function () {
-    Addresses.update({id: ctrl.id}, ctrl.model.address).$promise.then(function (response) {
+      Addresses.updateEntity({id: generatedId, entity: 'street'}, '/streets/' + ctrl.model.address.street.id).$promise.then(function () {
 
-      Addresses.updateEntity({id: ctrl.id, entity: 'street'}, ctrl.model.street).$promise.then(function (response) {
-
-        Addresses.updateEntity({id: ctrl.id, entity: 'city'}, ctrl.model.city).$promise.then(function (response) {
-
-          Addresses.updateEntity({id: ctrl.id, entity: 'area'}, ctrl.model.area).$promise.then(function (response) {
+          Addresses.updateEntity({id: generatedId, entity: 'area'}, '/areas/' + ctrl.model.address.area.id).$promise.then(function () {
             $location.path('/admin/addresses');
-          }).catch(function (response) {
-
-          }).finally(function () {
-
           });
 
-        }).catch(function (response) {
-
-        }).finally(function () {
-
-        });
-
-      }).catch(function (response) {
-
-      }).finally(function () {
-
       });
-
-    }).catch(function (response) {
-
-    }).finally(function () {
 
     });
 
   };
 
-  // Maak nieuwe resource
-  this.createAddress = function () {
-    var generatedId = null;
+  // Save de bewerkte resource
+  this.update = function () {
+    Addresses.update({id: ctrl.id}, ctrl.model.address).$promise.then(function () {
 
-    Addresses.add({}, ctrl.model.address).$promise.then(function (response) {
-      generatedId = $filter('id')(response._links.self.href);
+      Addresses.updateEntity({
+        id: ctrl.id,
+        entity: 'street' }, '/streets/' + ctrl.model.address.street.id).$promise.then(function () {
 
-      Addresses.updateEntity({id: generatedId, entity: 'street'}, ctrl.model.street).$promise.then(function () {
-
-        Addresses.updateEntity({id: generatedId, entity: 'city'}, ctrl.model.city).$promise.then(function () {
-
-          Addresses.updateEntity({id: generatedId, entity: 'area'}, ctrl.model.area).$promise.then(function () {
-            $location.path('/admin/addresses');
-          });
-
+        Addresses.updateEntity({
+          id: ctrl.id,
+          entity: 'area' }, '/areas/' + ctrl.model.address.area.id).$promise.then(function () {
+          $location.path('/admin/addresses');
         });
 
       });
@@ -125,11 +81,10 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
   };
 
   // Verwijder de resource
-  this.deleteAddress = function () {
+  this.delete = function () {
     Addresses.delete({id: ctrl.id}, ctrl.model.address).$promise.then(function () {
       $location.path('/admin/addresses');
     });
   };
-
 
 });

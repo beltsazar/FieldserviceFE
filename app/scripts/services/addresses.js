@@ -10,7 +10,14 @@
 angular.module('fieldserviceFeApp').factory('Addresses', function ($resource, config) {
 
   return $resource(config.api.hostname + '/addresses/:search/:findBy/:id/:entity', {}, {
-    add: {
+    query: {
+      method: 'GET',
+      isArray: true,
+      transformResponse: function(response) {
+        return angular.fromJson(response)._embedded.addresses;
+      }
+    },
+    create: {
       method:'POST'
     },
     update: {

@@ -10,6 +10,13 @@
 angular.module('fieldserviceFeApp').factory('Areas', function ($resource, config) {
 
   return $resource(config.api.hostname + '/areas/:id/:entity', {}, {
+    query: {
+      method: 'GET',
+      isArray: true,
+      transformResponse: function(response) {
+        return angular.fromJson(response)._embedded.areas;
+      }
+    },
     add: {
       method:'POST'
     },
