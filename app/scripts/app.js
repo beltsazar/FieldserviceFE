@@ -65,6 +65,11 @@ angular
         controller: 'AreaDetails',
         controllerAs: 'ctrl'
       })
+      .when('/admin/assignments', {
+        templateUrl: 'views/assignment_list.html',
+        controller: 'AssignmentList',
+        controllerAs: 'ctrl'
+      })
       .when('/reports/:id', {
         templateUrl: 'views/report_details.html',
         controller: 'ReportDetails',

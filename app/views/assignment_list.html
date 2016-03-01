@@ -1,0 +1,25 @@
+ <h1>Assignments</h1>
+
+ <table class="table">
+   <caption>List of Assignments</caption>
+   <thead>
+   <tr>
+     <th class="col-xs-1"></th>
+     <th>Area</th>
+     <th>Status</th>
+     <th>Access</th>
+     <th>Start Date</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr ng-repeat="assignment in ctrl.assignments">
+     <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+     <td>{{assignment.area.number}}</td>
+     <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
+     <td><span ng-if="assignment.personal" class="label label-default">private</span><span ng-if="!assignment.personal" class="label label-info">public</span></td>
+     <td>{{assignment.creationDate | formatDate}}</td>
+   </tr>
+   </tbody>
+ </table>
+
+ <a class="btn btn-default btn-primary" href="#/admin/assignments/create" role="button">Create</a>
