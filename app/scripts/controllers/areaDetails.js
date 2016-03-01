@@ -7,7 +7,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaDetails', function ($resource, $routeParams, $location, $filter, Areas, Addresses, Cities) {
+angular.module('fieldserviceFeApp').controller('AreaDetails', function ($resource, $routeParams, $location, $filter, Areas, Addresses, Cities, Assignments) {
 
   var ctrl = this;
 
@@ -16,6 +16,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($resourc
   };
 
   ctrl.entities = {
+    assignments: [],
     addresses: [],
     cities: []
   };
@@ -29,6 +30,16 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($resourc
       projection: 'entities',
       sort: ['street.name','number']}).$promise.then(function (response) {
       ctrl.entities.addresses = response;
+    });
+  };
+
+  // Get the related addresses
+  this.getAssignments = function() {
+    Assignments.findByArea({
+      area: 'areas/' + ctrl.id,
+      //projection: 'entities',
+      sort: ['active']}).$promise.then(function (response) {
+      ctrl.entities.assignments = response;
     });
   };
 
@@ -86,6 +97,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($resourc
         ctrl.model.area.city.id += '';
       }
 
+      ctrl.getAssignments();
       ctrl.getAddresses();
 
     });

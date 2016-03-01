@@ -15,21 +15,30 @@
       </select>
     </div>
 
-    <!--<table class="table">-->
-      <!--<caption>List of Reports</caption>-->
-      <!--<thead>-->
-      <!--<tr>-->
-        <!--<th class="col-md-1"></th>-->
-        <!--<th>Status</th>-->
-      <!--</tr>-->
-      <!--</thead>-->
-      <!--<tbody>-->
-      <!--<tr ng-repeat="report in ctrl.entities.reports">-->
-        <!--<th class="col-md-1" scope="row"><a ng-if="report.active" ng-href="#{{report._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>-->
-        <!--<td><span ng-if="report.active" class="label label-warning">active</span><span ng-if="!report.active" class="label label-default">closed</span></td>-->
-      <!--</tr>-->
-      <!--</tbody>-->
-    <!--</table>-->
+    <div class="form-group">
+      <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.create();">Create</button>
+      <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.update();">Update</button>
+      <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.delete();">Delete</button>
+      <a ng-href="#/admin/areas">Back to list</a>
+    </div>
+
+    <table class="table">
+      <caption>List of Assignments</caption>
+      <thead>
+      <tr>
+        <th class="col-xs-1"></th>
+        <th>Status</th>
+        <th>Start Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="assignment in ctrl.entities.assignments">
+        <th class="col-xs-1" scope="row"><a ng-if="assignment.active" ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+        <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
+        <td>{{assignment.creationDate | formatDate}}</td>
+      </tr>
+      </tbody>
+    </table>
 
     <table class="table">
       <caption>List of Addresses</caption>
@@ -49,12 +58,6 @@
       </tbody>
     </table>
 
-    <div class="form-group">
-      <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.create();">Create</button>
-      <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.update();">Update</button>
-      <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.delete();">Delete</button>
-      <a ng-href="#/admin/areas">Back to list</a>
-    </div>
   </form>
 
 
