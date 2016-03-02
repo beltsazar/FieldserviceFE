@@ -38,7 +38,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($resourc
     Assignments.findByArea({
       area: 'areas/' + ctrl.id,
       //projection: 'entities',
-      sort: ['active']}).$promise.then(function (response) {
+      sort: ['active,desc', 'creationDate']}).$promise.then(function (response) {
       ctrl.entities.assignments = response;
     });
   };

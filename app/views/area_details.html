@@ -33,7 +33,7 @@
       </thead>
       <tbody>
       <tr ng-repeat="assignment in ctrl.entities.assignments">
-        <th class="col-xs-1" scope="row"><a ng-if="assignment.active" ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+        <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
         <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
         <td>{{assignment.creationDate | formatDate}}</td>
       </tr>

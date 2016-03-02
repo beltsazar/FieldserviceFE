@@ -70,6 +70,11 @@ angular
         controller: 'AssignmentList',
         controllerAs: 'ctrl'
       })
+      .when('/admin/assignments/:id', {
+        templateUrl: 'views/assignment_details.html',
+        controller: 'AssignmentDetails',
+        controllerAs: 'ctrl'
+      })
       .when('/reports/:id', {
         templateUrl: 'views/report_details.html',
         controller: 'ReportDetails',

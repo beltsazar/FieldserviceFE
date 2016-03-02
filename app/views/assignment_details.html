@@ -1,0 +1,42 @@
+
+  <h1>Assignment</h1>
+
+  <form>
+
+    <div class="form-group">
+      <label for="active1">Status</label>
+      <div>
+        <label class="radio-inline" for="active1"><input type="radio" ng-model="ctrl.model.assignment.active" name="active" id="active1" ng-value="true">Active</label>
+        <label class="radio-inline" for="active2"><input type="radio" ng-model="ctrl.model.assignment.active" name="active" id="active2" ng-value="false">Closed</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="personal1">Visibility</label>
+      <div>
+        <label class="radio-inline" for="personal1"><input type="radio" ng-model="ctrl.model.assignment.personal" name="personal" id="personal1" ng-value="true">Private</label>
+        <label class="radio-inline" for="personal2"><input type="radio" ng-model="ctrl.model.assignment.personal" name="personal" id="personal2" ng-value="false">Public</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="area"><a ng-href="#/admin/areas/{{ctrl.model.assignment.area.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a> Area</label>
+      <select id="area" name="area" class="form-control" ng-model="ctrl.model.assignment.area.id">
+        <option ng-repeat="area in ctrl.entities.areas" value="{{area.id}}">{{area.number}} - {{area.city.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="personal1">Creation Date</label>
+      <p class="form-control-static">{{ctrl.model.assignment.creationDate | formatDate}}</p>
+    </div>
+
+    <div class="form-group">
+      <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.create();">Create</button>
+      <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.update();">Update</button>
+      <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.delete();">Delete</button>
+      <a ng-href="#/admin/assignments">Back to list</a>
+    </div>
+  </form>
+
+

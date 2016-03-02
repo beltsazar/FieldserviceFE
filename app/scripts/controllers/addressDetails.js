@@ -37,7 +37,10 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
   });
 
   // Get the areas
-  Areas.query({ projection: 'entities' }).$promise.then(function (result) {
+  Areas.query({
+    projection: 'entities',
+    sort: ['city.name','number']
+  }).$promise.then(function (result) {
     ctrl.entities.areas = result;
   });
 
@@ -46,7 +49,7 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
     var generatedId = null;
 
     Addresses.create({}, ctrl.model.address).$promise.then(function (response) {
-      generatedId = $filter('id')(response._links.self.href);
+      generatedId = response.id;
 
       Addresses.updateEntity({id: generatedId, entity: 'street'}, '/streets/' + ctrl.model.address.street.id).$promise.then(function () {
 
