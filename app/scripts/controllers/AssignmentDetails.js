@@ -7,7 +7,7 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($resource, $routeParams, $location, $filter, Assignments, Areas) {
+angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($resource, $routeParams, $location, $filter, Assignments, Areas, Worksheets) {
 
   var ctrl = this;
 
@@ -27,6 +27,10 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
       ctrl.model.assignment = response;
       ctrl.model.assignment.area.id += '';
     });
+  }
+  else {
+    ctrl.model.assignment.active = true;
+    ctrl.model.assignment.personal = false;
   }
 
   // Get the areas
@@ -59,6 +63,18 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
   this.delete = function() {
     Assignments.delete({id : ctrl.id}).$promise.then(function() {
       $location.path('/admin/assignments');
+    });
+  };
+
+  // Maak nieuwe resource
+  this.createWorksheet = function() {
+    Worksheets.create({}, {}).$promise.then(function(response) {
+
+      ctrl.model.assignment.worksheet = response;
+
+      Worksheets.updateEntity({id: response.id, entity: 'assignment'}, '/assignment/' + ctrl.model.assignment.id).$promise.then(function () {
+
+      });
     });
   };
 

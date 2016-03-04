@@ -1,6 +1,7 @@
 
   <h1>Assignment</h1>
 
+  <pre>{{ctrl.model.assignment | json}}</pre>
   <form>
 
     <div class="form-group">
@@ -31,12 +32,19 @@
       <p class="form-control-static">{{ctrl.model.assignment.creationDate | formatDate}}</p>
     </div>
 
+    <div class="form-group" ng-if="ctrl.model.assignment.worksheet">
+      <label><a ng-href="#/worksheets/{{ctrl.model.assignment.worksheet.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a> Worksheet</label>
+      <span style="margin-left: 5px"><span ng-if="ctrl.model.assignment.worksheet.active" class="label label-warning">active</span><span ng-if="!ctrl.model.assignment.worksheet.active" class="label label-default">closed</span> <span class="badge">{{ctrl.model.assignment.worksheet.iteration}}</span></span>
+    </div>
+
     <div class="form-group">
       <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.create();">Create</button>
       <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.update();">Update</button>
       <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.delete();">Delete</button>
-      <a ng-href="#/admin/assignments">Back to list</a>
+      <button ng-if="!ctrl.model.assignment.worksheet" type="submit" class="btn btn-default" ng-click="ctrl.createWorksheet();">Create Worksheet</button>
+      <a class="btn btn-link" ng-href="#/admin/assignments">Back to list</a>
     </div>
+
   </form>
 
 
