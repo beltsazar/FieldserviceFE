@@ -75,9 +75,9 @@ angular
         controller: 'AssignmentDetails',
         controllerAs: 'ctrl'
       })
-      .when('/reports/:id', {
-        templateUrl: 'views/report_details.html',
-        controller: 'ReportDetails',
+      .when('/worksheets/:id', {
+        templateUrl: 'views/worksheet_details.html',
+        controller: 'WorksheetDetails',
         controllerAs: 'ctrl'
       })
       .otherwise({
