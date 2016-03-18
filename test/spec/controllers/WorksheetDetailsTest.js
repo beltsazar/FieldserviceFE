@@ -68,21 +68,21 @@ fdescribe('Controller: WorksheetDetails', function () {
       expect(ctrl.worksheet.groups[0].addresses[1].visits.length).toBe(1);
       expect(ctrl.worksheet.groups[0].addresses[2].visits.length).toBe(1);
 
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[0])).toBeTruthy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisible()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisible()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisible()).toBeTruthy();
 
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisited()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisited()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisited()).toBeTruthy();
 
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[0])).toBeTruthy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[1])).toBeFalsy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[2])).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isEditable()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isEditable()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isEditable()).toBeFalsy();
 
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[1])).toBeFalsy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isSuccess()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isSuccess()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isSuccess()).toBeTruthy();
 
     });
 
@@ -124,21 +124,21 @@ fdescribe('Controller: WorksheetDetails', function () {
       expect(ctrl.worksheet.groups[0].addresses[1].visits.length).toBe(1);
       expect(ctrl.worksheet.groups[0].addresses[2].visits.length).toBe(1);
 
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[2])).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisible()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisible()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisible()).toBeFalsy();
 
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisited()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisited()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisited()).toBeTruthy();
 
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[2])).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isEditable()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isEditable()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isEditable()).toBeFalsy();
 
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[1])).toBeFalsy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isSuccess()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isSuccess()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isSuccess()).toBeTruthy();
 
     });
 
@@ -153,21 +153,21 @@ fdescribe('Controller: WorksheetDetails', function () {
       expect(ctrl.worksheet.groups[0].addresses[1].visits.length).toBe(2);
       expect(ctrl.worksheet.groups[0].addresses[2].visits.length).toBe(1);
 
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[2])).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisible()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisible()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisible()).toBeFalsy();
 
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisited()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisited()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisited()).toBeTruthy();
 
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[1])).toBeFalsy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[2])).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isEditable()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isEditable()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isEditable()).toBeFalsy();
 
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[1])).toBeFalsy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isSuccess()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isSuccess()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isSuccess()).toBeTruthy();
 
     });
 
@@ -209,21 +209,21 @@ fdescribe('Controller: WorksheetDetails', function () {
       expect(ctrl.worksheet.groups[0].addresses[1].visits.length).toBe(2);
       expect(ctrl.worksheet.groups[0].addresses[2].visits.length).toBe(1);
 
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[2])).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisible()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisible()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisible()).toBeFalsy();
 
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisited()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisited()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisited()).toBeTruthy();
 
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[2])).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isEditable()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isEditable()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isEditable()).toBeFalsy();
 
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[1])).toBeFalsy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isSuccess()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isSuccess()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isSuccess()).toBeTruthy();
 
     });
 
@@ -238,27 +238,24 @@ fdescribe('Controller: WorksheetDetails', function () {
       expect(ctrl.worksheet.groups[0].addresses[1].visits.length).toBe(3);
       expect(ctrl.worksheet.groups[0].addresses[2].visits.length).toBe(1);
 
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisible(ctrl.worksheet.groups[0].addresses[2])).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisible()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisible()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisible()).toBeFalsy();
 
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isVisited(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isVisited()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isVisited()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isVisited()).toBeTruthy();
 
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[1])).toBeFalsy();
-      expect(ctrl.isEditable(ctrl.worksheet.groups[0].addresses[2])).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isEditable()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isEditable()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isEditable()).toBeFalsy();
 
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[0])).toBeFalsy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[1])).toBeTruthy();
-      expect(ctrl.isSuccess(ctrl.worksheet.groups[0].addresses[2])).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[0].isSuccess()).toBeFalsy();
+      expect(ctrl.worksheet.groups[0].addresses[1].isSuccess()).toBeTruthy();
+      expect(ctrl.worksheet.groups[0].addresses[2].isSuccess()).toBeTruthy();
 
     });
 
   });
-
-
-
 
 });
