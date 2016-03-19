@@ -1,7 +1,7 @@
 
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h1 class="panel-title font-size-20">{{ctrl.worksheet.area.city.name}} <span class="badge">{{ctrl.worksheet.area.number}}</span></h1>
+      <h1 class="panel-title font-size-20">{{ctrl.worksheet.area.city.name}} <span class="no-wrap">Gebied <b>{{ctrl.worksheet.area.number}}</b></span></h1>
     </div>
     <div class="panel-body">
 
@@ -31,7 +31,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2 class="panel-title">Ronde <span class="badge">1</span></h2>
+      <h2 class="panel-title">Ronde <b>1</b> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span></h2>
     </div>
     <div class="panel-body">
 
@@ -55,7 +55,7 @@
 
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h2 class="panel-title">Ronde <span class="badge">2</span></h2>
+      <h2 class="panel-title">Ronde <b>2</b> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></h2>
     </div>
     <div class="panel-body">
 
@@ -90,7 +90,7 @@
         <div class="row m-b-20" ng-repeat="address in group.addresses" ng-if="address.isVisible()">
 
           <div class="col-xs-3 center-block text-center">
-            <p class="font-size-22 align-vertical-center-45 no-wrap m-b-0" xstyle="font-size:28px;height:45px;line-height: 45px;white-space: nowrap;"><b>{{address.number}} B</b></p>
+            <p class="font-size-22 align-vertical-center-45 no-wrap m-b-0"><b>{{address.number}}</b></p>
           </div>
 
           <div class="col-xs-9">
@@ -146,37 +146,36 @@
 
           <div class="col-xs-12 m-b-10">
             <div class="input-group input-group-lg">
-              <span class="input-group-addon" id="sizing-addon1">Nummer</span>
-              <input type="number" class="form-control" placeholder="1, 2, 3, etc ..." aria-describedby="sizing-addon1">
+              <span class="input-group-addon">Nummer</span>
+              <input type="text" class="form-control" ng-model="this.number" placeholder="1, 2, 3, etc ...">
             </div>
           </div>
           <div class="col-xs-12 m-b-10">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group btn-group-justified" role="group">
               <div class="btn-group btn-group-lg" role="group">
-                <button class="btn btn-default" type="button"><b>-</b></button>
+                <button class="btn btn-default" type="button" ng-click="this.number = group.decrementNumber(this.number, 1)"><b>-</b></button>
               </div>
               <div class="btn-group btn-group-lg" role="group">
-                <button class="btn btn-default" type="button"><b>--</b></button>
+                <button class="btn btn-default" type="button" ng-click="this.number = group.incrementNumber(this.number, 1)"><b>+</b></button>
               </div>
               <div class="btn-group btn-group-lg" role="group">
-                <button class="btn btn-default" type="button"><b>+</b></button>
+                <button class="btn btn-default" type="button" ng-click="this.number = group.decrementNumber(this.number, 2)"><b>--</b></button>
               </div>
               <div class="btn-group btn-group-lg" role="group">
-                <button class="btn btn-default" type="button"><b>++</b></button>
+                <button class="btn btn-default" type="button" ng-click="this.number = group.incrementNumber(this.number, 2)"><b>++</b></button>
               </div>
             </div>
-
           </div>
 
           <div class="col-xs-12 m-b-10">
             <div class="input-group input-group-lg">
-              <span class="input-group-addon" id="sizing-addon1">Toevoeging</span>
-              <input type="text" class="form-control" placeholder="I, II, A, B ..." aria-describedby="sizing-addon1">
+              <span class="input-group-addon">Toevoeging</span>
+              <input type="text" class="form-control" ng-model="this.addition" placeholder="I, II, A, B ...">
             </div>
           </div>
 
           <div class="col-xs-12 m-b-10">
-            <button class="btn btn-primary btn-block btn-lg" type="button">Toevoegen</button>
+            <button class="btn btn-primary btn-block btn-lg" type="button" ng-click="group.addAddress(this.number, this.addition)">Toevoegen</button>
           </div>
 
         </div>

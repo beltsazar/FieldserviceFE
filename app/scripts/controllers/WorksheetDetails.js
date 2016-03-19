@@ -7,7 +7,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q, $resource, $routeParams, $location, $filter, $interval, Worksheets, Visits) {
+angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q, $resource, $routeParams, $location, $filter, $interval, Worksheets, Visits, Addresses) {
 
   var ctrl = this;
 
@@ -122,6 +122,42 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
   WorksheetGroup.prototype.isMenuOpen = function() {
     return this.menuOpen;
+  };
+
+  WorksheetGroup.prototype.decrementNumber = function(number, times) {
+
+    if(number - times > 0) {
+      return +number - times;
+    }
+    else {
+      return 1;
+    }
+  };
+
+  WorksheetGroup.prototype.incrementNumber = function(number, times) {
+    if(isNaN(number) || number <= 0) {
+      return 1;
+    }
+    else {
+      return (+number + times);
+    }
+  };
+
+  WorksheetGroup.prototype.addAddress = function(number, addition) {
+    console.log(number, this.street.id, ctrl.worksheet.area.id);
+
+    var address = {
+      number: number,
+      street: 'streets/' + this.street.id,
+      area: 'areas/' + ctrl.worksheet.area.id
+    };
+
+
+    Addresses.create({}, address).$promise.then(function (response) {
+      console.log(response);
+    });
+
+
   };
 
 	/**
