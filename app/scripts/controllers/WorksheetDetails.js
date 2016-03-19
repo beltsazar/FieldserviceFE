@@ -50,10 +50,21 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
     var groupList = [];
 
     for (var i=0; i<groups.length; i++) {
-      groupList.push(new WorksheetGroup(groups[i]));
+      groupList.push(new WorksheetGroup(groups[i], this));
     }
 
     return groupList;
+  };
+
+  Worksheet.prototype.refresh = function() {
+    var groups = this.groups;
+
+    Worksheets.get({id: this.id}).$promise.then(function(response) {
+      for (var i=0; i<groups.length; i++) {
+        groups[i].refresh(response.groups[i]);
+      }
+    });
+
   };
 
   Worksheet.prototype.getTotalNumberOfAddresses = function() {
@@ -103,7 +114,8 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
    * @constructor
    */
 
-  function WorksheetGroup(group) {
+  function WorksheetGroup(group, worksheet) {
+    this.worksheet = worksheet;
     this.street = group.street;
     this.addresses = this.parseAddresses(group.addresses);
     this.menuOpen = false;
@@ -111,9 +123,13 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
   WorksheetGroup.prototype.parseAddresses = function (addresses) {
     for (var i=0; i<addresses.length; i++) {
-      addresses[i] = new WorksheetAddress(addresses[i]);
+      addresses[i] = new WorksheetAddress(addresses[i],this.worksheet);
     }
     return addresses;
+  };
+
+  WorksheetGroup.prototype.refresh = function (group) {
+    this.addresses = this.parseAddresses(group.addresses);
   };
 
   WorksheetGroup.prototype.toggleMenu = function() {
@@ -144,19 +160,16 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
   };
 
   WorksheetGroup.prototype.addAddress = function(number, addition) {
-    console.log(number, this.street.id, ctrl.worksheet.area.id);
-
-    var address = {
+    var worksheet = this.worksheet,
+        address = {
       number: number,
       street: 'streets/' + this.street.id,
-      area: 'areas/' + ctrl.worksheet.area.id
+      area: 'areas/' + worksheet.area.id
     };
 
-
-    Addresses.create({}, address).$promise.then(function (response) {
-      console.log(response);
+    Addresses.create({}, address).$promise.then(function () {
+      worksheet.refresh();
     });
-
 
   };
 
@@ -178,12 +191,14 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 	/**
    * WorksheetAddress object
    * @param address
+   * @param worksheet
    * @constructor
    */
-  function WorksheetAddress(address) {
+  function WorksheetAddress(address, worksheet) {
     this.id = address.id;
     this.number = address.number;
     this.visits = address.visits;
+    this.worksheet = worksheet;
     this.menuOpen = false;
   }
 
@@ -195,9 +210,9 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
     Visits.add({}, {
       address: 'addresses/' + address.id,
-      worksheet: 'worksheets/' + ctrl.worksheet.id,
+      worksheet: 'worksheets/' + address.worksheet.id,
       success: success,
-      iteration: ctrl.worksheet.iteration
+      iteration: address.worksheet.iteration
     }).$promise.then(function(response) {
       if (!angular.isDefined(address.visits)) {
         address.visits = [];
@@ -229,15 +244,15 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
   WorksheetAddress.prototype.isVisible = function () {
     var lastVisit = this.getLastVisit();
 
-    if (lastVisit === null && ctrl.worksheet.iteration === 1) {
+    if (lastVisit === null && this.worksheet.iteration === 1) {
       return true;
     }
 
-    if (lastVisit !== null && (lastVisit.iteration === ctrl.worksheet.iteration)) {
+    if (lastVisit !== null && (lastVisit.iteration === this.worksheet.iteration)) {
       return true;
     }
 
-    if (lastVisit !== null && (lastVisit.iteration === ctrl.worksheet.iteration - 1) && !this.isSuccess()) {
+    if (lastVisit !== null && (lastVisit.iteration === this.worksheet.iteration - 1) && !this.isSuccess()) {
       return true;
     }
 
@@ -251,7 +266,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
   WorksheetAddress.prototype.isEditable = function () {
     var lastVisit;
 
-    if (!angular.isDefined(this.visits) && angular.equals(ctrl.worksheet.iteration, 1)) {
+    if (!angular.isDefined(this.visits) && angular.equals(this.worksheet.iteration, 1)) {
       return true;
     }
     else if (!angular.isDefined(this.visits)) {
@@ -260,7 +275,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
     lastVisit = this.getLastVisit();
 
-    return (!lastVisit.success && (lastVisit.iteration < ctrl.worksheet.iteration));
+    return (!lastVisit.success && (lastVisit.iteration < this.worksheet.iteration));
 
   };
 
