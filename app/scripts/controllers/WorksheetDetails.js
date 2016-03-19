@@ -91,7 +91,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
   Worksheet.prototype.getNumberOfAbsentsByIteration = function(iteration) {
     var groups = this.groups,
-      totalNumberOfAbsents = 0;
+        totalNumberOfAbsents = 0;
 
     for (var i=0; i<groups.length; i++) {
       var addresses = groups[i].addresses;
@@ -111,6 +111,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 	/**
    * WorksheetGroup class
    * @param group
+   * @param worksheet
    * @constructor
    */
 
@@ -238,7 +239,6 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
    * Address should be visible when:
    * 1) Address is not visited yet in the first iteration
    * 2) Address is visited in the current iteration
-   * @param address
    * @returns {boolean}
    */
   WorksheetAddress.prototype.isVisible = function () {
@@ -252,11 +252,8 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
       return true;
     }
 
-    if (lastVisit !== null && (lastVisit.iteration === this.worksheet.iteration - 1) && !this.isSuccess()) {
-      return true;
-    }
+    return (lastVisit !== null && (lastVisit.iteration === this.worksheet.iteration - 1) && !this.isSuccess());
 
-    return false;
   };
 
   /**
