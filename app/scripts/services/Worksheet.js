@@ -17,8 +17,10 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
     this.id = data.id;
     this.active = data.active;
     this.iteration = data.iteration;
+    this.creationDate = data.creationDate;
     this.area = data.area;
     this.groups = this.createGroups(data.groups);
+    this.summary = this.getIterationSummary();
   }
 
   Worksheet.prototype.createGroups = function(groups) {
@@ -40,6 +42,33 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
       }
     });
 
+  };
+
+  Worksheet.prototype.getIterationSummary = function () {
+    var iterationSummaryList = [];
+
+    for (var i=1; i<=this.iteration; i++) {
+      iterationSummaryList.push({
+        iteration: i,
+        visitDates: this.getVisitDatesByIteration(i)
+      });
+    }
+
+    return iterationSummaryList;
+  };
+
+  Worksheet.prototype.getVisitDatesByIteration = function (iteration) {
+    var datesByIterationList = [];
+
+    for (var i=0; i<this.groups.length; i++) {
+      var visitDates = this.groups[i].getVisitDatesByIteration(iteration);
+
+      for (var j=0; j<visitDates.length; j++) {
+        datesByIterationList.push(visitDates[i]);
+      }
+    }
+
+    return datesByIterationList;
   };
 
   Worksheet.prototype.getTotalNumberOfAddresses = function() {
@@ -102,6 +131,25 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
       addresses[i] = new WorksheetAddress(addresses[i],this.worksheet);
     }
     return addresses;
+  };
+
+  WorksheetGroup.prototype.getVisitDatesByIteration = function (iteration) {
+    var datesByIterationList = [];
+
+    for (var i=0; i<this.addresses.length; i++) {
+      if (angular.isDefined(this.addresses[i].visits)) {
+
+        for (var j = 0; j < this.addresses[i].visits.length; j++) {
+          var visit = this.addresses[i].visits[j];
+
+          if (visit.iteration === iteration) {
+            datesByIterationList.push(this.addresses[i].visits[j].creationDate);
+          }
+        }
+      }
+    }
+
+    return datesByIterationList;
   };
 
   WorksheetGroup.prototype.refresh = function (group) {

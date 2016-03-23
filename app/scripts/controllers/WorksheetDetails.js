@@ -19,7 +19,9 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
    */
   ctrl.init = function () {
 
-    Worksheets.get({id: ctrl.id}).$promise.then(function(response) {
+    Worksheets.get({
+      id: ctrl.id,
+      mode: 'view'}).$promise.then(function(response) {
       ctrl.worksheet = new Worksheet(response);
 
       //$interval(function() {
@@ -30,6 +32,14 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
     });
 
+  };
+
+  ctrl.newIteration = function () {
+    ctrl.worksheet.iteration++;
+
+    Worksheets.update({id: ctrl.worksheet.id}, ctrl.worksheet).$promise.then(function() {
+      ctrl.init();
+    });
   };
 
   ctrl.init();

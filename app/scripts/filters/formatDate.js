@@ -11,6 +11,6 @@
 angular.module('fieldserviceFeApp')
   .filter('formatDate', function () {
     return function (input) {
-      return moment(input).format("dddd, d MMMM YYYY");
+      return moment(input).format("dddd D MMMM YYYY");
     };
   });

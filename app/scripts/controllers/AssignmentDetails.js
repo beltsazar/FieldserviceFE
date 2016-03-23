@@ -25,7 +25,9 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
   if(ctrl.id !== 'create') {
     Assignments.get({id: ctrl.id, projection: 'entities'}).$promise.then(function (response) {
       ctrl.model.assignment = response;
-      ctrl.model.assignment.area.id += '';
+      if (ctrl.model.assignment.area !== null) {
+        ctrl.model.assignment.area.id += '';
+      }
     });
   }
   else {

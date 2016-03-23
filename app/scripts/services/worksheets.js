@@ -9,7 +9,7 @@
  */
 angular.module('fieldserviceFeApp').factory('Worksheets', function ($resource, config) {
 
-  return $resource(config.api.hostname + '/worksheets/:search/:findBy/:id/:entity', {}, {
+  return $resource(config.api.hostname + '/worksheets/:search/:findBy/:id/:entity/:mode', {}, {
     query: {
       method: 'GET',
       isArray: true,
@@ -21,7 +21,13 @@ angular.module('fieldserviceFeApp').factory('Worksheets', function ($resource, c
       method:'POST'
     },
     update: {
-      method:'PUT'
+      method:'PUT',
+      transformRequest: function(request) {
+        var transformedRequest = angular.copy(request);
+        delete transformedRequest.groups;
+        delete transformedRequest.area;
+        return angular.toJson(transformedRequest);
+      }
     },
     updateEntity: {
       method:'PUT',
