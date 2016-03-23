@@ -64,7 +64,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
       var visitDates = this.groups[i].getVisitDatesByIteration(iteration);
 
       for (var j=0; j<visitDates.length; j++) {
-        datesByIterationList.push(visitDates[i]);
+        datesByIterationList.push(visitDates[j]);
       }
     }
 
@@ -137,13 +137,15 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
     var datesByIterationList = [];
 
     for (var i=0; i<this.addresses.length; i++) {
-      if (angular.isDefined(this.addresses[i].visits)) {
+      var address = this.addresses[i];
 
-        for (var j = 0; j < this.addresses[i].visits.length; j++) {
-          var visit = this.addresses[i].visits[j];
+      if (angular.isDefined(address.visits)) {
+
+        for (var j = 0; j < address.visits.length; j++) {
+          var visit = address.visits[j];
 
           if (visit.iteration === iteration) {
-            datesByIterationList.push(this.addresses[i].visits[j].creationDate);
+            datesByIterationList.push(visit.creationDate);
           }
         }
       }
@@ -243,6 +245,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
       }
 
       address.visits.push(response);
+      address.worksheet.summary = address.worksheet.getIterationSummary();
     });
   };
 
