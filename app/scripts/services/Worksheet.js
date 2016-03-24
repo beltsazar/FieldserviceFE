@@ -17,7 +17,9 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
     this.id = data.id;
     this.active = data.active;
     this.iteration = data.iteration;
+    this.personal = data.personal;
     this.creationDate = data.creationDate;
+    this.closeDate = data.closeDate;
     this.area = data.area;
     this.groups = this.createGroups(data.groups);
     this.summary = this.getIterationSummary();
@@ -50,11 +52,32 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
     for (var i=1; i<=this.iteration; i++) {
       iterationSummaryList.push({
         iteration: i,
-        visitDates: this.getVisitDatesByIteration(i)
+        visitDates: this.getDateTimeBuckets(this.getVisitDatesByIteration(i))
       });
     }
 
     return iterationSummaryList;
+  };
+
+  Worksheet.prototype.getDateTimeBuckets = function (dateTimeStamps) {
+    return dateTimeStamps;
+    var bucketList = [];
+
+    for (var i=1; i<dateTimeStamps.length; i++) {
+      var test;
+
+      var bucket = {
+        day: moment(dateTimeStamps[i]).format('dddd'),
+        timeOfDay: m
+
+      }
+
+      bucketList.push(bucket);
+
+    }
+
+    return bucketList;
+
   };
 
   Worksheet.prototype.getVisitDatesByIteration = function (iteration) {
@@ -206,7 +229,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
     var openAddresses = 0;
 
     for (var i=0; i<this.addresses.length; i++) {
-      if (this.addresses[i].isEditable()) {
+      if (this.addresses[i].isEditable() && this.addresses[i].isVisible()) {
         openAddresses++;
       }
     }

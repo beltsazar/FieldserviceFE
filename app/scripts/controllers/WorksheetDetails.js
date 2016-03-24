@@ -42,6 +42,15 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
     });
   };
 
+  ctrl.closeWorksheet = function () {
+    ctrl.worksheet.active = false;
+    ctrl.worksheet.closeDate = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
+
+    Worksheets.update({id: ctrl.worksheet.id}, ctrl.worksheet).$promise.then(function() {
+      ctrl.init();
+    });
+  };
+
   ctrl.init();
 
 });

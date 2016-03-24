@@ -28,7 +28,7 @@ fdescribe('Controller: WorksheetDetails', function () {
   describe('The display of the addresses during the first iteration (1)', function () {
 
     beforeEach(function () {
-      httpBackend.whenGET('/worksheets/100').respond(200, workSheetsMock.iteration1);
+      httpBackend.whenGET('/worksheets/100/view').respond(200, workSheetsMock.iteration1);
     });
 
     afterEach(function() {
@@ -91,7 +91,7 @@ fdescribe('Controller: WorksheetDetails', function () {
   describe('The display of the addresses during the second iteration (2)', function () {
 
     beforeEach(function () {
-      //httpBackend.whenGET('/worksheets/100').respond(200, workSheetsMock.iteration1);
+      //httpBackend.whenGET('/worksheets/100/view').respond(200, workSheetsMock.iteration1);
     });
 
     afterEach(function() {
@@ -100,7 +100,7 @@ fdescribe('Controller: WorksheetDetails', function () {
     });
 
     it('should load the worksheet entity', function () {
-      httpBackend.whenGET('/worksheets/100').respond(200, workSheetsMock.iteration1);
+      httpBackend.whenGET('/worksheets/100/view').respond(200, workSheetsMock.iteration1);
 
       var ctrl = createController();
       httpBackend.flush();
@@ -114,7 +114,7 @@ fdescribe('Controller: WorksheetDetails', function () {
     });
 
     it('should determine the initial visit state of the address when loading the previous iteration (1)', function () {
-      httpBackend.whenGET('/worksheets/100').respond(200, workSheetsMock.iteration1);
+      httpBackend.whenGET('/worksheets/100/view').respond(200, workSheetsMock.iteration1);
       var ctrl = createController();
       httpBackend.flush();
 
@@ -143,7 +143,7 @@ fdescribe('Controller: WorksheetDetails', function () {
     });
 
     it('should determine the visit state of the address when loading the current iteration (2)', function () {
-      httpBackend.whenGET('/worksheets/100').respond(200, workSheetsMock.iteration2);
+      httpBackend.whenGET('/worksheets/100/view').respond(200, workSheetsMock.iteration2);
       var ctrl = createController();
       httpBackend.flush();
 
@@ -176,7 +176,7 @@ fdescribe('Controller: WorksheetDetails', function () {
   describe('The display of the addresses during the third iteration (3)', function () {
 
     beforeEach(function () {
-      //httpBackend.whenGET('/worksheets/100').respond(200, workSheetsMock.iteration1);
+      //httpBackend.whenGET('/worksheets/100/view').respond(200, workSheetsMock.iteration1);
     });
 
     afterEach(function() {
@@ -185,7 +185,7 @@ fdescribe('Controller: WorksheetDetails', function () {
     });
 
     it('should load the worksheet entity', function () {
-      httpBackend.whenGET('/worksheets/100').respond(200, workSheetsMock.iteration1);
+      httpBackend.whenGET('/worksheets/100/view').respond(200, workSheetsMock.iteration1);
 
       var ctrl = createController();
       httpBackend.flush();
@@ -199,7 +199,7 @@ fdescribe('Controller: WorksheetDetails', function () {
     });
 
     it('should determine the initial visit state of the address when loading the previous iteration (1)', function () {
-      httpBackend.whenGET('/worksheets/100').respond(200, workSheetsMock.iteration2);
+      httpBackend.whenGET('/worksheets/100/view').respond(200, workSheetsMock.iteration2);
       var ctrl = createController();
       httpBackend.flush();
 
@@ -228,7 +228,7 @@ fdescribe('Controller: WorksheetDetails', function () {
     });
 
     it('should determine the visit state of the address when loading the current iteration (3)', function () {
-      httpBackend.whenGET('/worksheets/100').respond(200, workSheetsMock.iteration3);
+      httpBackend.whenGET('/worksheets/100/view').respond(200, workSheetsMock.iteration3);
       var ctrl = createController();
       httpBackend.flush();
 

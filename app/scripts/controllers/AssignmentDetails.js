@@ -45,19 +45,19 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
 
   // Maak nieuwe resource
   this.create = function() {
-    Assignments.create({}, ctrl.model.assignment).$promise.then(function(response) {
-      Assignments.updateEntity({id: response.id, entity: 'area'}, '/areas/' + ctrl.model.assignment.area.id).$promise.then(function () {
-        $location.path('/admin/assignments');
-      });
+    var assignment = angular.copy(ctrl.model.assignment);
+    assignment.area = '/areas/' + ctrl.model.assignment.area.id;
+
+    Assignments.create({}, assignment).$promise.then(function(response) {
+      $location.path('/admin/assignments/' + response.id);
     });
   };
 
   // Save de bewerkte resource
   this.update = function() {
-    Assignments.update({id : ctrl.id}, ctrl.model.assignment).$promise.then(function() {
-      Assignments.updateEntity({id: ctrl.id, entity: 'area'}, '/areas/' + ctrl.model.assignment.area.id).$promise.then(function () {
-        $location.path('/admin/assignments');
-      });
+    var assignment = angular.copy(ctrl.model.assignment);
+    assignment.area = '/areas/' + ctrl.model.assignment.area.id;
+    Assignments.update({id : ctrl.id}, assignment).$promise.then(function() {
     });
   };
 
@@ -71,14 +71,16 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
   // Maak nieuwe resource
   this.createWorksheet = function() {
     Worksheets.create({}, {}).$promise.then(function(response) {
-
       ctrl.model.assignment.worksheet = response;
-
       Worksheets.updateEntity({id: response.id, entity: 'assignment'}, '/assignment/' + ctrl.model.assignment.id).$promise.then(function () {
-
       });
     });
   };
 
+  this.close = function() {
+    ctrl.model.assignment.active = false;
+    ctrl.model.assignment.closeDate = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
+    ctrl.update();
+  };
 
 });

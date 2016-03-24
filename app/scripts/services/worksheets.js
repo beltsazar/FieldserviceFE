@@ -26,6 +26,7 @@ angular.module('fieldserviceFeApp').factory('Worksheets', function ($resource, c
         var transformedRequest = angular.copy(request);
         delete transformedRequest.groups;
         delete transformedRequest.area;
+        delete transformedRequest.summary;
         return angular.toJson(transformedRequest);
       }
     },
