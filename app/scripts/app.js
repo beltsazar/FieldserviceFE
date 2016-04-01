@@ -8,6 +8,8 @@
  *
  * Main module of the application.
  */
+moment.locale('nl');
+
 angular
   .module('fieldserviceFeApp', [
     'ngAnimate',
