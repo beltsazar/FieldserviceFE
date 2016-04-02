@@ -1,3 +1,4 @@
+/* global moment */
 'use strict';
 
 /**
@@ -60,21 +61,68 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
   };
 
   Worksheet.prototype.getDateTimeBuckets = function (dateTimeStamps) {
-    return dateTimeStamps;
-    var bucketList = [];
 
-    for (var i=1; i<dateTimeStamps.length; i++) {
-      var test;
+    var enrichedDateList = [];
+
+    for (var i=0; i<dateTimeStamps.length; i++) {
+      var date = dateTimeStamps[i].split('T')[0],
+        thisMoment = moment(dateTimeStamps[i]),
+        partOfDay;
+
+      /**
+       * part of day
+       * 1) morning: 6:00 - 12:00
+       * 2) afternoon: 12:00 - 17:00
+       * 3) evening: 17:00 - 6:00
+       */
+
+      if (thisMoment.isBetween(date + 'T06:00:00.000', date + 'T12:00:00.000', 'minute')) {
+        partOfDay = 1;
+      }
+      else if (thisMoment.isBetween(date + 'T12:00:00.000', date + 'T17:00:00.000', 'minute')) {
+        partOfDay = 2;
+      }
+      else {
+        partOfDay = 3;
+      }
 
       var bucket = {
         day: moment(dateTimeStamps[i]).format('dddd'),
-        timeOfDay: m
+        partOfDay: partOfDay,
+        fromNow: thisMoment.fromNow()
+      };
 
-      }
-
-      bucketList.push(bucket);
+      enrichedDateList.push(bucket);
 
     }
+
+    var hashedBucketList = {};
+
+    for(var j=0; j<enrichedDateList.length; j++) {
+      var hash = ('hash#' + enrichedDateList[j].fromNow + enrichedDateList[j].day + enrichedDateList[j].partOfDay).replace(/\s/g,'');
+      hashedBucketList[hash] = enrichedDateList[j];
+    }
+
+    var bucketList = [];
+
+    angular.forEach(hashedBucketList, function(value, key) {
+      bucketList.push(value);
+    });
+
+    bucketList.sort(function(item1, item2) {
+      var hash1 = (item1.fromNow + item1.day + item1.partOfDay).replace(/\s/g,'');
+      var hash2 = (item2.fromNow + item2.day + item2.partOfDay).replace(/\s/g,'');
+
+      if (hash1 < hash2) {
+        return -1;
+      }
+
+      if (hash1 > hash2) {
+        return 1;
+      }
+
+      return 0;
+    });
 
     return bucketList;
 

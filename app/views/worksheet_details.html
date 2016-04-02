@@ -19,21 +19,18 @@
         ng-class="{'glyphicon-ok text-success': summary.iteration != ctrl.worksheet.iteration, 'glyphicon-refresh text-primary': summary.iteration == ctrl.worksheet.iteration}" class="glyphicon" aria-hidden="true"></span></h2>
       <div class="list-group-item-text">
 
-        <div class="row xm-b-5">
-          <div class="col-xs-8 m-b-5 p-r-5">
-            <span class="label label-info block font-size-14">zaterdag 3 juli</span>
-          </div>
-          <div class="col-xs-4 m-b-5 p-l-5">
-            <span class="label label-warning block font-size-14">ochtend</span>
-          </div>
-        </div>
+        <div class="row m-b-5" ng-repeat="visit in summary.visitDates">
 
-        <div class="row">
-          <div class="col-xs-8 m-b-5 p-r-5">
-            <span class="label label-default block font-size-14">maandag 23 december</span>
+          <div class="col-xs-6 m-b-5 p-r-5">
+            <span class="label label-default block font-size-14">{{visit.day}}</span>
           </div>
-          <div class="col-xs-4 m-b-5 p-l-5">
-            <span class="label label-info block font-size-14">middag</span>
+          <div class="col-xs-6 m-b-5 p-l-5">
+            <span class="label label-warning block font-size-14" ng-if="visit.partOfDay == 1">ochtend</span>
+            <span class="label label-warning block font-size-14" ng-if="visit.partOfDay == 2">middag</span>
+            <span class="label label-warning block font-size-14" ng-if="visit.partOfDay == 3">avond</span>
+          </div>
+          <div class="col-xs-12 m-b-5">
+            <span class="label label-info block font-size-14">{{visit.fromNow}}</span>
           </div>
         </div>
 
