@@ -39,7 +39,10 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
   Worksheet.prototype.refresh = function() {
     var groups = this.groups;
 
-    Worksheets.get({id: this.id}).$promise.then(function(response) {
+    Worksheets.get({
+      id: this.id,
+      mode: 'view'
+    }).$promise.then(function(response) {
       for (var i=0; i<groups.length; i++) {
         groups[i].refresh(response.groups[i]);
       }
@@ -64,6 +67,8 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
 
     var enrichedDateList = [];
 
+    dateTimeStamps.sort();
+
     for (var i=0; i<dateTimeStamps.length; i++) {
       var date = dateTimeStamps[i].split('T')[0],
         thisMoment = moment(dateTimeStamps[i]),
@@ -87,38 +92,49 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
       }
 
       var bucket = {
-        day: moment(dateTimeStamps[i]).format('dddd'),
+        date: date,
+        dayOfWeek: thisMoment.weekday(),
         partOfDay: partOfDay,
-        fromNow: thisMoment.fromNow()
+        daysFromNow: thisMoment.fromNow()
       };
 
-      enrichedDateList.push(bucket);
+      bucket.hashKey = ('hash#' + bucket.date + bucket.partOfDay).replace(/\s/g,'');
 
+      enrichedDateList.push(bucket);
     }
 
     var hashedBucketList = {};
 
     for(var j=0; j<enrichedDateList.length; j++) {
-      var hash = ('hash#' + enrichedDateList[j].fromNow + enrichedDateList[j].day + enrichedDateList[j].partOfDay).replace(/\s/g,'');
-      hashedBucketList[hash] = enrichedDateList[j];
+      hashedBucketList[enrichedDateList[j].hashKey] = enrichedDateList[j];
     }
 
     var bucketList = [];
 
-    angular.forEach(hashedBucketList, function(value, key) {
+    angular.forEach(hashedBucketList, function(value) {
       bucketList.push(value);
     });
 
     bucketList.sort(function(item1, item2) {
-      var hash1 = (item1.fromNow + item1.day + item1.partOfDay).replace(/\s/g,'');
-      var hash2 = (item2.fromNow + item2.day + item2.partOfDay).replace(/\s/g,'');
 
-      if (hash1 < hash2) {
+      if (item1.date < item2.date) {
         return -1;
       }
 
-      if (hash1 > hash2) {
+      if (item1.date > item2.date) {
         return 1;
+      }
+
+      if (item1.date === item2.date) {
+
+        if (item1.partOfDay < item2.partOfDay) {
+          return -1;
+        }
+
+        if (item1.partOfDay > item2.partOfDay) {
+          return 1;
+        }
+
       }
 
       return 0;

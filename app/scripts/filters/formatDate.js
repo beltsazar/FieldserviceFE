@@ -13,4 +13,9 @@ angular.module('fieldserviceFeApp')
     return function (input) {
       return moment(input).format("dddd D MMMM YYYY");
     };
+  })
+  .filter('formatBucketDateDay', function () {
+    return function (input) {
+      return moment(input).format("dddd");
+    };
   });

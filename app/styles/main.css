@@ -65,6 +65,10 @@ body {
   margin-bottom: 10px !important;
 }
 
+.m-b-15 {
+  margin-bottom: 15px !important;
+}
+
 .m-b-20 {
   margin-bottom: 20px !important;
 }
@@ -81,6 +85,15 @@ body {
   padding-left: 5px !important;
 }
 
+.p-b-5 {
+  padding-bottom: 5px !important;
+}
+
+.label-bordered {
+  border: 1px solid #777;
+  color: inherit;
+  font-weight: inherit;
+}
 
 
 

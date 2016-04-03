@@ -6,15 +6,20 @@
 
   <div class="list-group">
     <div class="list-group-item">
-      <p><span class="label label-warning font-size-14" ng-if="ctrl.worksheet.active">Actief</span><span class="label label-default font-size-14" ng-if="!ctrl.worksheet.active">Afgesloten</span>
-        <span class="label label-success font-size-14" ng-if="!ctrl.worksheet.personal">Publiek</span><span class="label label-danger font-size-14" ng-if="ctrl.worksheet.personal">Persoonlijk</span>
-      </p>
-      <p>Beheerder: <b>Pipo de Clown</b></p>
-      <p>Start: <b>{{ctrl.worksheet.creationDate | formatDate}}</b></p>
-      <p ng-if="ctrl.worksheet.closeDate">Eind: <b>{{ctrl.worksheet.closeDate | formatDate}}</b></p>
+      <div class="row m-b-10">
+        <div class="col-xs-6 p-r-5">
+          <span class="label label-warning block font-size-16 m-b-5" ng-if="ctrl.worksheet.active">Actief</span><span class="label label-default block font-size-16" ng-if="!ctrl.worksheet.active">Afgesloten</span>
+        </div>
+        <div class="col-xs-6 p-l-5">
+          <span class="label label-success block font-size-16" ng-if="!ctrl.worksheet.personal">Publiek</span><span class="label label-danger block font-size-16" ng-if="ctrl.worksheet.personal">Persoonlijk</span>
+        </div>
+      </div>
+      <p class="m-b-5">Beheerder: <b>Pipo de Clown</b></p>
+      <p class="m-b-5">Start: <b>{{ctrl.worksheet.creationDate | formatDate}}</b></p>
+      <p class="m-b-5" ng-if="ctrl.worksheet.closeDate">Eind: <b>{{ctrl.worksheet.closeDate | formatDate}}</b></p>
     </div>
 
-    <div class="list-group-item" ng-repeat="summary in ctrl.worksheet.summary">
+    <div class="list-group-item p-b-5" ng-repeat="summary in ctrl.worksheet.summary">
       <h2 class="list-group-item-heading font-size-18 m-b-10">Ronde <b>{{summary.iteration}}</b> <span
         ng-class="{'glyphicon-ok text-success': summary.iteration != ctrl.worksheet.iteration, 'glyphicon-refresh text-primary': summary.iteration == ctrl.worksheet.iteration}" class="glyphicon" aria-hidden="true"></span></h2>
       <div class="list-group-item-text">
@@ -22,15 +27,17 @@
         <div class="row m-b-5" ng-repeat="visit in summary.visitDates">
 
           <div class="col-xs-6 m-b-5 p-r-5">
-            <span class="label label-default block font-size-14">{{visit.day}}</span>
+            <span class="label label-info block font-size-14" ng-if="visit.dayOfWeek >= 0 && visit.dayOfWeek <= 4">{{visit.date | formatBucketDateDay}}</span>
+            <span class="label label-warning block font-size-14" ng-if="visit.dayOfWeek == 5">{{visit.date | formatBucketDateDay}}</span>
+            <span class="label label-success block font-size-14" ng-if="visit.dayOfWeek == 6">{{visit.date | formatBucketDateDay}}</span>
           </div>
           <div class="col-xs-6 m-b-5 p-l-5">
-            <span class="label label-warning block font-size-14" ng-if="visit.partOfDay == 1">ochtend</span>
+            <span class="label label-info block font-size-14" ng-if="visit.partOfDay == 1">ochtend</span>
             <span class="label label-warning block font-size-14" ng-if="visit.partOfDay == 2">middag</span>
-            <span class="label label-warning block font-size-14" ng-if="visit.partOfDay == 3">avond</span>
+            <span class="label label-success block font-size-14" ng-if="visit.partOfDay == 3">avond</span>
           </div>
           <div class="col-xs-12 m-b-5">
-            <span class="label label-info block font-size-14">{{visit.fromNow}}</span>
+            <span class="label label-bordered block font-size-14">{{visit.daysFromNow}}</span>
           </div>
         </div>
 
