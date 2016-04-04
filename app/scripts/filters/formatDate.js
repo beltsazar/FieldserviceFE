@@ -14,6 +14,11 @@ angular.module('fieldserviceFeApp')
       return moment(input).format("dddd D MMMM YYYY");
     };
   })
+  .filter('formatShortDate', function () {
+    return function (input) {
+      return moment(input).format("DD-MM-YYYY");
+    };
+  })
   .filter('formatBucketDateDay', function () {
     return function (input) {
       return moment(input).format("dddd");

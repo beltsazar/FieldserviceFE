@@ -38,7 +38,7 @@
 
     <div class="form-group" ng-if="ctrl.model.assignment.worksheet">
       <label><a ng-href="#/worksheets/{{ctrl.model.assignment.worksheet.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a> Worksheet</label>
-      <span style="margin-left: 5px"><span ng-if="ctrl.model.assignment.worksheet.active" class="label label-warning">active</span><span ng-if="!ctrl.model.assignment.worksheet.active" class="label label-default">closed</span> <span class="badge">{{ctrl.model.assignment.worksheet.iteration}}</span></span>
+      <span class="badge">{{ctrl.model.assignment.worksheet.iteration}}</span></span>
     </div>
 
     <div class="form-group">

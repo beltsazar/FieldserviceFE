@@ -16,12 +16,11 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
 
   function Worksheet(data) {
     this.id = data.id;
-    this.active = data.active;
     this.iteration = data.iteration;
-    this.personal = data.personal;
     this.creationDate = data.creationDate;
     this.closeDate = data.closeDate;
-    this.area = data.area;
+    this.area = data.assignment.area;
+    this.assignment = data.assignment;
     this.groups = this.createGroups(data.groups);
     this.summary = this.getIterationSummary();
   }

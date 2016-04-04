@@ -14,10 +14,10 @@
    <tbody>
    <tr ng-repeat="assignment in ctrl.assignments">
      <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-     <td>{{assignment.area.number}}</td>
+     <td class="text-center">{{assignment.area.number}}</td>
      <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
      <td><span ng-if="assignment.personal" class="label label-danger">private</span><span ng-if="!assignment.personal" class="label label-success">public</span></td>
-     <td>{{assignment.creationDate | formatDate}}</td>
+     <td><nobr>{{assignment.creationDate | formatShortDate}}</nobr></td>
    </tr>
    </tbody>
  </table>

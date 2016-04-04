@@ -7,7 +7,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q, $resource, $routeParams, $location, $filter, $interval, Worksheet, Worksheets) {
+angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q, $resource, $routeParams, $location, $filter, $interval, Worksheet, Worksheets, Assignments) {
 
   var ctrl = this;
 
@@ -36,6 +36,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
   ctrl.newIteration = function () {
     ctrl.worksheet.iteration++;
+    ctrl.worksheet.assignment = 'assignment/' + ctrl.worksheet.assignment.id;
 
     Worksheets.update({id: ctrl.worksheet.id}, ctrl.worksheet).$promise.then(function() {
       ctrl.init();
@@ -43,11 +44,19 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
   };
 
   ctrl.closeWorksheet = function () {
+    var assignment = angular.copy(ctrl.worksheet.assignment);
     ctrl.worksheet.active = false;
     ctrl.worksheet.closeDate = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
+    ctrl.worksheet.assignment = 'assignment/' + ctrl.worksheet.assignment.id;
 
     Worksheets.update({id: ctrl.worksheet.id}, ctrl.worksheet).$promise.then(function() {
-      ctrl.init();
+      assignment.active = false;
+      assignment.area = '/areas/' + assignment.area.id;
+
+      Assignments.update({id : assignment.id}, assignment).$promise.then(function() {
+        ctrl.init();
+      });
+
     });
   };
 

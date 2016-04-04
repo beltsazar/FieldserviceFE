@@ -8,10 +8,10 @@
     <div class="list-group-item">
       <div class="row m-b-10">
         <div class="col-xs-6 p-r-5">
-          <span class="label label-warning block font-size-16 m-b-5" ng-if="ctrl.worksheet.active">Actief</span><span class="label label-default block font-size-16" ng-if="!ctrl.worksheet.active">Afgesloten</span>
+          <span class="label label-warning block font-size-16 m-b-5" ng-if="ctrl.worksheet.assignment.active">Actief</span><span class="label label-default block font-size-16" ng-if="!ctrl.worksheet.assignment.active">Afgesloten</span>
         </div>
         <div class="col-xs-6 p-l-5">
-          <span class="label label-success block font-size-16" ng-if="!ctrl.worksheet.personal">Publiek</span><span class="label label-danger block font-size-16" ng-if="ctrl.worksheet.personal">Persoonlijk</span>
+          <span class="label label-success block font-size-16" ng-if="!ctrl.worksheet.assignment.personal">Publiek</span><span class="label label-danger block font-size-16" ng-if="ctrl.worksheet.assignment.personal">Persoonlijk</span>
         </div>
       </div>
       <p class="m-b-5">Beheerder: <b>Pipo de Clown</b></p>
@@ -44,16 +44,16 @@
       </div>
     </div>
 
-    <div class="list-group-item list-group-item-info" ng-if="ctrl.worksheet.active">
+    <div class="list-group-item list-group-item-info" ng-if="ctrl.worksheet.assignment.active">
       Aantal adressen deze ronde <span ng-if="ctrl.worksheet.getNumberOfAddressesLeft() > 0" class="badge">{{ctrl.worksheet.getNumberOfAddressesLeft()}}</span><i
       ng-if="ctrl.worksheet.getNumberOfAddressesLeft() === 0" class="glyphicon glyphicon-ok pull-right"></i>
     </div>
 
     <div class="list-group-item list-group-item-warning">
-      <b ng-if="ctrl.worksheet.active">Afwezigen tijdens deze ronde</b><b ng-if="!ctrl.worksheet.active">Afwezigen einde bewerking</b>  <span class="badge">{{ctrl.worksheet.getNumberOfAbsentsByIteration(ctrl.worksheet.iteration)}}</span>
+      <b ng-if="ctrl.worksheet.assignment.active">Afwezigen tijdens deze ronde</b><b ng-if="!ctrl.worksheet.assignment.active">Afwezigen einde bewerking</b>  <span class="badge">{{ctrl.worksheet.getNumberOfAbsentsByIteration(ctrl.worksheet.iteration)}}</span>
     </div>
 
-    <div class="panel-body" ng-if="ctrl.worksheet.active">
+    <div class="panel-body" ng-if="ctrl.worksheet.assignment.active">
       <div class="row">
         <div class="col-xs-12">
           <button class="btn btn-primary btn-block m-b-10" ng-click="ctrl.newIteration()" type="button">
@@ -72,7 +72,7 @@
 
 <form>
 
-  <uib-accordion close-others="oneAtATime" ng-if="ctrl.worksheet.active">
+  <uib-accordion close-others="oneAtATime" ng-if="ctrl.worksheet.assignment.active">
     <uib-accordion-group ng-repeat="group in ctrl.worksheet.groups" is-open="status.open" class="m-b-10">
 
       <uib-accordion-heading>
