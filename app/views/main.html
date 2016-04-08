@@ -1,8 +1,18 @@
 <div class="jumbotron">
-  <h1>Fieldservice Administration</h1>
+  <h1>Welkom Piet!</h1>
   <p class="lead">
-    Application for Fieldservice Administration
+    Bij de VelddienstApp van gemeente Monnickendam
   </p>
 </div>
 
-<h2>Something of a dashboard here ;)</h2>
+<h3>Gebieden in bewerking</h3>
+
+<div ng-controller="WorksheetList as ctrl">
+
+  <div ng-repeat="worksheet in ctrl.worksheets">
+
+    <div ng-include="'views/worksheet_list.html'"></div>
+
+  </div>
+
+</div>

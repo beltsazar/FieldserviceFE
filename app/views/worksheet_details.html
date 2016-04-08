@@ -21,7 +21,7 @@
 
     <div class="list-group-item p-b-5" ng-repeat="summary in ctrl.worksheet.summary">
       <h2 class="list-group-item-heading font-size-18 m-b-10">Ronde <b>{{summary.iteration}}</b> <span
-        ng-class="{'glyphicon-ok text-success': summary.iteration != ctrl.worksheet.iteration, 'glyphicon-refresh text-primary': summary.iteration == ctrl.worksheet.iteration}" class="glyphicon" aria-hidden="true"></span></h2>
+        ng-class="{'glyphicon-ok text-success': (summary.iteration != ctrl.worksheet.iteration) || (ctrl.worksheet.assignment.active === false), 'glyphicon-refresh text-primary': summary.iteration == ctrl.worksheet.iteration && ctrl.worksheet.assignment.active === true}" class="glyphicon" aria-hidden="true"></span></h2>
       <div class="list-group-item-text">
 
         <div class="row m-b-5" ng-repeat="visit in summary.visitDates">

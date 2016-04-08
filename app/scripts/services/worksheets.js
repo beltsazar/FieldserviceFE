@@ -14,7 +14,12 @@ angular.module('fieldserviceFeApp').factory('Worksheets', function ($resource, c
       method: 'GET',
       isArray: true,
       transformResponse: function(response) {
-        return angular.fromJson(response)._embedded.worksheets;
+        if(angular.isDefined(response._embedded)) {
+          return angular.fromJson(response)._embedded.worksheets;
+        }
+        else {
+          return angular.fromJson(response);
+        }
       }
     },
     create: {

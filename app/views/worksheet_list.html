@@ -1,0 +1,63 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap">Gebied <b>{{worksheet.area.number}}</b></span>
+    </h1>
+  </div>
+
+  <div class="list-group">
+    <div class="list-group-item">
+      <div class="row m-b-10">
+        <div class="col-xs-6 p-r-5">
+          <span class="label label-warning block font-size-16 m-b-5" ng-if="worksheet.assignment.active">Actief</span><span class="label label-default block font-size-16" ng-if="!worksheet.assignment.active">Afgesloten</span>
+        </div>
+        <div class="col-xs-6 p-l-5">
+          <span class="label label-success block font-size-16" ng-if="!worksheet.assignment.personal">Publiek</span><span class="label label-danger block font-size-16" ng-if="worksheet.assignment.personal">Persoonlijk</span>
+        </div>
+      </div>
+      <p class="m-b-5">Beheerder: <b>Pipo de Clown</b></p>
+      <p class="m-b-5">Start: <b>{{worksheet.creationDate | formatDate}}</b></p>
+      <p class="m-b-5" ng-if="worksheet.closeDate">Eind: <b>{{worksheet.closeDate | formatDate}}</b></p>
+    </div>
+
+    <div class="list-group-item p-b-5" ng-repeat="summary in worksheet.summary">
+      <h2 class="list-group-item-heading font-size-18 m-b-10">Ronde <b>{{summary.iteration}}</b> <span
+        ng-class="{'glyphicon-ok text-success': (summary.iteration != worksheet.iteration) || (worksheet.assignment.active === false), 'glyphicon-refresh text-primary': summary.iteration == worksheet.iteration && worksheet.assignment.active === true}" class="glyphicon" aria-hidden="true"></span></h2>
+      <div class="list-group-item-text">
+
+        <div class="row m-b-5" ng-repeat="visit in summary.visitDates">
+
+          <div class="col-xs-6 m-b-5 p-r-5">
+            <span class="label label-info block font-size-14" ng-if="visit.dayOfWeek >= 0 && visit.dayOfWeek <= 4">{{visit.date | formatBucketDateDay}}</span>
+            <span class="label label-warning block font-size-14" ng-if="visit.dayOfWeek == 5">{{visit.date | formatBucketDateDay}}</span>
+            <span class="label label-success block font-size-14" ng-if="visit.dayOfWeek == 6">{{visit.date | formatBucketDateDay}}</span>
+          </div>
+          <div class="col-xs-6 m-b-5 p-l-5">
+            <span class="label label-info block font-size-14" ng-if="visit.partOfDay == 1">ochtend</span>
+            <span class="label label-warning block font-size-14" ng-if="visit.partOfDay == 2">middag</span>
+            <span class="label label-success block font-size-14" ng-if="visit.partOfDay == 3">avond</span>
+          </div>
+          <div class="col-xs-12 m-b-5">
+            <span class="label label-bordered block font-size-14">{{visit.daysFromNow}}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="list-group-item list-group-item-info" ng-if="worksheet.assignment.active">
+      Aantal adressen deze ronde <span ng-if="worksheet.getNumberOfAddressesLeft() > 0" class="badge">{{worksheet.getNumberOfAddressesLeft()}}</span><i
+      ng-if="worksheet.getNumberOfAddressesLeft() === 0" class="glyphicon glyphicon-ok pull-right"></i>
+    </div>
+
+    <div class="list-group-item list-group-item-warning">
+      <b ng-if="worksheet.assignment.active">Afwezigen tijdens deze ronde</b><b ng-if="!worksheet.assignment.active">Afwezigen einde bewerking</b>  <span class="badge">{{worksheet.getNumberOfAbsentsByIteration(worksheet.iteration)}}</span>
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+
