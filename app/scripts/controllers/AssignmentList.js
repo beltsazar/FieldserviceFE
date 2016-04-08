@@ -15,7 +15,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function (Assig
 
   Assignments.query({
     projection: 'entities',
-    sort: ['creationDate,desc']
+    sort: ['creationDate,asc']
   }).$promise.then(function(result) {
     ctrl.assignments = result;
   });

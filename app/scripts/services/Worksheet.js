@@ -8,13 +8,17 @@
  * # city
  * Factory in the fieldserviceFeApp.
  */
-angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, Addresses, Visits) {
+angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, Addresses, Visits, Assignments) {
 
   /**
    * Worksheet Class
    */
 
   function Worksheet(data) {
+    this.initialize(data);
+  }
+
+  Worksheet.prototype.initialize = function(data) {
     this.id = data.id;
     this.iteration = data.iteration;
     this.creationDate = data.creationDate;
@@ -23,7 +27,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
     this.assignment = data.assignment;
     this.groups = this.createGroups(data.groups);
     this.summary = this.getIterationSummary();
-  }
+  };
 
   Worksheet.prototype.createGroups = function(groups) {
     var groupList = [];
@@ -42,9 +46,11 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
       id: this.id,
       mode: 'view'
     }).$promise.then(function(response) {
+
       for (var i=0; i<groups.length; i++) {
         groups[i].refresh(response.groups[i]);
       }
+
     });
 
   };
@@ -196,6 +202,48 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
     }
 
     return totalNumberOfAbsents;
+  };
+
+  Worksheet.prototype.newIteration = function () {
+    var worksheet = this;
+    worksheet.iteration++;
+    worksheet.assignment = 'assignment/' + worksheet.assignment.id;
+
+    Worksheets.update({id: worksheet.id}, worksheet).$promise.then(function(response) {
+
+      Worksheets.get({
+        id: worksheet.id,
+        mode: 'view'
+      }).$promise.then(function(response) {
+        worksheet.initialize(response);
+      });
+
+    });
+  };
+
+  Worksheet.prototype.closeWorksheet = function () {
+    var worksheet = this,
+        assignment = angular.copy(worksheet.assignment);
+    worksheet.active = false;
+    worksheet.closeDate = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
+    worksheet.assignment = 'assignment/' + worksheet.assignment.id;
+
+    Worksheets.update({id: worksheet.id}, worksheet).$promise.then(function() {
+      assignment.active = false;
+      assignment.closeDate = worksheet.closeDate;
+      assignment.area = '/areas/' + assignment.area.id;
+
+      Assignments.update({id : assignment.id}, assignment).$promise.then(function() {
+
+        Worksheets.get({
+          id: worksheet.id,
+          mode: 'view'
+        }).$promise.then(function(response) {
+          worksheet.initialize(response);
+        });
+      });
+
+    });
   };
 
   /**

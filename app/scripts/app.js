@@ -78,7 +78,7 @@ angular
         controllerAs: 'ctrl'
       })
       .when('/worksheets/:id', {
-        templateUrl: 'views/worksheet_details.html',
+        templateUrl: 'views/worksheet.html',
         controller: 'WorksheetDetails',
         controllerAs: 'ctrl'
       })

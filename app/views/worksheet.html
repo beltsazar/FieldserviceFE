@@ -1,0 +1,198 @@
+<div ng-repeat="worksheet in ctrl.worksheets">
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap">Gebied <b>{{worksheet.area.number}}</b></span>
+      </h1>
+    </div>
+
+    <div class="list-group">
+      <div class="list-group-item">
+        <div class="row m-b-10">
+          <div class="col-xs-6 p-r-5">
+            <span class="label label-warning block font-size-16 m-b-5" ng-if="worksheet.assignment.active">Actief</span><span class="label label-default block font-size-16" ng-if="!worksheet.assignment.active">Afgesloten</span>
+          </div>
+          <div class="col-xs-6 p-l-5">
+            <span class="label label-success block font-size-16" ng-if="!worksheet.assignment.personal">Publiek</span><span class="label label-danger block font-size-16" ng-if="worksheet.assignment.personal">Persoonlijk</span>
+          </div>
+        </div>
+        <p class="m-b-5">Beheerder: <b>Pipo de Clown</b></p>
+        <p class="m-b-5">Start: <b>{{worksheet.creationDate | formatDate}}</b></p>
+        <p class="m-b-5" ng-if="worksheet.closeDate">Eind: <b>{{worksheet.closeDate | formatDate}}</b></p>
+      </div>
+
+      <div class="list-group-item p-b-5" ng-repeat="summary in worksheet.summary">
+        <h2 class="list-group-item-heading font-size-18 m-b-10">Ronde <b>{{summary.iteration}}</b> <span
+          ng-class="{'glyphicon-ok text-success': (summary.iteration != worksheet.iteration) || (worksheet.assignment.active === false), 'glyphicon-refresh text-primary': summary.iteration == worksheet.iteration && worksheet.assignment.active === true}" class="glyphicon" aria-hidden="true"></span></h2>
+        <div class="list-group-item-text">
+
+          <div class="row m-b-5" ng-repeat="visit in summary.visitDates">
+
+            <div class="col-xs-6 m-b-5 p-r-5">
+              <span class="label label-info block font-size-14" ng-if="visit.dayOfWeek >= 0 && visit.dayOfWeek <= 4">{{visit.date | formatBucketDateDay}}</span>
+              <span class="label label-warning block font-size-14" ng-if="visit.dayOfWeek == 5">{{visit.date | formatBucketDateDay}}</span>
+              <span class="label label-success block font-size-14" ng-if="visit.dayOfWeek == 6">{{visit.date | formatBucketDateDay}}</span>
+            </div>
+            <div class="col-xs-6 m-b-5 p-l-5">
+              <span class="label label-info block font-size-14" ng-if="visit.partOfDay == 1">ochtend</span>
+              <span class="label label-warning block font-size-14" ng-if="visit.partOfDay == 2">middag</span>
+              <span class="label label-success block font-size-14" ng-if="visit.partOfDay == 3">avond</span>
+            </div>
+            <div class="col-xs-12 m-b-5">
+              <span class="label label-bordered block font-size-14">{{visit.daysFromNow}}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="list-group-item list-group-item-info" ng-if="worksheet.assignment.active">
+        Aantal adressen deze ronde <span ng-if="worksheet.getNumberOfAddressesLeft() > 0" class="badge">{{worksheet.getNumberOfAddressesLeft()}}</span><i
+        ng-if="worksheet.getNumberOfAddressesLeft() === 0" class="glyphicon glyphicon-ok pull-right"></i>
+      </div>
+
+      <div class="list-group-item list-group-item-warning">
+        <b ng-if="worksheet.assignment.active">Afwezigen tijdens deze ronde</b><b ng-if="!worksheet.assignment.active">Afwezigen einde bewerking</b>  <span class="badge">{{worksheet.getNumberOfAbsentsByIteration(worksheet.iteration)}}</span>
+      </div>
+
+      <div class="panel-body" ng-if="worksheet.assignment.active">
+        <div class="row">
+          <div class="col-xs-12">
+            <a ng-if="ctrl.isListView" class="btn btn-primary btn-block m-b-10" ng-href="#/worksheets/{{worksheet.id}}" type="button">
+              <b>Bewerken</b>
+            </a>
+            <button class="btn btn-primary btn-block m-b-10" ng-click="worksheet.newIteration()" type="button">
+              <b>Nieuwe Ronde</b>
+            </button>
+            <button class="btn btn-danger btn-block m-b-5" ng-click="worksheet.closeWorksheet()" type="button">
+              Afsluiten
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <form ng-if="!ctrl.isListView">
+
+    <uib-accordion close-others="oneAtATime" ng-if="worksheet.assignment.active">
+      <uib-accordion-group ng-repeat="group in worksheet.groups" is-open="status.open" class="m-b-10">
+
+        <uib-accordion-heading>
+          {{group.street.name}} <span ng-show="group.getNumberOfEditableAddresses() > 0" class="badge">{{group.getNumberOfEditableAddresses()}}</span>
+          <i ng-show="group.getNumberOfEditableAddresses() == 0" class="glyphicon glyphicon-ok text-success"></i>
+          <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+        </uib-accordion-heading>
+
+        <div class="row m-b-20" ng-repeat="address in group.addresses" ng-if="address.isVisible()">
+
+          <div class="col-xs-3 center-block text-center">
+            <p class="font-size-22 align-vertical-center-45 no-wrap m-b-0"><b>{{address.number}}</b></p>
+          </div>
+
+          <div class="col-xs-9">
+
+            <div ng-if="address.isVisited() && !address.isEditable()">
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group btn-group-lg" role="group">
+                  <button type="button" class="btn btn-default" ng-click="address.toggleMenu();"><span
+                    ng-class="{'glyphicon glyphicon-user' : address.isSuccess(), 'glyphicon glyphicon-pencil' : !address.isSuccess()}"
+                    aria-hidden="true"></span></button>
+                </div>
+              </div>
+            </div>
+
+            <div ng-if="address.isEditable()">
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group btn-group-lg" role="group">
+                  <button type="button" class="btn btn-success" ng-click="address.createVisit(true);"><span
+                    class="glyphicon glyphicon-user" aria-hidden="true"></span></button>
+                </div>
+                <div class="btn-group btn-group-lg" role="group">
+                  <button type="button" class="btn btn-info" ng-click="address.createVisit(false);"><span
+                    class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                </div>
+                <div class="btn-group btn-group-lg" role="group">
+                  <button type="button" class="btn btn-default" ng-click="address.toggleMenu();"><span
+                    class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-xs-12 m-t-10" ng-if="address.isMenuOpen()">
+
+            <span ng-show="!address.visits">No visits registered yet ...</span>
+
+            <ul class="list-group m-b-0">
+              <li class="list-group-item" ng-repeat="visit in address.visits">
+                <span ng-if="visit.success" class="label label-success">aanwezig</span>
+                <span ng-if="!visit.success" class="label label-info">afwezig</span>
+                {{visit.creationDate}}
+                <span class="badge">{{visit.iteration}}</span>
+              </li>
+            </ul>
+
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 m-b-10">
+            <button class="btn btn-default btn-block btn-lg" type="button" ng-click="group.toggleMenu();"><span
+              class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></button>
+          </div>
+        </div>
+
+        <div class="row" ng-if="group.isMenuOpen()">
+
+          <div class="col-xs-12 m-b-10">
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">Nummer</span>
+              <input type="number" class="form-control" ng-model="this.number" placeholder="1, 2, 3, etc ...">
+            </div>
+          </div>
+          <div class="col-xs-12 m-b-10">
+            <div class="btn-group btn-group-justified" role="group">
+              <div class="btn-group btn-group-lg" role="group">
+                <button class="btn btn-default" type="button"
+                        ng-click="this.number = group.decrementNumber(this.number, 1)"><b>-</b></button>
+              </div>
+              <div class="btn-group btn-group-lg" role="group">
+                <button class="btn btn-default" type="button"
+                        ng-click="this.number = group.incrementNumber(this.number, 1)"><b>+</b></button>
+              </div>
+              <div class="btn-group btn-group-lg" role="group">
+                <button class="btn btn-default" type="button"
+                        ng-click="this.number = group.decrementNumber(this.number, 2)"><b>--</b></button>
+              </div>
+              <div class="btn-group btn-group-lg" role="group">
+                <button class="btn btn-default" type="button"
+                        ng-click="this.number = group.incrementNumber(this.number, 2)"><b>++</b></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 m-b-10">
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">Toevoeging</span>
+              <input type="text" class="form-control" ng-model="this.addition" placeholder="I, II, A, B ...">
+            </div>
+          </div>
+
+          <div class="col-xs-12 m-b-10">
+            <button class="btn btn-primary btn-block btn-lg" type="button"
+                    ng-click="group.addAddress(this.number, this.addition)">Toevoegen
+            </button>
+          </div>
+
+        </div>
+
+      </uib-accordion-group>
+    </uib-accordion>
+
+  </form>
+</div>

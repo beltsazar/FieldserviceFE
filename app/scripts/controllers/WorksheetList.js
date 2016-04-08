@@ -12,8 +12,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetList', function ($q, $r
   var ctrl = this;
 
   ctrl.worksheets = [];
-
-  ctrl.response = {}
+  ctrl.isListView = true;
 
 	/**
    * Initialize
@@ -24,7 +23,6 @@ angular.module('fieldserviceFeApp').controller('WorksheetList', function ($q, $r
       mode: 'view'}).$promise.then(function(response) {
 
       angular.forEach(response, function(value) {
-
         ctrl.worksheets.push(new Worksheet(value));
       });
 
