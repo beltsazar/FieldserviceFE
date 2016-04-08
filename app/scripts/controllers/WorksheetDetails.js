@@ -51,6 +51,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
     Worksheets.update({id: ctrl.worksheet.id}, ctrl.worksheet).$promise.then(function() {
       assignment.active = false;
+      assignment.closeDate = ctrl.worksheet.closeDate;
       assignment.area = '/areas/' + assignment.area.id;
 
       Assignments.update({id : assignment.id}, assignment).$promise.then(function() {
