@@ -2,7 +2,7 @@
 
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap">Gebied <b>{{worksheet.area.number}}</b></span>
+      <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap font-size-20 p-l-5"><b>{{worksheet.area.number}}</b></span>
       </h1>
     </div>
 
@@ -140,7 +140,7 @@
 
         </div>
 
-        <div class="row">
+        <div class="row" ng-if="worksheet.iteration === 1">
           <div class="col-xs-12 m-b-10">
             <button class="btn btn-default btn-block btn-lg" type="button" ng-click="group.toggleMenu();"><span
               class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></button>
