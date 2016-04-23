@@ -2,9 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>VelddienstApp</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <!--<meta name="viewport" content="width=device-width">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -21,58 +22,64 @@
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div class="navbar navbar-default xnavbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
+    <div>
+      <!-- Add your site or application content here -->
+      <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
 
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
 
-          <a class="navbar-brand" href="#/"><span class="glyphicon glyphicon-tower" aria-hidden="true"></span></a>
-          <div class="navbar-brand" href="#/">Field Service App</div>
-        </div>
-
-        <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-          <ul class="nav navbar-nav">
-            <li is-active-menu><a ng-href="#/">Home</a></li>
-            <li is-active-menu><a ng-href="#/admin/assignments">Assignments</a></li>
-            <li is-active-menu><a ng-href="#/admin/areas">Areas</a></li>
-            <li is-active-menu><a ng-href="#/admin/addresses">Addresses</a></li>
-            <li is-active-menu><a ng-href="#/admin/streets">Streets</a></li>
-            <li is-active-menu><a ng-href="#/admin/cities">Cities</a></li>
-            <!--<li class="dropdown">-->
-              <!--<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-              <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="#">Action</a></li>-->
-                <!--<li><a href="#">Another action</a></li>-->
-                <!--<li><a href="#">Something else here</a></li>-->
-                <!--<li role="separator" class="divider"></li>-->
-                <!--<li><a href="#">Separated link</a></li>-->
-                <!--<li role="separator" class="divider"></li>-->
-                <!--<li><a href="#">One more separated link</a></li>-->
-              <!--</ul>-->
-            <!--</li>-->
-          </ul>
-
-        </div>
-
-      </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-            <div ng-view="" ng-cloak></div>
+            <a class="navbar-brand" href="#/"><span class="glyphicon glyphicon-tower" aria-hidden="true"></span></a>
+            <div class="navbar-brand" href="#/">Field Service App</div>
           </div>
-      </div>
-    </div>
 
+          <div class="collapse navbar-collapse" id="js-navbar-collapse">
+
+            <ul class="nav navbar-nav">
+              <li is-active-menu><a ng-href="#/">Home</a></li>
+              <li is-active-menu><a ng-href="#/admin/assignments">Assignments</a></li>
+              <li is-active-menu><a ng-href="#/admin/areas">Areas</a></li>
+              <li is-active-menu><a ng-href="#/admin/addresses">Addresses</a></li>
+              <li is-active-menu><a ng-href="#/admin/streets">Streets</a></li>
+              <li is-active-menu><a ng-href="#/admin/cities">Cities</a></li>
+              <!--<li class="dropdown">-->
+                <!--<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                <!--<ul class="dropdown-menu">-->
+                  <!--<li><a href="#">Action</a></li>-->
+                  <!--<li><a href="#">Another action</a></li>-->
+                  <!--<li><a href="#">Something else here</a></li>-->
+                  <!--<li role="separator" class="divider"></li>-->
+                  <!--<li><a href="#">Separated link</a></li>-->
+                  <!--<li role="separator" class="divider"></li>-->
+                  <!--<li><a href="#">One more separated link</a></li>-->
+                <!--</ul>-->
+              <!--</li>-->
+            </ul>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+
+              <div ng-if="state.account" ng-view="" ng-cloak></div>
+
+              <div ng-if="!state.account" ng-include="'views/login.html'"></div>
+
+            </div>
+        </div>
+      </div>
+
+    </div>
     <!--<div class="footer">-->
       <!--<div class="container-fluid">-->
         <!--<p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>-->
@@ -128,11 +135,15 @@
     <script src="scripts/controllers/areaList.js"></script>
     <script src="scripts/services/config.js"></script>
     <script src="scripts/controllers/ReportDetails.js"></script>
+    <script src="scripts/controllers/Login.js"></script>
     <script src="scripts/services/reports.js"></script>
     <script src="scripts/services/visits.js"></script>
     <script src="scripts/services/assignments.js"></script>
     <script src="scripts/services/worksheets.js"></script>
     <script src="scripts/services/Worksheet.js"></script>
+    <script src="scripts/services/accounts.js"></script>
+    <script src="scripts/services/application.js"></script>
+    <script src="scripts/services/authorisation.js"></script>
     <script src="scripts/filters/formatDate.js"></script>
     <script src="scripts/controllers/AssignmentList.js"></script>
     <script src="scripts/controllers/AssignmentDetails.js"></script>
