@@ -90,44 +90,20 @@ angular
       });
 
   })
-  .run(function ($rootScope, $location, $cookies, $http, Accounts, Application) { //Insert in the function definition the dependencies you need.
+  .run(function ($rootScope, $location, $cookies, $http, Application, Authorisation) { //Insert in the function definition the dependencies you need.
 
-    $rootScope.state = Application;
+    $rootScope.application = Application;
 
-    //Accounts.get({
-    //  username: 'admin'}).$promise.then(function(response) {
-	//
-    //  console.log('XSRF:', $cookies.get('XSRF-TOKEN'))
-	//
-    //  $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
-	//
-    //  Application.account = response;
-	//
-    //});
-
-
-
-
-    //$http.defaults.xsrfCookieName = 'XSRF-TOKEN';
-    //$http.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
-
+    Authorisation.loginAutomatic().$promise.then(function(response){
+      $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
+      Application.account = response;
+      Application.isAuthorized = true;
+    }).catch(function() {
+      Application.showLogin = true;
+    });
 
     //Do your $on in here, like this:
     $rootScope.$on('$locationChangeStart',function(event, next, current){
-      //Do your things
 
-      //$http.defaults.headers.common['Authorization'] = 'Basic YWRtaW46YWRtaW4=';
-
-
-
-
-
-      //if(!$rootScope.isFormValid()){
-      //  //prevent location change.
-	  //
-	  //
-	  //
-      //  event.preventDefault();
-      //}
     });
   });

@@ -10,7 +10,9 @@
 angular.module('fieldserviceFeApp').factory('Application', function ($resource, config) {
 
   var state = {
-    account: null
+    account: null,
+    isAuthorized: false,
+    showLogin: false
   };
 
 
