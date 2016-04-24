@@ -22,7 +22,6 @@
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div>
       <!-- Add your site or application content here -->
       <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
@@ -43,23 +42,11 @@
 
             <ul class="nav navbar-nav">
               <li is-active-menu><a ng-href="#/">Home</a></li>
-              <li is-active-menu><a ng-href="#/admin/assignments">Assignments</a></li>
-              <li is-active-menu><a ng-href="#/admin/areas">Areas</a></li>
-              <li is-active-menu><a ng-href="#/admin/addresses">Addresses</a></li>
-              <li is-active-menu><a ng-href="#/admin/streets">Streets</a></li>
-              <li is-active-menu><a ng-href="#/admin/cities">Cities</a></li>
-              <!--<li class="dropdown">-->
-                <!--<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
-                <!--<ul class="dropdown-menu">-->
-                  <!--<li><a href="#">Action</a></li>-->
-                  <!--<li><a href="#">Another action</a></li>-->
-                  <!--<li><a href="#">Something else here</a></li>-->
-                  <!--<li role="separator" class="divider"></li>-->
-                  <!--<li><a href="#">Separated link</a></li>-->
-                  <!--<li role="separator" class="divider"></li>-->
-                  <!--<li><a href="#">One more separated link</a></li>-->
-                <!--</ul>-->
-              <!--</li>-->
+              <li ng-if="application.hasRole('ADMIN')" is-active-menu><a ng-href="#/admin/assignments">Assignments</a></li>
+              <li ng-if="application.hasRole('ADMIN')" is-active-menu><a ng-href="#/admin/areas">Areas</a></li>
+              <li ng-if="application.hasRole('ADMIN')" is-active-menu><a ng-href="#/admin/addresses">Addresses</a></li>
+              <li ng-if="application.hasRole('ADMIN')" is-active-menu><a ng-href="#/admin/streets">Streets</a></li>
+              <li ng-if="application.hasRole('ADMIN')" is-active-menu><a ng-href="#/admin/cities">Cities</a></li>
             </ul>
 
           </div>
@@ -79,24 +66,16 @@
         </div>
       </div>
 
-    </div>
-    <!--<div class="footer">-->
-      <!--<div class="container-fluid">-->
-        <!--<p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>-->
-      <!--</div>-->
-    <!--</div>-->
-
-
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+     <!--<script>-->
+       <!--!function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){-->
+       <!--(A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),-->
+       <!--r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)-->
+       <!--}(window,document,'script','https://www.google-analytics.com/analytics.js','ga');-->
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+       <!--ga('create', 'UA-XXXXX-X');-->
+       <!--ga('send', 'pageview');-->
+    <!--</script>-->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
