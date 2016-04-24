@@ -20,7 +20,6 @@ angular.module('fieldserviceFeApp').factory('Application', function ($resource, 
     }
 
     if (angular.equals(level,'ADMIN')) {
-      console.log('hier')
       return angular.equals(application.account.role, 'ROOT') || angular.equals(application.account.role, 'ADMIN');
     }
 
