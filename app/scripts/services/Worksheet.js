@@ -232,6 +232,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
       assignment.active = false;
       assignment.closeDate = worksheet.closeDate;
       assignment.area = '/areas/' + assignment.area.id;
+      assignment.account = '/accounts/' + assignment.account.id;
 
       Assignments.update({id : assignment.id}, assignment).$promise.then(function() {
 

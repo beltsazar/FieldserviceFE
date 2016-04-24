@@ -7,7 +7,7 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($resource, $routeParams, $location, $filter, Assignments, Areas, Worksheets) {
+angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($resource, $routeParams, $location, $filter, Assignments, Areas, Accounts, Worksheets) {
 
   var ctrl = this;
 
@@ -18,7 +18,8 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
   };
 
   ctrl.entities = {
-    areas: []
+    areas: [],
+    accounts: []
   };
 
   // Haal de resource op bij inladen controller, behalve bij create
@@ -27,6 +28,9 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
       ctrl.model.assignment = response;
       if (ctrl.model.assignment.area !== null) {
         ctrl.model.assignment.area.id += '';
+      }
+      if (ctrl.model.assignment.account !== null) {
+        ctrl.model.assignment.account.id += '';
       }
     });
   }
@@ -43,10 +47,18 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
     ctrl.entities.areas = result;
   });
 
+  // Get the accounts
+  Accounts.query({
+    sort: ['firstName','lastName']
+  }).$promise.then(function (result) {
+    ctrl.entities.accounts = result;
+  });
+
   // Maak nieuwe resource
   this.create = function() {
     var assignment = angular.copy(ctrl.model.assignment);
     assignment.area = '/areas/' + ctrl.model.assignment.area.id;
+    assignment.account = '/accounts/' + ctrl.model.assignment.account.id;
 
     Assignments.create({}, assignment).$promise.then(function(response) {
       $location.path('/admin/assignments/' + response.id);
@@ -57,6 +69,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
   this.update = function() {
     var assignment = angular.copy(ctrl.model.assignment);
     assignment.area = '/areas/' + ctrl.model.assignment.area.id;
+    assignment.account = '/accounts/' + ctrl.model.assignment.account.id;
     Assignments.update({id : ctrl.id}, assignment).$promise.then(function() {
     });
   };

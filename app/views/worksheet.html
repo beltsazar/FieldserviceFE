@@ -1,8 +1,7 @@
 
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap font-size-20 p-l-5"><b>{{worksheet.area.number}}</b></span>
-      </h1>
+      <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap font-size-20 p-l-5"><b>{{worksheet.area.number}}</b></span> <a ng-href="#/admin/assignments/{{worksheet.assignment.id}}"><span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></a></h1>
     </div>
 
     <div class="list-group">
@@ -15,7 +14,7 @@
             <span class="label label-success block font-size-16" ng-if="!worksheet.assignment.personal">Publiek</span><span class="label label-danger block font-size-16" ng-if="worksheet.assignment.personal">Persoonlijk</span>
           </div>
         </div>
-        <p class="m-b-5">Beheerder: <b>Pipo de Clown</b></p>
+        <p class="m-b-5">Beheerder: <b>{{worksheet.assignment.account.firstName}} {{worksheet.assignment.account.infix}} {{worksheet.assignment.account.lastName}}</b></p>
         <p class="m-b-5">Start: <b>{{worksheet.creationDate | formatDate}}</b></p>
         <p class="m-b-5" ng-if="worksheet.closeDate">Eind: <b>{{worksheet.closeDate | formatDate}}</b></p>
       </div>
