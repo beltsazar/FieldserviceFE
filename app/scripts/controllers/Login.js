@@ -17,26 +17,32 @@ angular.module('fieldserviceFeApp').controller('Login', function ($resource, $ht
 
     //$http.defaults.headers.common['Authorization'] = 'Basic ' + btoa(ctrl.username + ':' + ctrl.password);   //YWRtaW46YWRtaW4=';
 
-    Authorisation.loginWithCredentials(ctrl.username, ctrl.password).$promise.then(function(response) {
+    Authorisation.login(ctrl.username, ctrl.password).$promise.then(function (response) {
 
-      $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
+      if (response.authenticated) {
 
-      Application.account = response;
-      Application.isAuthorized = true;
-      Application.showLogin = false;
+        $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
 
-    }).catch(function(error) {
+        Authorisation.account().$promise.then(function (response) {
+          Application.account = response;
+          Application.isAuthorized = true;
+          Application.showLogin = false;
+        });
+      }
+
+    }).catch(function() {
+
       ctrl.showAlert = true;
 
-      $timeout(function() {
+      $timeout(function () {
         ctrl.closeAlert();
       }, 5000);
     });
 
-  };
+    ctrl.closeAlert = function () {
+      ctrl.showAlert = false;
+    };
 
-  ctrl.closeAlert = function () {
-    ctrl.showAlert = false;
   };
 
 });

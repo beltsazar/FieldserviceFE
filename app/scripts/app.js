@@ -94,12 +94,21 @@ angular
 
     $rootScope.application = Application;
 
-    Authorisation.loginAutomatic().$promise.then(function(response){
-      $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
-      Application.account = response;
-      Application.isAuthorized = true;
-    }).catch(function() {
-      Application.showLogin = true;
+    Authorisation.status().$promise.then(function(response) {
+
+      if (response.authenticated) {
+
+        $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
+
+        Authorisation.account().$promise.then(function (response) {
+          Application.account = response;
+          Application.isAuthorized = true;
+        });
+      }
+      else {
+        Application.showLogin = true;
+      }
+
     });
 
     //Do your $on in here, like this:

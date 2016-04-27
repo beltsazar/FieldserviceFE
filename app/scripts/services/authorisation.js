@@ -13,29 +13,36 @@ angular.module('fieldserviceFeApp').factory('Authorisation', function ($resource
       method:'GET',
       params: {
         mode: 'login'
-      }
-    },
-    loginWithCredentials: {
-      method:'GET',
-      params: {
-        mode: 'login'
       },
       headers: {
         'Authorization' : function () {
           return base64EncodedUsernamePassword;
         }
       }
+    },
+    account: {
+      method:'GET',
+      params: {
+        mode: 'account'
+      }
+    },
+    status: {
+      method:'GET',
+      params: {
+        mode: 'status'
+      }
     }
   });
 
-  function loginWithCredentials(username, password) {
+  function login(username, password) {
     base64EncodedUsernamePassword = 'Basic ' + btoa(username + ':' + password);
-    return resource.loginWithCredentials();
+    return resource.login();
   }
 
   return {
-    loginAutomatic: resource.login,
-    loginWithCredentials: loginWithCredentials
+    login: login,
+    account: resource.account,
+    status: resource.status
   };
 
 });
