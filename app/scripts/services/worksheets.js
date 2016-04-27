@@ -12,15 +12,7 @@ angular.module('fieldserviceFeApp').factory('Worksheets', function ($resource, c
   return $resource(config.api.hostname + '/worksheets/:search/:findBy/:id/:entity/:mode', {}, {
     query: {
       method: 'GET',
-      isArray: true,
-      //transformResponse: function(response) {
-      //  if(angular.isDefined(response._embedded)) {
-      //    return angular.fromJson(response)._embedded.worksheets;
-      //  }
-      //  else {
-      //    return angular.fromJson(response);
-      //  }
-      //}
+      isArray: true
     },
     create: {
       method:'POST'
