@@ -28,14 +28,17 @@ angular.module('fieldserviceFeApp').controller('Login', function ($resource, $ht
           $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
         });
       }
+      else {
+        ctrl.showAlert = true;
+        $timeout(function () {
+          ctrl.closeAlert();
+        }, 5000);
+      }
 
     }).catch(function() {
 
-      ctrl.showAlert = true;
+    }).finally(function() {
 
-      $timeout(function () {
-        ctrl.closeAlert();
-      }, 5000);
     });
 
     ctrl.closeAlert = function () {

@@ -11,7 +11,7 @@ angular.module('fieldserviceFeApp')
   .service('config', function ($location) {
 
     this.api = {
-      hostname: $location.protocol() + '://' + $location.host() + ':8080',
+      hostname: $location.protocol() + '://' + $location.host() + ':8080' + '/api',
     };
 
   });

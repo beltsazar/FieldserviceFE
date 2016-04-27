@@ -13,6 +13,7 @@ angular.module('fieldserviceFeApp').factory('Interceptor', function (Application
     responseError: function(response) {
       Application.isAuthorized = false;
       Application.showLogin = true;
+
       return response;
     }
   };
