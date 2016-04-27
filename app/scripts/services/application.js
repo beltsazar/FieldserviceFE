@@ -7,7 +7,7 @@
  * # city
  * Factory in the fieldserviceFeApp.
  */
-angular.module('fieldserviceFeApp').factory('Application', function ($resource, config) {
+angular.module('fieldserviceFeApp').factory('Application', function () {
 
   function hasRole(level) {
     /* USER, ADMIN, ROOT */

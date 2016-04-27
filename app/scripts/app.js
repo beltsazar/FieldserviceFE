@@ -24,6 +24,8 @@ angular
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     $httpProvider.defaults.withCredentials = true;
 
+    $httpProvider.interceptors.push('Interceptor');
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
