@@ -100,11 +100,11 @@ angular
 
       if (response.authenticated) {
 
-        $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
-
         Authorisation.account().$promise.then(function (response) {
           Application.account = response;
           Application.isAuthorized = true;
+
+          $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
         });
       }
       else {

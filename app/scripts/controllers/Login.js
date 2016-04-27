@@ -15,18 +15,17 @@ angular.module('fieldserviceFeApp').controller('Login', function ($resource, $ht
 
   ctrl.login = function () {
 
-    //$http.defaults.headers.common['Authorization'] = 'Basic ' + btoa(ctrl.username + ':' + ctrl.password);   //YWRtaW46YWRtaW4=';
-
     Authorisation.login(ctrl.username, ctrl.password).$promise.then(function (response) {
 
       if (response.authenticated) {
-
-        $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
 
         Authorisation.account().$promise.then(function (response) {
           Application.account = response;
           Application.isAuthorized = true;
           Application.showLogin = false;
+
+          // Right cookie is only here first available, why !?
+          $http.defaults.headers.common['X-XSRF-TOKEN'] = $cookies.get('XSRF-TOKEN');
         });
       }
 
