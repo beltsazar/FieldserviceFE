@@ -82,6 +82,11 @@ angular
         controller: 'AssignmentDetails',
         controllerAs: 'ctrl'
       })
+      .when('/admin/worksheets', {
+        templateUrl: 'views/worksheet_list.html',
+        controller: 'WorksheetList',
+        controllerAs: 'ctrl'
+      })
       .when('/worksheets/:id', {
         templateUrl: 'views/worksheet_details.html',
         controller: 'WorksheetDetails',
