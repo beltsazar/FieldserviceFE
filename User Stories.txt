@@ -2,7 +2,7 @@ Als gemeente wil ik het gebied op een efficiente manier bewerken
 
 Als beheerder wil ik overzicht in de status van de gebieden
 - Ik wil zien welke gebieden bewerkt worden.
-- Ik wil zien in welke iteratie het gebied verkeert.
+- DONE Ik wil zien in welke iteratie het gebied verkeert.
 - Ik wil zien welk gebied voor het laatst volledig is bewerkt
 - Ik wil een gebied kunnen koppelen aan een groep (Buitengebied, Zakelijk, Monnickendam, etc)
 
@@ -10,9 +10,9 @@ Als beheerder wil ik speciale acties en reguliere gebiedsbewerking kunnen scheid
 - Ik wil de bewerkingen (rapportages) kunnen groeperen per campagne en globaal een campagne actief kunnen maken.
 
 Als beheerder wil ik gebieden kunnen delegeren aan gidsen of verkondigers
-- Ik wil een gebruiker kunnen toewijzen aan een gebied
-- Ik wil dit doen op basis van persoonlijk of publiek
-- Ik wil de aan toewijzing een begin en einddatum koppelen
+- DONE Ik wil een gebruiker kunnen toewijzen aan een gebied
+- DONE Ik wil dit doen op basis van persoonlijk of publiek
+- DONE Ik wil de aan toewijzing een begin en einddatum koppelen
 - Ik wil degene aan wie het gebied is toegewezen extra rechten geven
 - Ik wil alle gebruikers zonder speciale rechten, toegang geven tot bewerkingen van publieke gebieden
 - Ik wil overzicht in de status en iteratie van alle gebieden
@@ -24,7 +24,7 @@ Als beheerder wil ik dat als een gebied is toegewezen er een rapportage beschikb
 - Als gedelegeerde wil ik samen met anderen gebruik kunnen maken van een digitaal rapportage systeem
 
 Als beheerder wil ik gebruikers beheer en rechten kunnen geven
-- Alle gebruikers moeten inloggen
+- DONE Alle gebruikers moeten inloggen
 - Alle gebruikers krijgen een systeem brede rol (System Admin, Admin, Publisher)
 - Sommige gebruikers krijgen een Delegate rol voor 1 of meerdere gebieden
 - Deze rollen zijn van invloed op de pagina's die voor de gebruiken zijn te zien en de handelingen op die pagina's
@@ -34,15 +34,15 @@ Als beheerder wil ik gebruikers beheer en rechten kunnen geven
 - Op den duur SSL en hosten bij externe partij onder dns naam
 
 Gegeven het digitale rapportage systeem
-- Als beheerder wil ik dat het mogelijk is om bij slechts 1 iteratie de bewerking meteen af te sluiten
-- Als beheerder wil ik dat tijdens de 1e iteratie alle te bezoeken adressen worden getoond
+- DONE Als beheerder wil ik dat het mogelijk is om bij slechts 1 iteratie de bewerking meteen af te sluiten
+- DONE Als beheerder wil ik dat tijdens de 1e iteratie alle te bezoeken adressen worden getoond
 - Als beheerder wil ik dat tijdens de 1e iteratie de NBA worden getoond
-- Als publisher wil ik dat tijdens de 1e iteratie ook huisnummers kunnen worden toegevoegd
+- DONE Als publisher wil ik dat tijdens de 1e iteratie ook huisnummers kunnen worden toegevoegd
 - Als publisher wil ik dat tijdens een willekeurige iteratie een NBA kan worden toegevoegd
-- Als publisher wil ik dat tijdens een willekeurige iteratie duidelijk is welk adres ik tijdens de huidige iteratie heb al heb bezocht
-- Als publisher wil ik dat vanaf de 2e iteratie alleen nog maar de adressen (a-tjes) worden getoond die de vorige keer niet zijn thuisgetroffen
+- DONE Als publisher wil ik dat tijdens een willekeurige iteratie duidelijk is welk adres ik tijdens de huidige iteratie heb al heb bezocht
+- DONE Als publisher wil ik dat vanaf de 2e iteratie alleen nog maar de adressen (a-tjes) worden getoond die de vorige keer niet zijn thuisgetroffen
 - Als publisher wil ik op mijn persoonlijke pagina een lijst van openbare gebiedsbewerkingen zien waar ik aan kan meedoen met als extra informatie de degene aan wie het gebied is gedelegeerd
-- Als willekeurige gebruiker wil ik van de open staande publieke gebiedsbewerkingen snel kunnen zien:
+- DONE Als willekeurige gebruiker wil ik van de open staande publieke gebiedsbewerkingen snel kunnen zien:
   - Hoeveel keer de gebieden zijn bewerkt en wanneer (dag van week en tijdstip (OMA))
   - Wanneer is een iteratie gestart en is deze al klaar?
   Doel: zodat de openstaande gebieden zo efficient mogelijk kunnen worden bewerkt
