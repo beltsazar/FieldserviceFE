@@ -9,7 +9,7 @@
  */
 angular.module('fieldserviceFeApp').factory('Worksheets', function ($resource, config) {
 
-  return $resource(config.api.hostname + '/worksheets/:search/:findBy/:id/:entity/:mode', {}, {
+  return $resource(config.api.hostname + '/worksheets/:search/:findBy/:id/:entity/:mode/', {}, {
     query: {
       method: 'GET',
       isArray: true

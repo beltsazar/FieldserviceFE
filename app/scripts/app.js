@@ -84,7 +84,7 @@ angular
       })
       .when('/admin/worksheets', {
         templateUrl: 'views/worksheet_list.html',
-        controller: 'WorksheetList',
+        controller: 'WorksheetListAdmin',
         controllerAs: 'ctrl'
       })
       .when('/worksheets/:id', {

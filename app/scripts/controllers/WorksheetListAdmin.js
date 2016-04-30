@@ -7,7 +7,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('WorksheetList', function ($q, $resource, $routeParams, $location, $filter, $interval, Worksheet, Worksheets) {
+angular.module('fieldserviceFeApp').controller('WorksheetListAdmin', function ($q, $resource, $routeParams, $location, $filter, $interval, Worksheet, Worksheets) {
 
   var ctrl = this;
 
@@ -20,8 +20,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetList', function ($q, $r
   ctrl.init = function () {
 
     Worksheets.query({
-      mode: 'view',
-      filter: 'visible'}).$promise.then(function(response) {
+      mode: 'view'}).$promise.then(function(response) {
 
       angular.forEach(response, function(value) {
         ctrl.worksheets.push(new Worksheet(value));

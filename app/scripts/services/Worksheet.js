@@ -214,7 +214,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Works
     worksheet.assignment = 'assignment/' + worksheet.assignment.id;
 
     Worksheets.update({id: worksheet.id}, worksheet).$promise.then(function() {
-      $route.reload();
+
     });
   };
 
