@@ -8,7 +8,7 @@
  * # city
  * Factory in the fieldserviceFeApp.
  */
-angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, Addresses, Visits, Assignments) {
+angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Worksheets, Addresses, Visits, Assignments) {
 
   /**
    * Worksheet Class
@@ -20,6 +20,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
 
   Worksheet.prototype.initialize = function(data) {
     this.id = data.id;
+    this.visible = data.visible;
     this.iteration = data.iteration;
     this.creationDate = data.creationDate;
     this.closeDate = data.closeDate;
@@ -204,6 +205,19 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
     return totalNumberOfAbsents;
   };
 
+  Worksheet.prototype.setVisibility = function (visible) {
+    var worksheet;
+
+    this.visible = visible;
+    worksheet = angular.copy(this);
+    worksheet.visible = visible;
+    worksheet.assignment = 'assignment/' + worksheet.assignment.id;
+
+    Worksheets.update({id: worksheet.id}, worksheet).$promise.then(function() {
+      $route.reload();
+    });
+  };
+
   Worksheet.prototype.newIteration = function () {
     var worksheet = this;
     worksheet.iteration++;
@@ -226,6 +240,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function (Worksheets, A
         assignment = angular.copy(worksheet.assignment);
     worksheet.active = false;
     worksheet.closeDate = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
+    worksheet.visible = false;
     worksheet.assignment = 'assignment/' + worksheet.assignment.id;
 
     Worksheets.update({id: worksheet.id}, worksheet).$promise.then(function() {
