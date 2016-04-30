@@ -1,5 +1,4 @@
-
-  <div class="panel panel-primary">
+ <div class="panel panel-primary">
     <div class="panel-heading">
       <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap font-size-20 p-l-5"><b>{{worksheet.area.number}}</b></span> <a ng-href="#/admin/assignments/{{worksheet.assignment.id}}"><span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></a></h1>
     </div>
@@ -16,7 +15,7 @@
         </div>
         <div class="row m-b-10">
           <div class="col-xs-12">
-            <span class="label label-info block font-size-18" ng-if="worksheet.visible">Zichtbaar voor anderen</span><span class="label label-default block font-size-18" ng-if="!worksheet.visible">Niet zichtbaar voor anderen</span>
+            <span class="label label-info block font-size-18" ng-if="worksheet.visible">Gedeeld met de gemeente</span><span class="label label-default block font-size-18" ng-if="!worksheet.visible">Verborgen voor gemeente</span>
           </div>
         </div>
         <p class="m-b-5">Beheerder: <b>{{worksheet.assignment.account.firstName}} {{worksheet.assignment.account.infix}} {{worksheet.assignment.account.lastName}}</b></p>
@@ -64,18 +63,20 @@
             <a ng-if="ctrl.isListView" class="btn btn-primary btn-block m-b-10" ng-href="#/worksheets/{{worksheet.id}}" type="button">
               <b>Bewerken</b>
             </a>
-            <button ng-if="!worksheet.visible" class="btn btn-success btn-block m-b-10" ng-click="worksheet.setVisibility(true)" type="button">
-              <b>Maak zichtbaar voor anderen</b>
-            </button>
-            <button ng-if="worksheet.visible" class="btn btn-warning btn-block m-b-10" ng-click="worksheet.setVisibility(false)" type="button">
-              <b>Maak onzichtbaar voor anderen</b>
-            </button>
-            <button class="btn btn-primary btn-block m-b-10" ng-click="worksheet.newIteration()" type="button">
-              <b>Nieuwe Ronde</b>
-            </button>
-            <button class="btn btn-danger btn-block m-b-5" ng-click="worksheet.closeWorksheet()" type="button">
-              Afsluiten
-            </button>
+            <div ng-show="worksheet.owner || application.hasRole('ROOT')">
+              <button ng-if="!worksheet.visible" class="btn btn-success btn-block m-b-10" ng-click="worksheet.setVisibility(true)" type="button">
+                <b>Deel met de gemeente</b>
+              </button>
+              <button ng-if="worksheet.visible" class="btn btn-warning btn-block m-b-10" ng-click="worksheet.setVisibility(false)" type="button">
+                <b>Verberg voor de gemeente</b>
+              </button>
+              <button class="btn btn-primary btn-block m-b-10" ng-click="worksheet.newIteration()" type="button">
+                <b>Nieuwe Ronde</b>
+              </button>
+              <button class="btn btn-danger btn-block m-b-5" ng-click="worksheet.closeWorksheet()" type="button">
+                Afsluiten
+              </button>
+            </div>
           </div>
         </div>
       </div>

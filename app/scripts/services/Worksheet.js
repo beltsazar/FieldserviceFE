@@ -21,6 +21,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Works
   Worksheet.prototype.initialize = function(data) {
     this.id = data.id;
     this.visible = data.visible;
+    this.owner = data.owner;
     this.iteration = data.iteration;
     this.creationDate = data.creationDate;
     this.closeDate = data.closeDate;
