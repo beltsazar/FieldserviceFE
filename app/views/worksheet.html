@@ -135,16 +135,21 @@
 
           <div class="col-xs-12 m-t-10" ng-if="address.isMenuOpen()">
 
-            <span ng-show="!address.visits">No visits registered yet ...</span>
+            <div ng-repeat="annotation in address.annotations">
 
-            <ul class="list-group m-b-0">
-              <li class="list-group-item" ng-repeat="visit in address.visits">
-                <span ng-if="visit.success" class="label label-success">aanwezig</span>
-                <span ng-if="!visit.success" class="label label-info">afwezig</span>
-                {{visit.creationDate}}
-                <span class="badge">{{visit.iteration}}</span>
-              </li>
-            </ul>
+              <div ng-if="annotation.type=='DO_NOT_VISIT'">
+                <uib-alert type="danger" class="font-size-18 m-b-10">Op <b>{{annotation.creationDate | formatDate}}</b> is gemeld dat dit adres <nobr><span><b>niet meer bezocht</b></span></nobr> <br/>mag worden!</uib-alert>
+
+                <button type="button" class="btn btn-lg btn-block text-center btn-success" ng-click="address.setDoNotVisitAnnotation(annotation)">
+                  <span class="font-size-16"><b>Niet meer van toepassing</b></span></button>
+              </div>
+
+            </div>
+
+            <div ng-if="!address.annotations">
+              <button type="button" class="btn btn-lg btn-block text-center btn-danger" ng-click="address.setDoNotVisitAnnotation()">
+                <span class="font-size-16"><b>Niet meer bezoeken!</b></span></button>
+            </div>
 
           </div>
 

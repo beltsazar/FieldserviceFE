@@ -17,11 +17,11 @@ body {
 }
 
 .inline-block {
-  display: inline-block;
+  display: inline-block !important;
 }
 
 .block {
-  display: block;
+  display: block !important;
 }
 
 .font-size-12 {
