@@ -417,10 +417,15 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Works
    * Address should be visible when:
    * 1) Address is not visited yet in the first iteration
    * 2) Address is visited in the current iteration
+   * 3) Address is DO_NOT_VISIT
    * @returns {boolean}
    */
   WorksheetAddress.prototype.isVisible = function () {
     var lastVisit = this.getLastVisit();
+
+    if(this.isDoNotVisit()) {
+      return true;
+    }
 
     if (lastVisit === null && this.worksheet.iteration === 1) {
       return true;
@@ -438,8 +443,29 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Works
    * State and display of addresses
    */
 
+  WorksheetAddress.prototype.isDoNotVisit = function () {
+    var annotations = this.annotations;
+
+    if (!angular.isDefined(annotations)) {
+      return false;
+    }
+    else {
+      for (var i=0; i < annotations.length; i++) {
+        if (angular.equals(annotations[i].type, 'DO_NOT_VISIT')) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  };
+
   WorksheetAddress.prototype.isEditable = function () {
     var lastVisit;
+
+    if (this.isDoNotVisit()) {
+      return false;
+    }
 
     if (!angular.isDefined(this.visits) && angular.equals(this.worksheet.iteration, 1)) {
       return true;
@@ -463,7 +489,6 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Works
 
       return lastVisit.success;
     }
-
   };
 
   WorksheetAddress.prototype.getLastVisit = function() {
@@ -481,9 +506,18 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Works
     if (angular.isDefined(annotation)) {
 
       Annotations.delete({id : annotation.id}).$promise.then(function() {
-        worksheetAddress.annotations = undefined;
-      });
 
+        for (var i=0; i<worksheetAddress.annotations.length; i++) {
+          if (angular.equals(worksheetAddress.annotations[i].id, annotation.id)) {
+            worksheetAddress.annotations.splice(i, 1);
+            break;
+          }
+        }
+
+        if(worksheetAddress.annotations.length === 0) {
+          worksheetAddress.annotations = undefined;
+        }
+      });
     }
     else {
       Annotations.create({
