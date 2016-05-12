@@ -4,6 +4,15 @@
   <form>
 
     <div class="form-group">
+      <label for="name">Map (GeoJSON)</label>
+      <leaflet lf-center="center" defaults="defaults" height="800px" width="100%"></leaflet>
+    </div>
+
+    <pre>{{center | json}}</pre>
+
+    <pre>{{ctrl.model.area.shape}}</pre>
+
+    <div class="form-group">
       <label for="name">Number</label>
       <input type="text" class="form-control" id="name" placeholder="enter area number" ng-model="ctrl.model.area.number">
     </div>
