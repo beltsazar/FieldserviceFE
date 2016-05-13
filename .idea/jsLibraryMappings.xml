@@ -2,6 +2,6 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{FieldserviceFE node_modules}" />
-    <file url="PROJECT" libraries="{jasmine-DefinitelyTyped, moment-DefinitelyTyped}" />
+    <file url="PROJECT" libraries="{jasmine-DefinitelyTyped, leaflet-DefinitelyTyped, leaflet-draw-DefinitelyTyped, moment-DefinitelyTyped}" />
   </component>
 </project>

@@ -8,7 +8,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $resource, $routeParams, $location, $filter, leafletData, Areas, Addresses, Cities, Assignments, config) {
+angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $resource, $routeParams, $location, $filter, leafletData, Areas, Addresses, Cities, Assignments, Map, config) {
 
   var ctrl = this;
 
@@ -44,89 +44,16 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
    * @param geoJSON
    */
 
-  ctrl.initMap = function (geoJSON) {
+  function initializeMap (geoJsonString) {
+    var map = new Map('MapEditor');
 
-    leafletData.getMap().then(function (map) {
+    var editLayer = map.createEditLayer(geoJsonString);
 
-      var editLayer, areaMarker;
-
-      /**
-       * Functions
-       */
-      function getEditLayer() {
-        var editLayer;
-
-        if (angular.isDefined(geoJSON)) {
-          editLayer = L.geoJson(JSON.parse(geoJSON), {
-            style: function (feature) {
-              return {};
-            },
-            onEachFeature: function (feature, layer) {
-              layer.bindPopup('<h5>Gebied ' + ctrl.model.area.number + '</h5>');
-
-              /**
-               * Check if there is a Point (Marker) Object and center the map accordingly
-               */
-              if (angular.equals(feature.geometry.type, "Point")) {
-                areaMarker = layer;
-                map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 18);
-              }
-
-            }
-          });
-        }
-        else {
-          editLayer = new L.FeatureGroup();
-        }
-
-        return editLayer;
-      }
-
-      /**
-       * Initialise map
-       */
-
-      editLayer = getEditLayer();
-      editLayer.setStyle(config.maps.defaultStyle);
-      editLayer.addTo(map);
-      if(angular.isDefined(areaMarker)) {
-        areaMarker.openPopup();
-      }
-
-      var drawControl = new L.Control.Draw({
-        edit: {
-          featureGroup: editLayer,
-          edit: {
-            selectedPathOptions: config.maps.editStyle
-          }
-        },
-        draw: {
-          polygon: {
-            shapeOptions: config.maps.editStyle
-          }
-        }
-      });
-
-      map.addControl(drawControl);
-
-      map.on('draw:created', function (e) {
-        var layer = e.layer;
-        if(angular.isDefined(layer.setStyle)) {
-          layer.setStyle(config.maps.defaultStyle);
-        }
-        editLayer.addLayer(layer);
-        ctrl.model.area.shape = editLayer.toGeoJSON();
-      });
-
-      map.on('draw:edited draw:deleted', function (e) {
-        ctrl.model.area.shape = editLayer.toGeoJSON();
-      });
-
+    var editor = map.createEditor(editLayer, function contentUpdateHandler (e) {
+      ctrl.model.area.shape = editLayer.toGeoJSON();
     });
+
   }
-
-  //function addControls
-
 
   // Get the related addresses
   this.getAddresses = function() {
@@ -159,7 +86,6 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
 
   // Maak nieuwe resource
   this.create = function() {
-
 
     Areas.create({}, ctrl.model.area).$promise.then(function(response) {
 
@@ -209,14 +135,14 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
         ctrl.model.area.city.id += '';
       }
 
-      ctrl.initMap(ctrl.model.area.shape);
+      initializeMap(ctrl.model.area.shape);
       ctrl.getAssignments();
       ctrl.getAddresses();
 
     });
   }
   else {
-    ctrl.initMap();
+    initializeMap();
   }
 
   // Get all the cities

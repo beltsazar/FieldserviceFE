@@ -22,16 +22,9 @@ angular.module('fieldserviceFeApp')
       },
       defaultStyle: {
         stroke: true,
-        weight: 8,
+        weight: 5,
         color: 'blue',
-        fillOpacity: 0.1,
-        opacity: 0.5
-      },
-      editStyle: {
-        weight: 3,
-        color: 'red',
-        fillOpacity: 0.1,
-        opacity: 0.5
+        fillOpacity: 0.1
       }
     };
 
