@@ -18,8 +18,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.bootstrap',
-    'leaflet-directive'
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

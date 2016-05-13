@@ -8,7 +8,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $resource, $routeParams, $location, $filter, leafletData, Areas, Addresses, Cities, Assignments, Map, config) {
+angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $resource, $routeParams, $location, $filter, Areas, Addresses, Cities, Assignments, Map) {
 
   var ctrl = this;
 
@@ -25,21 +25,6 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
   ctrl.id = $routeParams.id;
 
 	/**
-   * Leaflet Map configuration
-   */
-  angular.extend($scope, {
-    center: config.maps.center,
-    defaults: {
-      scrollWheelZoom: false,
-      tileLayerOptions: {
-        opacity: 1,
-        detectRetina: true,
-        reuseTiles: true
-      }
-    }
-  });
-
-	/**
    * Initialise Leaflet map
    * @param geoJSON
    */
@@ -47,9 +32,9 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
   function initializeMap (geoJsonString) {
     var map = new Map('MapEditor');
 
-    var editLayer = map.createEditLayer(geoJsonString);
+    var editLayer = map.getLayer(geoJsonString, true);
 
-    var editor = map.createEditor(editLayer, function contentUpdateHandler (e) {
+    var editor = map.getEditor(editLayer, function contentUpdateHandler (e) {
       ctrl.model.area.shape = editLayer.toGeoJSON();
     });
 

@@ -20,8 +20,8 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
   Map.prototype.initialize = function () {
 
     this.map = L.map(this.mapId, {
-      center: [config.maps.center.lat, config.maps.center.lng],
-      zoom: config.maps.center.zoom,
+      center: [config.map.center.lat, config.map.center.lng],
+      zoom: config.map.center.zoom,
       scrollWheelZoom: false
     });
 
@@ -35,10 +35,10 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
     return this;
   };
 
-  Map.prototype.createEditLayer = function (geoJsonString) {
+  Map.prototype.getLayer = function (geoJsonString, center) {
 
     var map = this.map,
-      editLayer;
+        editLayer;
 
     if (angular.isDefined(geoJsonString)) {
       editLayer = L.geoJson(JSON.parse(geoJsonString), {
@@ -51,7 +51,7 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
           /**
            * Check if there is a Point (Marker) Object and center the map accordingly
            */
-          if (angular.equals(feature.geometry.type, 'Point')) {
+          if (center && angular.equals(feature.geometry.type, 'Point')) {
             map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 18);
           }
 
@@ -62,14 +62,14 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
       editLayer = new L.FeatureGroup();
     }
 
-    editLayer.setStyle(config.maps.defaultStyle);
+    editLayer.setStyle(config.map.defaultStyle);
 
     editLayer.addTo(map);
 
     return editLayer;
   };
 
-  Map.prototype.createEditor = function (editLayer, contentUpdateHandler) {
+  Map.prototype.getEditor = function (editLayer, contentUpdateHandler) {
     var map = this.map;
 
     var drawControl = new L.Control.Draw({
@@ -86,7 +86,7 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
     map.on('draw:created', function (e) {
       var layer = e.layer;
       if(angular.isDefined(layer.setStyle)) {
-        layer.setStyle(config.maps.defaultStyle);
+        layer.setStyle(config.map.styles.default);
       }
       editLayer.addLayer(layer);
       contentUpdateHandler(e);
