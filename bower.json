@@ -13,7 +13,8 @@
     "angular-bootstrap": "~1.1.2",
     "moment": "~2.11.2",
     "leaflet": "^0.7.7",
-    "leaflet-draw": "^0.3.0"
+    "leaflet-draw": "^0.3.0",
+    "leaflet-fullscreen": "leaflet-fullscreen-bower#^1.0.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
@@ -21,6 +22,14 @@
   "appPath": "app",
   "moduleName": "fieldserviceFeApp",
   "overrides": {
+    "leaflet-fullscreen": {
+      "main": [
+        "Leaflet.fullscreen.js",
+        "leaflet.fullscreen.css",
+        "fullscreen.png",
+        "fullscreen@2x.png"
+      ]
+    },
     "bootstrap": {
       "main": [
         "less/bootstrap.less",

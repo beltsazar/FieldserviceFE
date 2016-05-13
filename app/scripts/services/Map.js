@@ -22,11 +22,15 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
     this.map = L.map(this.mapId, {
       center: [config.map.center.lat, config.map.center.lng],
       zoom: config.map.center.zoom,
-      scrollWheelZoom: false
+      scrollWheelZoom: false,
+      fullscreenControl: true,
+      maxZoom: 19
     });
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+      maxZoom: 19,
+      maxNativeZoom: 19,
       opacity: 1,
       detectRetina: true,
       reuseTiles: true
