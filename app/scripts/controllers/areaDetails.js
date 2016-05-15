@@ -30,15 +30,16 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
    */
 
   function initializeMap (geoJsonString) {
-    var map = new Map('MapEditor');
+    var editMap = new Map('MapEditor');
 
-    var editLayer = map.getLayer(geoJsonString, {
-      autoZoom: true,
+    var editLayer = editMap.getLayer(geoJsonString, {
       label: ctrl.model.area.number,
       popup: '<a href="#/admin/areas/' + ctrl.model.area.id + '"><b>' + ctrl.model.area.city.name + ' ' + ctrl.model.area.number + '</b></a>'
     });
 
-    var editor = map.getEditor(editLayer, function contentUpdateHandler (e) {
+    editMap.map.fitBounds(editLayer.getBounds());
+
+    var editor = editMap.getEditor(editLayer, function contentUpdateHandler (e) {
       ctrl.model.area.shape = editLayer.toGeoJSON();
     });
 

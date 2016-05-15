@@ -66,7 +66,6 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
   Map.prototype.getLayer = function (geoJsonString, options) {
 
     var map = this.map,
-        autoZoom = angular.isDefined(options) && options.autoZoom || false,
         label = angular.isDefined(options) && options.label,
         popup = angular.isDefined(options) && options.popup,
         editLayer;
@@ -98,10 +97,6 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
 
     editLayer.setStyle(config.map.styles.default);
     editLayer.addTo(map);
-
-    if(autoZoom) {
-      map.fitBounds(editLayer.getBounds());
-    }
 
     return editLayer;
   };
