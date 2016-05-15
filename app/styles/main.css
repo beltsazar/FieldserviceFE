@@ -114,7 +114,61 @@ body {
   font-weight: inherit;
 }
 
+.area-div-icon {
+  width:100px;
+  height:60px;
+  left:-50px;
+  top:-30px;
+  font-size:30px;
+  font-weight:bold;
+  text-align: center;
+  color: black;
+  line-height:60px;
+  background:none;
+  border:none;
+  box-shadow:none;
+  opacity: 0.6;
+}
 
+.zoom-0 .area-div-icon,
+.zoom-1 .area-div-icon,
+.zoom-2 .area-div-icon,
+.zoom-3 .area-div-icon,
+.zoom-4 .area-div-icon,
+.zoom-5 .area-div-icon,
+.zoom-6 .area-div-icon,
+.zoom-7 .area-div-icon,
+.zoom-8 .area-div-icon,
+.zoom-9 .area-div-icon,
+.zoom-10 .area-div-icon,
+.zoom-11 .area-div-icon,
+.zoom-12 .area-div-icon,
+.zoom-13 .area-div-icon {
+  display: none;
+}
+
+.zoom-14 .area-div-icon {
+  font-size:20px;
+}
+
+.zoom-15 .area-div-icon {
+  font-size:30px;
+}
+.zoom-16 .area-div-icon {
+  font-size:40px;
+}
+.zoom-17 .area-div-icon {
+  font-size:55px;
+  opacity: 0.5;
+}
+.zoom-18 .area-div-icon {
+  font-size:75px;
+  opacity: 0.4;
+}
+.zoom-19 .area-div-icon {
+  font-size:100px;
+  opacity: 0.3;
+}
 
 
 

@@ -26,13 +26,17 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
 
 	/**
    * Initialise Leaflet map
-   * @param geoJSON
+   * @param geoJsonString
    */
 
   function initializeMap (geoJsonString) {
     var map = new Map('MapEditor');
 
-    var editLayer = map.getLayer(geoJsonString, true);
+    var editLayer = map.getLayer(geoJsonString, {
+      center: true,
+      label: ctrl.model.area.number,
+      popup: '<a href="#/admin/areas/' + ctrl.model.area.id + '"><b>' + ctrl.model.area.city.name + ' ' + ctrl.model.area.number + '</b></a>'
+    });
 
     var editor = map.getEditor(editLayer, function contentUpdateHandler (e) {
       ctrl.model.area.shape = editLayer.toGeoJSON();
@@ -77,7 +81,6 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
       Areas.updateEntity({
         id: response.id,
         entity: 'city' }, '/cities/' + ctrl.model.area.city.id).$promise.then(function () {
-
       });
 
     });
