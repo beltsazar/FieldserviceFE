@@ -33,7 +33,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
     var map = new Map('MapEditor');
 
     var editLayer = map.getLayer(geoJsonString, {
-      center: true,
+      autoZoom: true,
       label: ctrl.model.area.number,
       popup: '<a href="#/admin/areas/' + ctrl.model.area.id + '"><b>' + ctrl.model.area.city.name + ' ' + ctrl.model.area.number + '</b></a>'
     });

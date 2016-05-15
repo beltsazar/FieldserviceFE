@@ -27,10 +27,7 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
       return elementsToRemove;
     });
 
-
     angular.element('div#' + this.mapId).addClass('zoom-' + this.map.getZoom());
-
-    console.log(this.map)
   };
 
   Map.prototype.initialize = function () {
@@ -42,6 +39,8 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
       //scrollWheelZoom: false,
       fullscreenControl: true
     });
+
+    scope.adjustZoomStyling();
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -67,7 +66,7 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
   Map.prototype.getLayer = function (geoJsonString, options) {
 
     var map = this.map,
-        center = angular.isDefined(options) && options.center || false,
+        autoZoom = angular.isDefined(options) && options.autoZoom || false,
         label = angular.isDefined(options) && options.label,
         popup = angular.isDefined(options) && options.popup,
         editLayer;
@@ -79,10 +78,6 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
         //},
         pointToLayer: function(feature, latlng) {
           var options = {};
-
-          if (center) {
-            map.setView([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], 18);
-          }
 
           if (angular.isDefined(label)) {
             options.icon = L.divIcon({className: 'area-div-icon', iconSize: null, html: label});
@@ -102,8 +97,11 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
     }
 
     editLayer.setStyle(config.map.styles.default);
-
     editLayer.addTo(map);
+
+    if(autoZoom) {
+      map.fitBounds(editLayer.getBounds());
+    }
 
     return editLayer;
   };
