@@ -60,7 +60,7 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
 	/**
    * getLayer
    * @param geoJsonString
-   * @param options {center: true|false, label: String, popup: String
+   * @param options {center: true|false, label: String, popup: String }
    * @returns {*}
    */
   Map.prototype.getLayer = function (geoJsonString, options) {

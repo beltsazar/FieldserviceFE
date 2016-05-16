@@ -99,12 +99,10 @@
         <div class="row m-b-20" ng-repeat="address in group.addresses" ng-if="address.isVisible()">
 
           <div class="col-xs-3 center-block text-center">
-            <p class="font-size-22 align-vertical-center-45 no-wrap m-b-0"><b>{{address.number}}</b></p>
+            <p class="font-size-22 align-vertical-center-45 no-wrap m-b-0"><b>{{address.number}} <span style="color:#aaa">{{address.suffix}}</span></b></p>
           </div>
 
           <div class="col-xs-9">
-
-
 
             <div ng-if="address.isDoNotVisit()">
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -206,14 +204,13 @@
           <div class="col-xs-12 m-b-10">
             <div class="input-group input-group-lg">
               <span class="input-group-addon">Toevoeging</span>
-              <input type="text" class="form-control" ng-model="this.addition" placeholder="I, II, A, B ...">
+              <input type="text" class="form-control" ng-model="this.suffix" placeholder="I, II, A, B ...">
             </div>
           </div>
 
           <div class="col-xs-12 m-b-10">
             <button class="btn btn-primary btn-block btn-lg" type="button"
-                    ng-click="group.addAddress(this.number, this.addition)">Toevoegen
-            </button>
+                    ng-click="group.addAddress(this.number, this.suffix)">Toevoegen</button>
           </div>
 
         </div>

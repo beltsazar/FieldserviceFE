@@ -336,10 +336,11 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Works
     }
   };
 
-  WorksheetGroup.prototype.addAddress = function(number) {
+  WorksheetGroup.prototype.addAddress = function(number, suffix) {
     var worksheet = this.worksheet,
       address = {
         number: number,
+        suffix: suffix,
         street: 'streets/' + this.street.id,
         area: 'areas/' + worksheet.area.id
       };
@@ -374,6 +375,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Works
   function WorksheetAddress(address, worksheet) {
     this.id = address.id;
     this.number = address.number;
+    this.suffix = address.suffix;
     this.visits = address.visits;
     this.annotations = address.annotations;
     this.worksheet = worksheet;

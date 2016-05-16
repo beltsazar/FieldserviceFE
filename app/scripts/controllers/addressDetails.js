@@ -65,6 +65,10 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
 
   // Save de bewerkte resource
   this.update = function () {
+    var address = angular.copy(ctrl.model.address);
+    delete address.area;
+    delete address.city;
+
     Addresses.update({id: ctrl.id}, ctrl.model.address).$promise.then(function () {
 
       Addresses.updateEntity({
