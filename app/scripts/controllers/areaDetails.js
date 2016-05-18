@@ -19,7 +19,11 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
   ctrl.entities = {
     assignments: [],
     addresses: [],
-    cities: []
+    cities: [],
+    types: [
+      'PRIVATE',
+      'BUSINESS'
+    ]
   };
 
   ctrl.id = $routeParams.id;
@@ -29,15 +33,20 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
    * @param geoJsonString
    */
 
-  function initializeMap (geoJsonString) {
-    var editMap = new Map('MapEditor');
+  function initializeMap (geoJson) {
+    var editMap = new Map('MapEditor'),
+        editLayer,
+        options;
 
-    var editLayer = editMap.getLayer(geoJsonString, {
-      label: ctrl.model.area.number,
-      popup: '<a href="#/admin/areas/' + ctrl.model.area.id + '"><b>' + ctrl.model.area.city.name + ' ' + ctrl.model.area.number + '</b></a>'
-    });
+    if(angular.isDefined(geoJson)) {
+      options = {
+        label: ctrl.model.area.number,
+        popup: '<a href="#/admin/areas/' + ctrl.model.area.id + '"><b>' + ctrl.model.area.city.name + ' ' + ctrl.model.area.number + '</b></a>',
+        autoZoom: true
+      };
+    }
 
-    editMap.map.fitBounds(editLayer.getBounds());
+    editLayer = editMap.getLayer(geoJson, options);
 
     var editor = editMap.getEditor(editLayer, function contentUpdateHandler (e) {
       ctrl.model.area.shape = editLayer.toGeoJSON();
@@ -76,8 +85,13 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
 
   // Maak nieuwe resource
   this.create = function() {
+    var area = {
+      number: ctrl.model.area.number,
+      shape: ctrl.model.area.shape,
+      type: ctrl.model.area.type
+    };
 
-    Areas.create({}, ctrl.model.area).$promise.then(function(response) {
+    Areas.create({}, area).$promise.then(function(response) {
 
       Areas.updateEntity({
         id: response.id,
@@ -92,7 +106,8 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
 
     var area = {
       number: ctrl.model.area.number,
-      shape: ctrl.model.area.shape
+      shape: ctrl.model.area.shape,
+      type: ctrl.model.area.type
     };
 
     Areas.update({id : ctrl.id}, area).$promise.then(function() {
@@ -122,6 +137,10 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
       ctrl.model.area = response;
       if(ctrl.model.area.city) {
         ctrl.model.area.city.id += '';
+      }
+
+      if (angular.isDefined(ctrl.model.area.shape)) {
+        ctrl.model.area.shape = JSON.parse(ctrl.model.area.shape);
       }
 
       initializeMap(ctrl.model.area.shape);

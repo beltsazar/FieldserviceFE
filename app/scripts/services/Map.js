@@ -59,22 +59,20 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
 
 	/**
    * getLayer
-   * @param geoJsonString
+   * @param geoJson
    * @param options {center: true|false, label: String, popup: String }
    * @returns {*}
    */
-  Map.prototype.getLayer = function (geoJsonString, options) {
+  Map.prototype.getLayer = function (geoJson, options) {
 
     var map = this.map,
         label = angular.isDefined(options) && options.label,
         popup = angular.isDefined(options) && options.popup,
+        autoZoom = angular.isDefined(options) && options.autoZoom,
         editLayer;
 
-    if (angular.isDefined(geoJsonString)) {
-      editLayer = L.geoJson(JSON.parse(geoJsonString), {
-        //style: function (feature) {
-        //  return {};
-        //},
+    if (angular.isDefined(geoJson)) {
+      editLayer = L.geoJson(geoJson, {
         pointToLayer: function(feature, latlng) {
           var options = {};
 
@@ -84,11 +82,6 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
 
           return L.marker([latlng.lat, latlng.lng], options);
         },
-        onEachFeature: function (feature, layer) {
-          if (angular.isDefined(popup)) {
-            layer.bindPopup(popup);
-          }
-        }
       });
     }
     else {
@@ -96,6 +89,15 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
     }
 
     editLayer.setStyle(config.map.styles.default);
+
+    if(popup) {
+      editLayer.bindPopup(popup);
+    }
+
+    if(autoZoom) {
+      map.fitBounds(editLayer.getBounds());
+    }
+
     editLayer.addTo(map);
 
     return editLayer;
