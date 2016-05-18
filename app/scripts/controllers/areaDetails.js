@@ -21,8 +21,14 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
     addresses: [],
     cities: [],
     types: [
-      'PRIVATE',
-      'BUSINESS'
+      {
+        key: 'PRIVATE',
+        label: 'Private'
+      },
+      {
+        key: 'BUSINESS',
+        label: 'Business'
+      }
     ]
   };
 
@@ -88,14 +94,15 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
     var area = {
       number: ctrl.model.area.number,
       shape: ctrl.model.area.shape,
-      type: ctrl.model.area.type
+      type: ctrl.model.area.type.key
     };
 
     Areas.create({}, area).$promise.then(function(response) {
 
       Areas.updateEntity({
         id: response.id,
-        entity: 'city' }, '/cities/' + ctrl.model.area.city.id).$promise.then(function () {
+        entity: 'city' }, '/cities/' + ctrl.model.area.city.id).$promise.then(function (response) {
+          $location.path('/admin/areas/' + response.id);
       });
 
     });
@@ -107,7 +114,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
     var area = {
       number: ctrl.model.area.number,
       shape: ctrl.model.area.shape,
-      type: ctrl.model.area.type
+      type: ctrl.model.area.type.key
     };
 
     Areas.update({id : ctrl.id}, area).$promise.then(function() {
@@ -138,6 +145,12 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
       if(ctrl.model.area.city) {
         ctrl.model.area.city.id += '';
       }
+
+      for(var i=0; i<ctrl.entities.types.length; i++) {
+        if (angular.equals(ctrl.entities.types[i].key, ctrl.model.area.type)) {
+          ctrl.model.area.type = ctrl.entities.types[i];
+        }
+      };
 
       if (angular.isDefined(ctrl.model.area.shape)) {
         ctrl.model.area.shape = JSON.parse(ctrl.model.area.shape);

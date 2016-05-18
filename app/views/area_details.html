@@ -15,11 +15,11 @@
 
     <div class="form-group">
       <label for="type">Type</label>
-      <select id="type" name="type" class="form-control" ng-model="ctrl.model.area.type">
-        <option ng-repeat="type in ctrl.entities.types" value="{{type}}">{{type}}</option>
+      <select id="type" name="type" class="form-control" ng-model="ctrl.model.area.type" ng-options="type as type.label for type in ctrl.entities.types track by type.key">
+        <!--<option ng-repeat="type in ctrl.entities.types" value="{{type}}">{{type}}</option>-->
       </select>
     </div>
-
+{{ctrl.model.area.type}}
     <div class="form-group">
       <label for="city">City</label>
       <select id="city" name="city" class="form-control" ng-model="ctrl.model.area.city.id">
