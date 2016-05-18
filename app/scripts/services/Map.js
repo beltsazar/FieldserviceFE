@@ -72,6 +72,9 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
         editLayer;
 
     if (angular.isDefined(geoJson)) {
+
+      console.log('geoJson', geoJson)
+
       editLayer = L.geoJson(geoJson, {
         pointToLayer: function(feature, latlng) {
           var options = {};
@@ -83,20 +86,23 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
           return L.marker([latlng.lat, latlng.lng], options);
         },
       });
+
+      if(popup) {
+        editLayer.bindPopup(popup);
+      }
+
+      if(autoZoom) {
+        var bounds = editLayer.getBounds();
+        if(bounds.isValid()) {
+          map.fitBounds(bounds);
+        }
+      }
     }
     else {
       editLayer = new L.FeatureGroup();
     }
 
     editLayer.setStyle(config.map.styles.default);
-
-    if(popup) {
-      editLayer.bindPopup(popup);
-    }
-
-    if(autoZoom) {
-      map.fitBounds(editLayer.getBounds());
-    }
 
     editLayer.addTo(map);
 

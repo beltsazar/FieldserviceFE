@@ -22,10 +22,12 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (Areas, Map)
     var map = new Map('AreaOverview');
 
     angular.forEach(ctrl.areas, function (area) {
-      map.getLayer(area.shape, {
-        label: area.number,
-        popup: '<a href="#/admin/areas/' + area.id + '"><b>' + area.city.name + ' ' + area.number + '</b></a>'
-      });
+      if(angular.isDefined(area.shape)) {
+        map.getLayer(JSON.parse(area.shape), {
+          label: area.number,
+          popup: '<a href="#/admin/areas/' + area.id + '"><b>' + area.city.name + ' ' + area.number + '</b></a>'
+        });
+      }
     });
 
   }
