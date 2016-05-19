@@ -23,6 +23,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetListAdmin', function ($
       mode: 'view'}).$promise.then(function(response) {
 
       angular.forEach(response, function(value) {
+        delete value.assignment.area.shape; // No map needed in list mode
         ctrl.worksheets.push(new Worksheet(value));
       });
 

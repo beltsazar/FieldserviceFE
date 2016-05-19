@@ -8,7 +8,7 @@
  * # city
  * Factory in the fieldserviceFeApp.
  */
-angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Worksheets, Addresses, Visits, Assignments, Annotations) {
+angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $timeout, Worksheets, Addresses, Visits, Assignments, Annotations, Map) {
 
   /**
    * Worksheet Class
@@ -29,6 +29,45 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, Works
     this.assignment = data.assignment;
     this.groups = this.createGroups(data.groups);
     this.summary = this.getIterationSummary();
+
+    var scope = this;
+    if (angular.isDefined(this.assignment.area.shape)) {
+      $timeout(function() {
+        scope.showMap(scope.assignment.area.shape);
+      }, 50);
+
+    }
+  };
+
+  Worksheet.prototype.showMap = function (geoJsonObject) {
+    /**
+     * Initialise Leaflet map
+     * @param geoJSON
+     */
+    var scope = this;
+
+    var areaMap = new Map('AreaMap');
+
+    var geoJsonLayer = new L.GeoJSON(geoJsonObject, {
+      pointToLayer: function (feature, latlng) {
+        var options = {
+          icon : L.divIcon({
+            className: 'area-div-icon',
+            iconSize: null,
+            html: scope.assignment.area.number
+          })
+        };
+        return L.marker([latlng.lat, latlng.lng], options);
+      }
+    });
+
+    var bounds = geoJsonLayer.getBounds();
+    if(bounds.isValid()) {
+      areaMap.map.fitBounds(bounds);
+    }
+
+    areaMap.map.addLayer(geoJsonLayer);
+
   };
 
   Worksheet.prototype.createGroups = function(groups) {

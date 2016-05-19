@@ -1,4 +1,4 @@
- <div class="panel panel-primary">
+<div class="panel panel-primary">
     <div class="panel-heading">
       <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap font-size-20 p-l-5"><b>{{worksheet.area.number}}</b></span> <a ng-href="#/admin/assignments/{{worksheet.assignment.id}}"><span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></a></h1>
     </div>
@@ -86,6 +86,16 @@
   </div>
 
   <form ng-if="!ctrl.isListView">
+
+    <uib-accordion close-others="oneAtATime" ng-if="worksheet.assignment.active">
+      <uib-accordion-group is-open=true class="m-b-0">
+        <uib-accordion-heading>
+          <p class="font-size-18 m-t-10">Kaart - {{worksheet.assignment.area.city.name}} {{worksheet.assignment.area.number}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>
+        </uib-accordion-heading>
+
+        <div id="AreaMap" style="width:100%; height:200px;"></div>
+      </uib-accordion-group>
+    </uib-accordion>
 
     <uib-accordion close-others="oneAtATime" ng-if="worksheet.assignment.active">
       <uib-accordion-group ng-repeat="group in worksheet.groups" is-open="status.open" class="m-b-10">

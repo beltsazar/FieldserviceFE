@@ -23,7 +23,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
     Worksheets.get({
       id: ctrl.id,
       mode: 'view'}).$promise.then(function(response) {
-      ctrl.worksheets.push(new Worksheet(response));
+        ctrl.worksheets.push(new Worksheet(response));
     });
 
   };
