@@ -57,13 +57,19 @@
         <b ng-if="worksheet.assignment.active">Afwezigen tijdens deze ronde</b><b ng-if="!worksheet.assignment.active">Afwezigen einde bewerking</b>  <span class="badge">{{worksheet.getNumberOfAbsentsByIteration(worksheet.iteration)}}</span>
       </div>
 
-      <div class="panel-body" ng-if="worksheet.assignment.active">
+      <div class="panel-body" ng-if="ctrl.isListView && worksheet.assignment.active">
         <div class="row">
           <div class="col-xs-12">
-            <a ng-if="ctrl.isListView" class="btn btn-primary btn-block m-b-10" ng-href="#/worksheets/{{worksheet.id}}" type="button">
+            <a ng-if="ctrl.isListView" class="btn btn-primary btn-block" ng-href="#/worksheets/{{worksheet.id}}" type="button">
               <b>Bewerken</b>
             </a>
-            <div ng-show="worksheet.owner || application.hasRole('ROOT')">
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-body" ng-if="!ctrl.isListView && worksheet.assignment.active && (worksheet.owner || application.hasRole('ROOT'))">
+        <div class="row">
+          <div class="col-xs-12">
               <button ng-if="!worksheet.visible" class="btn btn-success btn-block m-b-10" ng-click="worksheet.setVisibility(true)" type="button">
                 <b>Deel met de gemeente</b>
               </button>
@@ -78,16 +84,15 @@
               </button>
             </div>
           </div>
-        </div>
       </div>
 
     </div>
 
   </div>
 
-  <form ng-if="!ctrl.isListView">
+  <form ng-if="!ctrl.isListView && worksheet.assignment.active">
 
-    <uib-accordion close-others="oneAtATime" ng-if="worksheet.assignment.active">
+    <uib-accordion close-others="oneAtATime">
       <uib-accordion-group is-open=true class="m-b-0">
         <uib-accordion-heading>
           <p class="font-size-18 m-t-10">Kaart - {{worksheet.assignment.area.city.name}} {{worksheet.assignment.area.number}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>

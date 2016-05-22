@@ -6,17 +6,19 @@
   </p>
 </div>
 
-<h2 class="text-center m-b-20">Mijn toewijzingen</h2>
-
 <div ng-controller="WorksheetListMe as ctrl">
+{{}}
+  <h2 class="text-center m-b-20" ng-if="ctrl.worksheets.length > 0">Mijn toewijzingen</h2>
 
   <div ng-include="'views/worksheet_list.html'"></div>
 
 </div>
 
-<h2 class="text-center m-b-20">Toewijzingen voor de hele gemeente</h2>
-
 <div ng-controller="WorksheetList as ctrl">
+
+  <h2 class="text-center m-b-20" ng-if="ctrl.worksheets.length > 0">Toewijzingen voor de hele gemeente</h2>
+
+  <uib-alert ng-if="ctrl.worksheets.length === 0" type="danger"><p class="font-size-22 m-t-10 text-center">Op dit moment zijn er <b>geen</b> toewijzingen actief, die voor de hele gemeente toegankelijk zijn!</p></uib-alert>
 
   <div ng-include="'views/worksheet_list.html'"></div>
 
