@@ -73,8 +73,6 @@ angular.module('fieldserviceFeApp').service('Map', function (Application, config
 
     if (angular.isDefined(geoJson)) {
 
-      console.log('geoJson', geoJson)
-
       editLayer = L.geoJson(geoJson, {
         pointToLayer: function(feature, latlng) {
           var options = {};

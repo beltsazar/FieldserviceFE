@@ -117,6 +117,8 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
       type: ctrl.model.area.type.key
     };
 
+    console.log(area.shape)
+
     Areas.update({id : ctrl.id}, area).$promise.then(function() {
 
       Areas.updateEntity({
@@ -154,16 +156,23 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
 
       if (angular.isDefined(ctrl.model.area.shape)) {
         ctrl.model.area.shape = JSON.parse(ctrl.model.area.shape);
+
+        /**
+         * Enrich Json object with area properties
+         */
+        angular.forEach(ctrl.model.area.shape.features, function (feature) {
+          feature.properties = {
+            label: ctrl.model.area.number,
+            popup:  '<a href="#/admin/areas/' + ctrl.model.area.id+ '"><b>' + ctrl.model.area.city.name + ' ' + ctrl.model.area.number + '</b></a>'
+          };
+        });
+
       }
 
-      initializeMap(ctrl.model.area.shape);
       ctrl.getAssignments();
       ctrl.getAddresses();
 
     });
-  }
-  else {
-    initializeMap();
   }
 
   // Get all the cities
