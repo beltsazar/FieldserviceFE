@@ -9,7 +9,7 @@
 angular.module('fieldserviceFeApp')
   .directive('map', function ($timeout, config) {
 
-	  /**
+    /**
      * Map object
      * @param mapId
      * @constructor
@@ -19,7 +19,7 @@ angular.module('fieldserviceFeApp')
       this.initialize();
     }
 
-	  /**
+    /**
      * Initialize map
      * @returns {Map}
      */
@@ -44,23 +44,23 @@ angular.module('fieldserviceFeApp')
         reuseTiles: true
       }).addTo(this.map);
 
-      this.map.on('zoomend', function(e) {
+      this.map.on('zoomend', function (e) {
         scope.adjustZoomStyling();
       });
 
       return this;
     };
 
-	  /**
+    /**
      * Zoom handler
      * @param map
      */
-    Map.prototype.adjustZoomStyling = function(map) {
+    Map.prototype.adjustZoomStyling = function (map) {
       var mapElement = angular.element('div#' + this.mapId);
 
-      mapElement.removeClass(function() {
+      mapElement.removeClass(function () {
         var elementsToRemove = '';
-        for (var i=1; i<=19; i++) {
+        for (var i = 1; i <= 19; i++) {
           elementsToRemove += 'zoom-' + i + ' ';
         }
         return elementsToRemove;
@@ -85,13 +85,13 @@ angular.module('fieldserviceFeApp')
         editLayer = L.geoJson(geoJson, {
           onEachFeature: function (feature, layer) {
             var popup = feature.properties.popup;
-            if(popup) {
+            if (popup) {
               layer.bindPopup(popup);
             }
           },
-          pointToLayer: function(feature, latlng) {
+          pointToLayer: function (feature, latlng) {
             var options = {},
-                label = feature.properties.label;
+              label = feature.properties.label;
 
             if (angular.isDefined(label)) {
               options.icon = L.divIcon({
@@ -106,12 +106,11 @@ angular.module('fieldserviceFeApp')
         });
 
 
-
         //if(autoZoom) {
-          var bounds = editLayer.getBounds();
-          if(bounds.isValid()) {
-            map.fitBounds(bounds);
-          }
+        var bounds = editLayer.getBounds();
+        if (bounds.isValid()) {
+          map.fitBounds(bounds);
+        }
         //}
       }
       else {
@@ -125,14 +124,56 @@ angular.module('fieldserviceFeApp')
       return editLayer;
     };
 
+    Map.prototype.getFeatureGroup = function () {
+      return new L.FeatureGroup();
+    };
+
+    Map.prototype.focusLayer = function (layer) {
+      var bounds = layer.getBounds();
+      if (bounds.isValid()) {
+        this.map.fitBounds(bounds);
+      }
+    }
+
+    Map.prototype.getGeoJsonLayer = function () {
+
+      var geoJsonLayer = L.geoJson(undefined, {
+
+        onEachFeature: function (feature, layer) {
+          var popup = feature.properties.popup;
+          if (popup) {
+            layer.bindPopup(popup);
+          }
+        },
+        pointToLayer: function (feature, latlng) {
+          var options = {},
+            label = feature.properties.label;
+
+          if (angular.isDefined(label)) {
+            options.icon = L.divIcon({
+              className: 'area-div-icon',
+              iconSize: null,
+              html: label
+            });
+          }
+
+          return L.marker([latlng.lat, latlng.lng], options);
+        }
+      });
+
+      geoJsonLayer.setStyle(config.map.styles.default);
+
+      return geoJsonLayer;
+    }
+
+
     Map.prototype.getEditor = function (editLayer, contentUpdateHandler) {
       var map = this.map;
 
       var drawControl = new L.Control.Draw({
         edit: {
           featureGroup: editLayer,
-          edit: {
-          }
+          edit: {}
         },
         draw: {}
       });
@@ -141,7 +182,7 @@ angular.module('fieldserviceFeApp')
 
       map.on('draw:created', function (e) {
         var layer = e.layer;
-        if(angular.isDefined(layer.setStyle)) {
+        if (angular.isDefined(layer.setStyle)) {
           layer.setStyle(config.map.styles.default);
         }
         editLayer.addLayer(layer);
@@ -155,36 +196,50 @@ angular.module('fieldserviceFeApp')
     };
 
 
-	  /**
+    /**
      * Controller
      * @param $scope
      */
     var mapController = function ($scope) {
-      var map,
-          ctrl = this;
+      var ctrl = this,
+          initialized = false,
+          mapObject;
 
-      $scope.$watch('ctrl.geoJsonObject', function (value ) {
-
-        if(angular.isDefined(value) && !angular.isDefined(map)) {
-          map = new Map(ctrl.id);
-
-          //var geoJsonLayer = map.addGeoJsonLayer();
-
-
-          var editLayer = map.getLayer(ctrl.geoJsonObject);
-
-          var editor = map.getEditor(editLayer, function (geoJsonObject) {
-            ctrl.geoJsonObject = geoJsonObject;
-            $scope.$apply();
-          });
-
+      $scope.$watch('ctrl.geoJsonObject', function (geoJsonObject) {
+        if (angular.isDefined(geoJsonObject) && !initialized) {
+          mapObject = new Map(ctrl.id);
+          initEditor(geoJsonObject);
+          initialized = true;
         }
-
       });
 
-    }
+      $scope.$on('$destroy', function() {
+        mapObject.map.remove();
+      });
 
-	  /**
+      function initEditor (geoJsonObject) {
+        var editorLayer;
+
+        if (angular.equals(geoJsonObject.type, 'FeatureCollection')) {
+          editorLayer = mapObject.getGeoJsonLayer();
+          editorLayer.addData(geoJsonObject);
+        }
+        else {
+          editorLayer = mapObject.getFeatureGroup();
+        }
+
+        mapObject.focusLayer(editorLayer);
+        editorLayer.addTo(mapObject.map);
+
+        mapObject.getEditor(editorLayer, function (geoJsonObject) {
+          ctrl.geoJsonObject = geoJsonObject;
+          $scope.$apply();
+        });
+        
+      }
+    };
+
+    /**
      * Configuration
      */
     return {

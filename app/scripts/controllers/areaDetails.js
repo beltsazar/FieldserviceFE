@@ -8,7 +8,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $resource, $routeParams, $location, $filter, Areas, Addresses, Cities, Assignments, Map) {
+angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $timeout, $resource, $routeParams, $location, $filter, Areas, Addresses, Cities, Assignments, Map) {
 
   var ctrl = this;
 
@@ -97,11 +97,15 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
       type: ctrl.model.area.type.key
     };
 
+    if (!angular.equals(ctrl.model.area.shape.type, 'FeatureCollection')) {
+      delete area.shape;
+    }
+
     Areas.create({}, area).$promise.then(function(response) {
 
       Areas.updateEntity({
         id: response.id,
-        entity: 'city' }, '/cities/' + ctrl.model.area.city.id).$promise.then(function (response) {
+        entity: 'city' }, '/cities/' + ctrl.model.area.city.id).$promise.then(function () {
           $location.path('/admin/areas/' + response.id);
       });
 
@@ -117,8 +121,10 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
       type: ctrl.model.area.type.key
     };
 
-    console.log(area.shape)
-
+    if (!angular.equals(ctrl.model.area.shape.type, 'FeatureCollection')) {
+      delete area.shape;
+    }
+    
     Areas.update({id : ctrl.id}, area).$promise.then(function() {
 
       Areas.updateEntity({
@@ -168,11 +174,17 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
         });
 
       }
+      else {
+        ctrl.model.area.shape = {};
+      }
 
       ctrl.getAssignments();
       ctrl.getAddresses();
 
     });
+  }
+  else {
+    ctrl.model.area.shape = {};
   }
 
   // Get all the cities
