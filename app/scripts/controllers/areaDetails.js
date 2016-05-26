@@ -33,33 +33,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
   };
 
   ctrl.id = $routeParams.id;
-
-	/**
-   * Initialise Leaflet map
-   * @param geoJsonString
-   */
-
-  function initializeMap (geoJson) {
-    var editMap = new Map('MapEditor'),
-        editLayer,
-        options;
-
-    if(angular.isDefined(geoJson)) {
-      options = {
-        label: ctrl.model.area.number,
-        popup: '<a href="#/admin/areas/' + ctrl.model.area.id + '"><b>' + ctrl.model.area.city.name + ' ' + ctrl.model.area.number + '</b></a>',
-        autoZoom: true
-      };
-    }
-
-    editLayer = editMap.getLayer(geoJson, options);
-
-    var editor = editMap.getEditor(editLayer, function contentUpdateHandler (e) {
-      ctrl.model.area.shape = editLayer.toGeoJSON();
-    });
-
-  }
-
+  
   // Get the related addresses
   this.getAddresses = function() {
     Addresses.findByArea({
@@ -124,7 +98,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
     if (!angular.equals(ctrl.model.area.shape.type, 'FeatureCollection')) {
       delete area.shape;
     }
-    
+
     Areas.update({id : ctrl.id}, area).$promise.then(function() {
 
       Areas.updateEntity({

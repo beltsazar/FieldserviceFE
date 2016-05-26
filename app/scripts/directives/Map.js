@@ -69,63 +69,10 @@ angular.module('fieldserviceFeApp')
       angular.element('div#' + this.mapId).addClass('zoom-' + this.map.getZoom());
     };
 
-    /**
-     * getLayer
-     * @param geoJson
-     * @param options {center: true|false, label: String, popup: String }
-     * @returns {*}
-     */
-    Map.prototype.getLayer = function (geoJson, options) {
-
-      var map = this.map,
-        editLayer;
-
-      if (angular.isDefined(geoJson)) {
-
-        editLayer = L.geoJson(geoJson, {
-          onEachFeature: function (feature, layer) {
-            var popup = feature.properties.popup;
-            if (popup) {
-              layer.bindPopup(popup);
-            }
-          },
-          pointToLayer: function (feature, latlng) {
-            var options = {},
-              label = feature.properties.label;
-
-            if (angular.isDefined(label)) {
-              options.icon = L.divIcon({
-                className: 'area-div-icon',
-                iconSize: null,
-                html: label
-              });
-            }
-
-            return L.marker([latlng.lat, latlng.lng], options);
-          }
-        });
-
-
-        //if(autoZoom) {
-        var bounds = editLayer.getBounds();
-        if (bounds.isValid()) {
-          map.fitBounds(bounds);
-        }
-        //}
-      }
-      else {
-        editLayer = new L.FeatureGroup();
-      }
-
-      editLayer.setStyle(config.map.styles.default);
-
-      editLayer.addTo(map);
-
-      return editLayer;
-    };
-
     Map.prototype.getFeatureGroup = function () {
-      return new L.FeatureGroup();
+      var featureGroup = new L.FeatureGroup();
+      featureGroup.setStyle(config.map.styles.default);
+      return featureGroup;
     };
 
     Map.prototype.focusLayer = function (layer) {
@@ -208,7 +155,11 @@ angular.module('fieldserviceFeApp')
       $scope.$watch('ctrl.geoJsonObject', function (geoJsonObject) {
         if (angular.isDefined(geoJsonObject) && !initialized) {
           mapObject = new Map(ctrl.id);
-          initEditor(geoJsonObject);
+
+          if(angular.equals(ctrl.mode, 'edit')) {
+            initEditor(geoJsonObject);
+          }
+
           initialized = true;
         }
       });
@@ -235,7 +186,7 @@ angular.module('fieldserviceFeApp')
           ctrl.geoJsonObject = geoJsonObject;
           $scope.$apply();
         });
-        
+
       }
     };
 
