@@ -98,7 +98,7 @@
           <p class="font-size-18 m-t-10">Kaart - {{worksheet.assignment.area.city.name}} {{worksheet.assignment.area.number}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></p>
         </uib-accordion-heading>
 
-        <div id="AreaMap" style="width:100%; height:200px;"></div>
+        <div map id="Map" mode="view" shape="worksheet.shape" style="width:100%; height:200px;"></div>
       </uib-accordion-group>
     </uib-accordion>
 

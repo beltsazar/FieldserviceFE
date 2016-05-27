@@ -111,8 +111,13 @@ angular.module('fieldserviceFeApp')
       geoJsonLayer.setStyle(config.map.styles.default);
 
       return geoJsonLayer;
-    }
+    };
 
+    Map.prototype.getSimpleGeoJsonLayer = function (geoJsonObject) {
+      var geoJsonLayer = L.geoJson(geoJsonObject);
+      geoJsonLayer.setStyle(config.map.styles.default);
+      return geoJsonLayer;
+    }
 
     Map.prototype.getEditor = function (editLayer, contentUpdateHandler) {
       var map = this.map;
@@ -159,6 +164,11 @@ angular.module('fieldserviceFeApp')
           if(angular.equals(ctrl.mode, 'edit')) {
             initEditor(shape);
           }
+          else {
+            var shapes = [];
+            shapes.push(shape);
+            initShapes(shapes);
+          }
 
           initialized = true;
         }
@@ -186,13 +196,12 @@ angular.module('fieldserviceFeApp')
         mapObject.focusLayer(shapeLayer);
         shapeLayer.addTo(mapObject.map);
       }
-      
+
       function initEditor (geoJsonObject) {
         var editorLayer;
 
         if (angular.equals(geoJsonObject.type, 'FeatureCollection')) {
-          editorLayer = mapObject.getGeoJsonLayer();
-          editorLayer.addData(geoJsonObject);
+          editorLayer = mapObject.getSimpleGeoJsonLayer(geoJsonObject);
         }
         else {
           editorLayer = mapObject.getFeatureGroup();
@@ -202,7 +211,7 @@ angular.module('fieldserviceFeApp')
         editorLayer.addTo(mapObject.map);
 
         mapObject.getEditor(editorLayer, function (geoJsonObject) {
-          ctrl.geoJsonObject = geoJsonObject;
+          ctrl.shape = geoJsonObject;
           $scope.$apply();
         });
 

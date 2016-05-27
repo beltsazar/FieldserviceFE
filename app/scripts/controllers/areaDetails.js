@@ -33,7 +33,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
   };
 
   ctrl.id = $routeParams.id;
-  
+
   // Get the related addresses
   this.getAddresses = function() {
     Addresses.findByArea({
@@ -136,17 +136,6 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
 
       if (angular.isDefined(ctrl.model.area.shape)) {
         ctrl.model.area.shape = JSON.parse(ctrl.model.area.shape);
-
-        /**
-         * Enrich Json object with area properties
-         */
-        angular.forEach(ctrl.model.area.shape.features, function (feature) {
-          feature.properties = {
-            label: ctrl.model.area.number,
-            popup:  '<a href="#/admin/areas/' + ctrl.model.area.id+ '"><b>' + ctrl.model.area.city.name + ' ' + ctrl.model.area.number + '</b></a>'
-          };
-        });
-
       }
       else {
         ctrl.model.area.shape = {};

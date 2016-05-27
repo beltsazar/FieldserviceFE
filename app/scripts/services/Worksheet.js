@@ -26,47 +26,29 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
     this.creationDate = data.creationDate;
     this.closeDate = data.closeDate;
     this.area = data.assignment.area;
+    this.shape = undefined;
     this.assignment = data.assignment;
     this.groups = this.createGroups(data.groups);
     this.summary = this.getIterationSummary();
 
-    var scope = this;
-    if (angular.isDefined(this.assignment.area.shape)) {
-      $timeout(function() {
-        scope.showMap(scope.assignment.area.shape);
-      }, 50);
-
-    }
+    this.processShape(this.area.shape);
   };
 
-  Worksheet.prototype.showMap = function (geoJsonObject) {
-    /**
-     * Initialise Leaflet map
-     * @param geoJSON
-     */
+  Worksheet.prototype.processShape = function (shape) {
     var scope = this;
 
-    var areaMap = new Map('AreaMap');
-
-    var geoJsonLayer = new L.GeoJSON(geoJsonObject, {
-      pointToLayer: function (feature, latlng) {
-        var options = {
-          icon : L.divIcon({
-            className: 'area-div-icon',
-            iconSize: null,
-            html: scope.assignment.area.number
-          })
+    if(angular.isDefined(shape)) {
+      /**
+       * Enrich Json object with area properties
+       */
+      angular.forEach(shape.features, function (feature) {
+        feature.properties = {
+          label: scope.area.number
         };
-        return L.marker([latlng.lat, latlng.lng], options);
-      }
-    });
+      });
 
-    var bounds = geoJsonLayer.getBounds();
-    if(bounds.isValid()) {
-      areaMap.map.fitBounds(bounds);
+      this.shape = shape;
     }
-
-    areaMap.map.addLayer(geoJsonLayer);
 
   };
 

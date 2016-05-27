@@ -142,9 +142,12 @@ body {
 .zoom-9 .area-div-icon,
 .zoom-10 .area-div-icon,
 .zoom-11 .area-div-icon,
-.zoom-12 .area-div-icon,
-.zoom-13 .area-div-icon {
+.zoom-12 .area-div-icon {
   display: none;
+}
+
+.zoom-13 .area-div-icon {
+  font-size:12px;
 }
 
 .zoom-14 .area-div-icon {
