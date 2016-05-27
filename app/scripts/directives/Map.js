@@ -152,14 +152,22 @@ angular.module('fieldserviceFeApp')
           initialized = false,
           mapObject;
 
-      $scope.$watch('ctrl.geoJsonObject', function (geoJsonObject) {
-        if (angular.isDefined(geoJsonObject) && !initialized) {
+      $scope.$watch('ctrl.shape', function (shape) {
+        if (angular.isDefined(shape) && !initialized) {
           mapObject = new Map(ctrl.id);
 
           if(angular.equals(ctrl.mode, 'edit')) {
-            initEditor(geoJsonObject);
+            initEditor(shape);
           }
 
+          initialized = true;
+        }
+      });
+
+      $scope.$watch('ctrl.shapes', function (shapes) {
+        if (angular.isDefined(shapes) && shapes.length > 0 && !initialized) {
+          mapObject = new Map(ctrl.id);
+          initShapes(shapes);
           initialized = true;
         }
       });
@@ -168,6 +176,17 @@ angular.module('fieldserviceFeApp')
         mapObject.map.remove();
       });
 
+      function initShapes (shapes) {
+        var shapeLayer = mapObject.getGeoJsonLayer();
+
+        for(var i=0; i<shapes.length; i++) {
+          shapeLayer.addData(shapes[i]);
+        }
+
+        mapObject.focusLayer(shapeLayer);
+        shapeLayer.addTo(mapObject.map);
+      }
+      
       function initEditor (geoJsonObject) {
         var editorLayer;
 
@@ -197,7 +216,8 @@ angular.module('fieldserviceFeApp')
       restrict: 'EA',
       scope: {},
       bindToController: {
-        geoJsonObject: '=',
+        shape: '=',
+        shapes: '=',
         mode: '@',
         id: '@'
       },
