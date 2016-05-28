@@ -8,7 +8,7 @@
  * # city
  * Factory in the fieldserviceFeApp.
  */
-angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $timeout, Worksheets, Addresses, Visits, Assignments, Annotations, Map) {
+angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $timeout, Worksheets, Addresses, Visits, Assignments, Annotations) {
 
   /**
    * Worksheet Class

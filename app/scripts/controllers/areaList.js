@@ -8,7 +8,7 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaList', function (Areas, Map) {
+angular.module('fieldserviceFeApp').controller('AreaList', function (Areas) {
 
   var ctrl = this;
 

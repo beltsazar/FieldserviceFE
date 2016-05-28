@@ -5,6 +5,11 @@
 
     <div class="list-group">
       <div class="list-group-item">
+        <div class="row m-b-10" ng-if="worksheet.assignment.campaign">
+          <div class="col-xs-12">
+            <span class="label label-bordered block font-size-18">{{worksheet.assignment.campaign.name}}</span>
+          </div>
+        </div>
         <div class="row m-b-10">
           <div class="col-xs-6 p-r-5">
             <span class="label label-warning block font-size-16" ng-if="worksheet.assignment.active">In bewerking</span><span class="label label-default block font-size-16" ng-if="!worksheet.assignment.active">Afgesloten</span>

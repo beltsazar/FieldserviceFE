@@ -8,7 +8,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $timeout, $resource, $routeParams, $location, $filter, Areas, Addresses, Cities, Assignments, Map) {
+angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $timeout, $resource, $routeParams, $location, $filter, Areas, Addresses, Cities, Assignments) {
 
   var ctrl = this;
 

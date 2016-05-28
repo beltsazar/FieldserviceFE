@@ -7,7 +7,7 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($resource, $routeParams, $location, $filter, Assignments, Areas, Accounts, Worksheets) {
+angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($resource, $routeParams, $location, $filter, Assignments, Areas, Accounts, Worksheets, Campaigns) {
 
   var ctrl = this;
 
@@ -19,17 +19,18 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
 
   ctrl.entities = {
     areas: [],
-    accounts: []
+    accounts: [],
+    campaigns: []
   };
 
   // Haal de resource op bij inladen controller, behalve bij create
   if(ctrl.id !== 'create') {
     Assignments.get({id: ctrl.id, projection: 'entities'}).$promise.then(function (response) {
       ctrl.model.assignment = response;
-      if (ctrl.model.assignment.area !== null) {
+      if (angular.isDefined(ctrl.model.assignment.area)) {
         ctrl.model.assignment.area.id += '';
       }
-      if (ctrl.model.assignment.account !== null) {
+      if (angular.isDefined(ctrl.model.assignment.account)) {
         ctrl.model.assignment.account.id += '';
       }
     });
@@ -54,11 +55,22 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
     ctrl.entities.accounts = result;
   });
 
+  // Get the accounts
+  Campaigns.query({
+    sort: ['active,desc']
+  }).$promise.then(function (result) {
+    ctrl.entities.campaigns = result;
+  });
+
   // Maak nieuwe resource
   this.create = function() {
     var assignment = angular.copy(ctrl.model.assignment);
     assignment.area = '/areas/' + ctrl.model.assignment.area.id;
     assignment.account = '/accounts/' + ctrl.model.assignment.account.id;
+
+    if(angular.isDefined(ctrl.model.assignment.campaign)) {
+      assignment.campaign = '/campaigns/' + ctrl.model.assignment.campaign.id;
+    }
 
     Assignments.create({}, assignment).$promise.then(function(response) {
       $location.path('/admin/assignments/' + response.id);
@@ -70,6 +82,11 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
     var assignment = angular.copy(ctrl.model.assignment);
     assignment.area = '/areas/' + ctrl.model.assignment.area.id;
     assignment.account = '/accounts/' + ctrl.model.assignment.account.id;
+    
+    if(angular.isDefined(ctrl.model.assignment.campaign)) {
+      assignment.campaign = '/campaigns/' + ctrl.model.assignment.campaign.id;
+    }
+
     Assignments.update({id : ctrl.id}, assignment).$promise.then(function() {
     });
   };
