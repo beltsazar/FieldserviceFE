@@ -21,7 +21,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetList', function ($q, $r
 
     Worksheets.query({
       mode: 'view',
-      filter: 'visible'}).$promise.then(function(response) {
+      filter: ['visible','campaign']}).$promise.then(function(response) {
 
       angular.forEach(response, function(value) {
         ctrl.worksheets.push(new Worksheet(value));
