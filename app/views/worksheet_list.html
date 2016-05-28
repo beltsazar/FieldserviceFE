@@ -1,3 +1,35 @@
+<div ng-if="ctrl.adminMode">
+  <h1>Worksheets</h1>
+
+  <div class="row m-b-15">
+    <div class="col-xs-12">
+      <label>Filter</label>
+      <form class="form-inline">
+
+        <div class="checkbox m-r-5">
+          <label>
+            <input type="checkbox" ng-model="ctrl.filterOptions.campaign"> Campaign
+          </label>
+        </div>
+
+        <div class="checkbox m-r-5">
+          <label>
+            <input type="checkbox" ng-model="ctrl.filterOptions.active"> Active
+          </label>
+        </div>
+
+        <div class="checkbox m-r-10">
+          <label>
+            <input type="checkbox" ng-model="ctrl.filterOptions.shared"> Shared
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-default btn-sm m-l-" ng-click="ctrl.loadWorksheets();">Apply</button>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div ng-repeat="worksheet in ctrl.worksheets">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-include="'views/worksheet.html'"></div>

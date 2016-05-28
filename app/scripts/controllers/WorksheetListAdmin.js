@@ -13,23 +13,46 @@ angular.module('fieldserviceFeApp').controller('WorksheetListAdmin', function ($
 
   ctrl.worksheets = [];
   ctrl.isListView = true;
+  ctrl.adminMode = true;
+  ctrl.filterOptions = {
+    campaign: true,
+    active: true,
+    shared: false
+  };
 
 	/**
    * Initialize
    */
-  ctrl.init = function () {
+  ctrl.loadWorksheets = function () {
+
+    ctrl.filter = [];
+
+    if(ctrl.filterOptions.campaign) {
+      ctrl.filter.push('campaign');
+    }
+
+    if(ctrl.filterOptions.active) {
+      ctrl.filter.push('active');
+    }
+
+    if(ctrl.filterOptions.shared) {
+      ctrl.filter.push('shared');
+    }
 
     Worksheets.query({
-      mode: 'view'}).$promise.then(function(response) {
+      mode: 'view',
+      filter: ctrl.filter}).$promise.then(function(response) {
 
-      angular.forEach(response, function(value) {
-        ctrl.worksheets.push(new Worksheet(value));
-      });
+        ctrl.worksheets = [];
+
+        angular.forEach(response, function(value) {
+          ctrl.worksheets.push(new Worksheet(value));
+        });
 
     });
 
   };
 
-  ctrl.init();
+  ctrl.loadWorksheets();
 
 });
