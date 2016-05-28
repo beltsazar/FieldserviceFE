@@ -20,7 +20,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
 
   Worksheet.prototype.initialize = function(data) {
     this.id = data.id;
-    this.visible = data.visible;
+    this.shared = data.shared;
     this.owner = data.owner;
     this.iteration = data.iteration;
     this.creationDate = data.creationDate;
@@ -227,12 +227,12 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
     return totalNumberOfAbsents;
   };
 
-  Worksheet.prototype.setVisibility = function (visible) {
+  Worksheet.prototype.setVisibility = function (shared) {
     var worksheet;
 
-    this.visible = visible;
+    this.shared = shared;
     worksheet = angular.copy(this);
-    worksheet.visible = visible;
+    worksheet.shared = shared;
     worksheet.assignment = 'assignment/' + worksheet.assignment.id;
 
     Worksheets.update({id: worksheet.id}, worksheet).$promise.then(function() {
@@ -262,7 +262,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
         assignment = angular.copy(worksheet.assignment);
     worksheet.active = false;
     worksheet.closeDate = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
-    worksheet.visible = false;
+    worksheet.shared = false;
     worksheet.assignment = 'assignment/' + worksheet.assignment.id;
 
     Worksheets.update({id: worksheet.id}, worksheet).$promise.then(function() {

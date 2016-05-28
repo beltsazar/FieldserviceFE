@@ -20,7 +20,7 @@
         </div>
         <div class="row m-b-10">
           <div class="col-xs-12">
-            <span class="label label-info block font-size-18" ng-if="worksheet.visible">Gedeeld met de gemeente</span><span class="label label-default block font-size-18" ng-if="!worksheet.visible">Verborgen voor gemeente</span>
+            <span class="label label-info block font-size-18" ng-if="worksheet.shared">Gedeeld met de gemeente</span><span class="label label-default block font-size-18" ng-if="!worksheet.shared">Verborgen voor gemeente</span>
           </div>
         </div>
         <p class="m-b-5">Beheerder: <b>{{worksheet.assignment.account.firstName}} {{worksheet.assignment.account.infix}} {{worksheet.assignment.account.lastName}}</b></p>
@@ -75,10 +75,10 @@
       <div class="panel-body" ng-if="!ctrl.isListView && worksheet.assignment.active && (worksheet.owner || application.hasRole('ROOT'))">
         <div class="row">
           <div class="col-xs-12">
-              <button ng-if="!worksheet.visible" class="btn btn-success btn-block m-b-10" ng-click="worksheet.setVisibility(true)" type="button">
+              <button ng-if="!worksheet.shared" class="btn btn-success btn-block m-b-10" ng-click="worksheet.setVisibility(true)" type="button">
                 <b>Deel met de gemeente</b>
               </button>
-              <button ng-if="worksheet.visible" class="btn btn-warning btn-block m-b-10" ng-click="worksheet.setVisibility(false)" type="button">
+              <button ng-if="worksheet.shared" class="btn btn-warning btn-block m-b-10" ng-click="worksheet.setVisibility(false)" type="button">
                 <b>Verberg voor de gemeente</b>
               </button>
               <button class="btn btn-primary btn-block m-b-10" ng-click="worksheet.newIteration()" type="button">
