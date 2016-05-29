@@ -33,44 +33,58 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
       if (angular.isDefined(ctrl.model.assignment.account)) {
         ctrl.model.assignment.account.id += '';
       }
+
+      getEntities('edit');
     });
   }
   else {
     ctrl.model.assignment.active = true;
     ctrl.model.assignment.personal = false;
+
+    getEntities('create');
   }
 
-  // Get the areas
-  Areas.query({
-    projection: 'entities',
-    sort: ['city.name','number']
-  }).$promise.then(function (result) {
-    ctrl.entities.areas = result;
-  });
+  function getEntities(mode) {
 
-  // Get the accounts
-  Accounts.query({
-    sort: ['firstName','lastName']
-  }).$promise.then(function (result) {
-    ctrl.entities.accounts = result;
-  });
+    // Get the areas
+    Areas.query({
+      projection: 'entities',
+      sort: ['city.name', 'number']
+    }).$promise.then(function (result) {
+      ctrl.entities.areas = result;
+    });
 
-  // Get the accounts
-  Campaigns.query({
-    sort: ['active,desc']
-  }).$promise.then(function (result) {
-    ctrl.entities.campaigns = result;
-  });
+    // Get the accounts
+    Accounts.query({
+      sort: ['firstName', 'lastName']
+    }).$promise.then(function (result) {
+      ctrl.entities.accounts = result;
+    });
+
+    // Get the accounts
+    Campaigns.query({
+      sort: ['active,desc','name,asc']
+    }).$promise.then(function (result) {
+      ctrl.entities.campaigns = result;
+
+      if (angular.equals(mode, 'create')) {
+        angular.forEach(ctrl.entities.campaigns, function (value) {
+          if (value.active) {
+            ctrl.model.assignment.campaign = value;
+          }
+        });
+      }
+
+    });
+
+  }
 
   // Maak nieuwe resource
   this.create = function() {
     var assignment = angular.copy(ctrl.model.assignment);
     assignment.area = '/areas/' + ctrl.model.assignment.area.id;
     assignment.account = '/accounts/' + ctrl.model.assignment.account.id;
-
-    if(angular.isDefined(ctrl.model.assignment.campaign)) {
-      assignment.campaign = '/campaigns/' + ctrl.model.assignment.campaign.id;
-    }
+    assignment.campaign = '/campaigns/' + ctrl.model.assignment.campaign.id;
 
     Assignments.create({}, assignment).$promise.then(function(response) {
       $location.path('/admin/assignments/' + response.id);
@@ -82,10 +96,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
     var assignment = angular.copy(ctrl.model.assignment);
     assignment.area = '/areas/' + ctrl.model.assignment.area.id;
     assignment.account = '/accounts/' + ctrl.model.assignment.account.id;
-    
-    if(angular.isDefined(ctrl.model.assignment.campaign)) {
-      assignment.campaign = '/campaigns/' + ctrl.model.assignment.campaign.id;
-    }
+    assignment.campaign = '/campaigns/' + ctrl.model.assignment.campaign.id;
 
     Assignments.update({id : ctrl.id}, assignment).$promise.then(function() {
     });
