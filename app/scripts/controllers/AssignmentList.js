@@ -16,7 +16,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function (Assig
   Assignments.query({
     projection: 'entities',
     sort: ['creationDate,asc'],
-    size: 1000 //TODO: refactor
+    size: 25 //TODO: refactor to paging
   }).$promise.then(function(result) {
     ctrl.assignments = result;
   });

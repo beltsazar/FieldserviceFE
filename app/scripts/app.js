@@ -100,6 +100,7 @@ angular
   .run(function ($rootScope, $location, $cookies, $http, Application, Authorisation) { //Insert in the function definition the dependencies you need.
 
     $rootScope.application = Application;
+    $rootScope.pendingRequests = $http.pendingRequests;
 
     Authorisation.status().$promise.then(function(response) {
 
