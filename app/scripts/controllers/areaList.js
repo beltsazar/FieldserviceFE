@@ -12,18 +12,19 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (Areas) {
 
   var ctrl = this;
 
+  ctrl.areas = [];
   ctrl.shapes = [];
 
   /**
    * Initialise Leaflet map
    * @param geoJSON
    */
-
-
-
+  
   Areas.query({sort : 'number', projection: 'entities'}).$promise.then(function(result) {
-    var areas = result,
-        shapes = [];
+    var shapes = [],
+        areas = result;
+
+    ctrl.areas = result;
 
     if (areas.length > 0) {
 
