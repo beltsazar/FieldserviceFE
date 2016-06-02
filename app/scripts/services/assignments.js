@@ -36,6 +36,16 @@ angular.module('fieldserviceFeApp').factory('Assignments', function ($resource, 
         search: 'search',
         findBy: 'findByArea'
       }
+    },
+    findByCampaign: {
+      isArray: true,
+      transformResponse: function(response) {
+        return [angular.fromJson(response)._embedded.assignments, angular.fromJson(response).page];
+      },
+      params: {
+        search: 'search',
+        findBy: 'findByCampaign'
+      }
     }
   });
 

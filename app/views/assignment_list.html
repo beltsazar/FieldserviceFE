@@ -1,25 +1,46 @@
  <h1>Assignments</h1>
 
- <table class="table">
-   <caption>List of Assignments</caption>
-   <thead>
-   <tr>
-     <th class="col-xs-1"></th>
-     <th>Area</th>
-     <th>Status</th>
-     <th>Access</th>
-     <th>Start Date</th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr ng-repeat="assignment in ctrl.assignments">
-     <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-     <td class="text-center">{{assignment.area.number}}</td>
-     <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
-     <td><span ng-if="assignment.personal" class="label label-danger">private</span><span ng-if="!assignment.personal" class="label label-success">public</span></td>
-     <td><nobr>{{assignment.creationDate | formatShortDate}}</nobr></td>
-   </tr>
-   </tbody>
- </table>
+ <form>
+   <div class="form-group">
+     <label for="campaign">Campaign</label>
+     <select id="campaign" name="campaign" class="form-control" ng-model="ctrl.selectedCampaign" ng-options="campaign as campaign.name for campaign in ctrl.campaigns track by campaign.id"></select>
+   </div>
+   <div class="form-group">
+     <button type="submit" class="btn btn-primary m-r-5" ng-click="ctrl.getAssignments();">Search</button>
+     <a class="btn btn-default btn-primary" href="#/admin/assignments/create" role="button">Create Assignment</a>
+   </div>
+ </form>
 
- <a class="btn btn-default btn-primary" href="#/admin/assignments/create" role="button">Create</a>
+
+ <div>
+   <div class="m-b-20" ng-if="ctrl.page.totalElements > 0">
+     <table class="table">
+       <caption>List of Assignments</caption>
+       <thead>
+       <tr>
+         <th class="col-xs-1"></th>
+         <th class="text-center">Area</th>
+         <th>Status</th>
+         <th>Access</th>
+         <th>Start Date</th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr ng-repeat="assignment in ctrl.assignments">
+         <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+         <td class="text-center">{{assignment.area.number}}</td>
+         <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
+         <td><span ng-if="assignment.personal" class="label label-danger">private</span><span ng-if="!assignment.personal" class="label label-success">public</span></td>
+         <td><nobr>{{assignment.creationDate | formatShortDate}}</nobr></td>
+       </tr>
+       </tbody>
+     </table>
+   </div>
+
+   <div class="text-center">
+     <p ng-if="ctrl.page.totalElements > 0"><b>Total results: {{ctrl.page.totalElements}}</b></p>
+     <p ng-if="ctrl.page.totalElements === 0"><b>No results!</b></p>
+    <uib-pagination ng-if="ctrl.page.totalPages > 1" boundary-links="true" items-per-page="ctrl.page.size" num-pages="ctrl.page.totalPages" total-items="ctrl.page.totalElements" ng-model="ctrl.page.number" ng-change="ctrl.getAssignments()"></uib-pagination>
+   </div>
+ </div>
+

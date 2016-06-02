@@ -22,6 +22,16 @@ angular.module('fieldserviceFeApp').factory('Campaigns', function ($resource, co
     },
     update: {
       method:'PUT'
+    },
+    findByActive: {
+      isArray: true,
+      transformResponse: function(response) {
+        return angular.fromJson(response)._embedded.assignments;
+      },
+      params: {
+        search: 'search',
+        findBy: 'findByActive'
+      }
     }
   });
 

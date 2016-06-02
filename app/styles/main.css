@@ -3,9 +3,7 @@
   border:4px solid red;
 }
 
-body {
-  xpadding-top: 65px;
-}
+body {}
 
 .no-wrap {
   white-space: nowrap;
@@ -185,8 +183,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
+  right: 0;
+  bottom: 0;
   z-index: 10;
   background-color: rgba(0,0,0,0.15);
 }
