@@ -28,6 +28,7 @@
        <tr>
          <th class="col-xs-1"></th>
          <th><a href="" ng-click="ctrl.sortByProperty('area.city.name')">Area</a> <span ng-if="ctrl.model.sort[0].indexOf('city') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'area.city.name,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'area.city.name,desc'}" aria-hidden="true"></span></th>
+         <th>Account</th>
          <th>Status</th>
          <th>Access</th>
          <th><a href="" ng-click="ctrl.sortByProperty('creationDate')">Start date</a> <span ng-if="ctrl.model.sort[0].indexOf('creationDate') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'creationDate,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'creationDate,desc'}" aria-hidden="true"></span></th>
@@ -37,6 +38,7 @@
        <tr ng-repeat="assignment in ctrl.assignments">
          <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
          <td>{{assignment.areaDisplayName}}</td>
+         <td>{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>
          <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
          <td><span ng-if="assignment.personal" class="label label-danger">private</span><span ng-if="!assignment.personal" class="label label-success">public</span></td>
          <td><nobr>{{assignment.creationDate | formatShortDate}}</nobr></td>
