@@ -3,14 +3,22 @@
  <form>
    <div class="form-group">
      <label for="campaign">Campaign</label>
-     <select id="campaign" name="campaign" class="form-control" ng-model="ctrl.selectedCampaign" ng-options="campaign as campaign.name for campaign in ctrl.campaigns track by campaign.id"></select>
+     <select id="campaign" name="campaign" class="form-control" ng-model="ctrl.model.selectedCampaign" ng-options="campaign as campaign.name for campaign in ctrl.campaigns track by campaign.id"></select>
    </div>
+
+   <div class="form-group">
+     <label for="active1">Status</label>
+     <div>
+       <label class="radio-inline" for="active1"><input type="radio" ng-model="ctrl.model.active" name="active" id="active1" ng-value="true">Active</label>
+       <label class="radio-inline" for="active2"><input type="radio" ng-model="ctrl.model.active" name="active" id="active2" ng-value="false">Closed</label>
+     </div>
+   </div>
+
    <div class="form-group">
      <button type="submit" class="btn btn-primary m-r-5" ng-click="ctrl.getAssignments();">Search</button>
      <a class="btn btn-default btn-primary" href="#/admin/assignments/create" role="button">Create Assignment</a>
    </div>
  </form>
-
 
  <div>
    <div class="m-b-20" ng-if="ctrl.page.totalElements > 0">
@@ -19,16 +27,16 @@
        <thead>
        <tr>
          <th class="col-xs-1"></th>
-         <th class="text-center">Area</th>
+         <th><a href="" ng-click="ctrl.sortByProperty('area.city.name')">Area</a> <span ng-if="ctrl.model.sort[0].indexOf('city') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'area.city.name,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'area.city.name,desc'}" aria-hidden="true"></span></th>
          <th>Status</th>
          <th>Access</th>
-         <th>Start Date</th>
+         <th><a href="" ng-click="ctrl.sortByProperty('creationDate')">Start date</a> <span ng-if="ctrl.model.sort[0].indexOf('creationDate') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'creationDate,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'creationDate,desc'}" aria-hidden="true"></span></th>
        </tr>
        </thead>
        <tbody>
        <tr ng-repeat="assignment in ctrl.assignments">
          <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-         <td class="text-center">{{assignment.area.number}}</td>
+         <td>{{assignment.areaDisplayName}}</td>
          <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
          <td><span ng-if="assignment.personal" class="label label-danger">private</span><span ng-if="!assignment.personal" class="label label-success">public</span></td>
          <td><nobr>{{assignment.creationDate | formatShortDate}}</nobr></td>

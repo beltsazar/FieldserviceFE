@@ -37,14 +37,14 @@ angular.module('fieldserviceFeApp').factory('Assignments', function ($resource, 
         findBy: 'findByArea'
       }
     },
-    findByCampaign: {
+    findByCampaignAndActive: {
       isArray: true,
       transformResponse: function(response) {
         return [angular.fromJson(response)._embedded.assignments, angular.fromJson(response).page];
       },
       params: {
         search: 'search',
-        findBy: 'findByCampaign'
+        findBy: 'findByCampaignAndActive'
       }
     }
   });
