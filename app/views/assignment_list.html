@@ -1,24 +1,44 @@
  <h1>Assignments</h1>
 
- <form>
-   <div class="form-group">
-     <label for="campaign">Campaign</label>
-     <select id="campaign" name="campaign" class="form-control" ng-model="ctrl.model.selectedCampaign" ng-options="campaign as campaign.name for campaign in ctrl.campaigns track by campaign.id"></select>
-   </div>
-
-   <div class="form-group">
-     <label for="active1">Status</label>
-     <div>
-       <label class="radio-inline" for="active1"><input type="radio" ng-model="ctrl.model.active" name="active" id="active1" ng-value="true">Active</label>
-       <label class="radio-inline" for="active2"><input type="radio" ng-model="ctrl.model.active" name="active" id="active2" ng-value="false">Closed</label>
+   <form>
+     <div class="row">
+       <div class="col-xs-12 col-sm-6">
+         <div class="form-group">
+           <label for="campaign">Campaign</label>
+           <select id="campaign" name="campaign" class="form-control" ng-model="ctrl.model.selectedCampaign" ng-options="campaign as campaign.name for campaign in ctrl.campaigns track by campaign.id"></select>
+         </div>
+       </div>
      </div>
-   </div>
 
-   <div class="form-group">
-     <button type="submit" class="btn btn-primary m-r-5" ng-click="ctrl.getAssignments();">Search</button>
-     <a class="btn btn-default btn-primary" href="#/admin/assignments/create" role="button">Create Assignment</a>
-   </div>
- </form>
+     <div class="row">
+       <div class="col-xs-12">
+         <div class="form-group">
+           <label for="active1">Status</label>
+           <div>
+             <label class="radio-inline" for="active2"><input type="radio" ng-model="ctrl.model.active" name="active" id="active2" ng-value="">All</label>
+             <label class="radio-inline" for="active1"><input type="radio" ng-model="ctrl.model.active" name="active" id="active1" ng-value="true">Active</label>
+             <label class="radio-inline" for="active2"><input type="radio" ng-model="ctrl.model.active" name="active" id="active2" ng-value="false">Closed</label>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <div class="row">
+       <div class="col-xs-12 col-sm-3">
+         <fieldset ng-attr-disabled="{{ctrl.model.creationDateDisabled}}">
+           <div class="form-group">
+             <label for="creationDate">Start Date</label>
+             <input id="creationDate" name="creationDate" class="form-control" ng-model="ctrl.model.creationDate" placeholder="dd-mm-yyyy"></input>
+           </div>
+         </fieldset>
+       </div>
+     </div>
+
+     <div class="form-group m-t-10">
+       <button type="submit" class="btn btn-primary m-r-5" ng-click="ctrl.getAssignments();">Search</button>
+       <a class="btn btn-default btn-primary" href="#/admin/assignments/create" role="button">Create Assignment</a>
+     </div>
+   </form>
 
  <div>
    <div class="m-b-20" ng-if="ctrl.page.totalElements > 0">
@@ -28,20 +48,24 @@
        <tr>
          <th class="col-xs-1"></th>
          <th><a href="" ng-click="ctrl.sortByProperty('area.city.name')">Area</a> <span ng-if="ctrl.model.sort[0].indexOf('city') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'area.city.name,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'area.city.name,desc'}" aria-hidden="true"></span></th>
+         <th>Campaign</th>
          <th>Account</th>
-         <th>Status</th>
+         <th><a href="" ng-click="ctrl.sortByProperty('active')">Status</a> <span ng-if="ctrl.model.sort[0].indexOf('active') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'active,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'active,desc'}" aria-hidden="true"></span></th>
          <th>Access</th>
          <th><a href="" ng-click="ctrl.sortByProperty('creationDate')">Start date</a> <span ng-if="ctrl.model.sort[0].indexOf('creationDate') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'creationDate,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'creationDate,desc'}" aria-hidden="true"></span></th>
+         <th><a href="" ng-click="ctrl.sortByProperty('closeDate')">Close date</a> <span ng-if="ctrl.model.sort[0].indexOf('closeDate') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'closeDate,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'closeDate,desc'}" aria-hidden="true"></span></th>
        </tr>
        </thead>
        <tbody>
        <tr ng-repeat="assignment in ctrl.assignments">
          <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
          <td>{{assignment.areaDisplayName}}</td>
+         <td><nobr>{{assignment.campaign.name}}</nobr></td>
          <td>{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>
          <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
          <td><span ng-if="assignment.personal" class="label label-danger">private</span><span ng-if="!assignment.personal" class="label label-success">public</span></td>
-         <td><nobr>{{assignment.creationDate | formatShortDate}}</nobr></td>
+         <td><nobr>{{assignment.creationDate | formatShortDate}} {{assignment.creationDate}}</nobr></td>
+         <td><nobr>{{assignment.closeDate | formatShortDate}}</nobr></td>
        </tr>
        </tbody>
      </table>

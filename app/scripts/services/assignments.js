@@ -14,7 +14,7 @@ angular.module('fieldserviceFeApp').factory('Assignments', function ($resource, 
       method: 'GET',
       isArray: true,
       transformResponse: function(response) {
-        return angular.fromJson(response)._embedded.assignments;
+        return [angular.fromJson(response)._embedded.assignments, angular.fromJson(response).page];
       }
     },
     create: {
@@ -37,14 +37,14 @@ angular.module('fieldserviceFeApp').factory('Assignments', function ($resource, 
         findBy: 'findByArea'
       }
     },
-    findByCampaignAndActive: {
+    findByCampaign: {
       isArray: true,
       transformResponse: function(response) {
         return [angular.fromJson(response)._embedded.assignments, angular.fromJson(response).page];
       },
       params: {
         search: 'search',
-        findBy: 'findByCampaignAndActive'
+        findBy: 'findByCampaign'
       }
     }
   });

@@ -19,8 +19,12 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (Areas) {
    * Initialise Leaflet map
    * @param geoJSON
    */
-  
-  Areas.query({sort : 'number', projection: 'entities'}).$promise.then(function(result) {
+
+  Areas.query({
+    projection: 'assignments',
+    sort : ['city.name,asc','number,asc'],
+    size: 1000000
+  }).$promise.then(function(result) {
     var shapes = [],
         areas = result;
 

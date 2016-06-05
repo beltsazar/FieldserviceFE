@@ -179,6 +179,12 @@ body {}
   opacity: 0.3;
 }
 
+.embedded-table-first-row {
+  border-top: 0 !important;
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+}
+
 #overlay {
   position: fixed;
   top: 0;

@@ -11,16 +11,22 @@
 angular.module('fieldserviceFeApp')
   .filter('formatDate', function () {
     return function (input) {
-      return moment(input).format("dddd D MMMM YYYY");
+      if(angular.isDefined(input)) {
+        return moment(input).format("dddd D MMMM YYYY");
+      }
     };
   })
   .filter('formatShortDate', function () {
     return function (input) {
-      return moment(input).format("DD-MM-YYYY");
+      if(angular.isDefined(input)) {
+        return moment(input).format("DD-MM-YYYY");
+      }
     };
   })
   .filter('formatBucketDateDay', function () {
     return function (input) {
-      return moment(input).format("dddd");
+      if(angular.isDefined(input)) {
+        return moment(input).format("dddd");
+      }
     };
   });

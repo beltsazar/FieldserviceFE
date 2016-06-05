@@ -1,23 +1,38 @@
  <h1>Areas</h1>
 
- <h2>Overview</h2>
  <div map id="Overview" mode="view" shapes="ctrl.shapes" style="width:100%; height:800px;"></div>
 
- <h2>List</h2>
   <table class="table">
     <caption>List of Areas</caption>
     <thead>
     <tr>
       <th class="col-xs-1"></th>
-      <th>Number</th>
       <th>City</th>
+      <th>Number</th>
+      <th>Type</th>
+      <th>Assignments</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="area in ctrl.areas">
       <th class="col-xs-1" scope="row"><a ng-href="#/admin/areas/{{area.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-      <td>{{area.number}}</td>
       <td>{{area.city.name}}</td>
+      <td>{{area.number}}</td>
+      <td>{{area.type}}</td>
+      <td>
+
+        <table class="table m-b-0">
+          <tbody>
+          <tr ng-repeat="assignment in area.assignments">
+            <td ng-class="{'embedded-table-first-row' : $index === 0}" class="col-xs-1"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></td>
+            <td ng-class="{'embedded-table-first-row' : $index === 0}"><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
+            <td ng-class="{'embedded-table-first-row' : $index === 0}">{{assignment.creationDate | formatShortDate}}</td>
+            <td ng-class="{'embedded-table-first-row' : $index === 0}"><span>{{assignment.closeDate  | formatShortDate}}</span></td>
+          </tr>
+          </tbody>
+        </table>
+
+      </td>
     </tr>
     </tbody>
   </table>
