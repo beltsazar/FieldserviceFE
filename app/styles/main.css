@@ -102,12 +102,20 @@ body {}
   margin-right: 10px !important;
 }
 
+.p-r-0 {
+  padding-right: 0px !important;
+}
+
 .p-r-5 {
   padding-right: 5px !important;
 }
 
 .p-l-5 {
   padding-left: 5px !important;
+}
+
+.p-b-0 {
+  padding-bottom: 0px !important;
 }
 
 .p-b-5 {
@@ -121,9 +129,9 @@ body {}
 }
 
 .area-div-icon {
-  width:100px;
+  width:200px;
   height:60px;
-  left:-50px;
+  left:-100px;
   top:-30px;
   font-size:30px;
   font-weight:bold;
@@ -134,6 +142,10 @@ body {}
   border:none;
   box-shadow:none;
   opacity: 0.6;
+}
+
+.area-div-icon {
+  xborder:2px solid #000;
 }
 
 .zoom-0 .area-div-icon,
@@ -152,29 +164,36 @@ body {}
   display: none;
 }
 
-.zoom-13 .area-div-icon {
+.zoom-13 .area-div-icon,
+.zoom-13 .area-div-icon .label {
   font-size:12px;
 }
 
-.zoom-14 .area-div-icon {
+.zoom-14 .area-div-icon,
+.zoom-14 .area-div-icon .label {
   font-size:20px;
 }
 
-.zoom-15 .area-div-icon {
+.zoom-15 .area-div-icon,
+.zoom-15 .area-div-icon .label {
   font-size:30px;
 }
-.zoom-16 .area-div-icon {
+.zoom-16 .area-div-icon,
+.zoom-16 .area-div-icon .label {
   font-size:40px;
 }
-.zoom-17 .area-div-icon {
+.zoom-17 .area-div-icon,
+.zoom-17 .area-div-icon .label {
   font-size:55px;
   opacity: 0.5;
 }
-.zoom-18 .area-div-icon {
+.zoom-18 .area-div-icon,
+.zoom-18 .area-div-icon .label {
   font-size:75px;
   opacity: 0.4;
 }
-.zoom-19 .area-div-icon {
+.zoom-19 .area-div-icon,
+.zoom-19 .area-div-icon .label {
   font-size:100px;
   opacity: 0.3;
 }

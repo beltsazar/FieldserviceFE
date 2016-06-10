@@ -41,22 +41,6 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function ($scop
 
   };
 
-  function getCreationDate() {
-    var creationDate = ctrl.model.creationDate;
-
-    return '2016-04-09T00:00:00.001';
-    return '2016-04-09T22:13:34.065';
-
-    if (angular.isDefined(creationDate)) {
-      var splittedDate = creationDate.split('-');
-      return moment(splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
-    }
-    else {
-      return undefined;
-    }
-
-  }
-
   $scope.$watch('ctrl.model', function(model) {
 
     if(angular.isDefined(model.selectedCampaign.id) || angular.isDefined(model.active)) {

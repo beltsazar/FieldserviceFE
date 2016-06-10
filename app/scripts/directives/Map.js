@@ -15,6 +15,7 @@ angular.module('fieldserviceFeApp')
      * @constructor
      */
     function Map(mapId) {
+      this.osmLayer = undefined;
       this.mapId = mapId;
       this.initialize();
     }
@@ -36,13 +37,15 @@ angular.module('fieldserviceFeApp')
 
       scope.adjustZoomStyling();
 
-      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      this.osmLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         maxZoom: 19,
         opacity: 1,
         detectRetina: true,
         reuseTiles: true
-      }).addTo(this.map);
+      });
+
+      this.osmLayer.addTo(this.map);
 
       this.map.on('zoomend', function (e) {
         scope.adjustZoomStyling();
@@ -154,12 +157,11 @@ angular.module('fieldserviceFeApp')
      */
     var mapController = function ($scope) {
       var ctrl = this,
-          initialized = false,
           mapObject;
 
       $scope.$watch('ctrl.shape', function (shape) {
-        if (angular.isDefined(shape) && !initialized) {
-          mapObject = new Map(ctrl.id);
+        if (angular.isDefined(shape)) {
+          mapObject = getMap(mapObject);
 
           if(angular.equals(ctrl.mode, 'edit')) {
             initEditor(shape);
@@ -169,22 +171,27 @@ angular.module('fieldserviceFeApp')
             shapes.push(shape);
             initShapes(shapes);
           }
-
-          initialized = true;
         }
       });
 
       $scope.$watch('ctrl.shapes', function (shapes) {
-        if (angular.isDefined(shapes) && shapes.length > 0 && !initialized) {
-          mapObject = new Map(ctrl.id);
+        if (angular.isDefined(shapes) && shapes.length > 0) {
+          mapObject = getMap(mapObject);
           initShapes(shapes);
-          initialized = true;
         }
       });
 
       $scope.$on('$destroy', function() {
         mapObject.map.remove();
       });
+
+      function getMap (mapObject) {
+        if (angular.isDefined(mapObject)) {
+          mapObject.map.remove();
+        }
+
+        return new Map(ctrl.id);
+      }
 
       function initShapes (shapes) {
         var shapeLayer = mapObject.getGeoJsonLayer();
