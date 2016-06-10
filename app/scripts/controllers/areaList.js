@@ -8,7 +8,7 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaList', function (Campaigns, Areas, ViewAreas) {
+angular.module('fieldserviceFeApp').controller('AreaList', function (config, Campaigns, Areas, ViewAreas) {
 
   var ctrl = this;
 
@@ -81,9 +81,32 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (Campaigns, 
              * Enrich Json object with area properties
              */
             angular.forEach(geoJsonObject.features, function (feature) {
+              var assignments = area.assignments,
+                  style,
+                  popupText;
+              
+              popupText = '<p class="m-b-5"><a href="#/admin/areas/' + area.id + '"><b>' + area.city.name + ' ' + area.number + '</b></a></p>';
+
+              if (assignments.length > 0 && assignments[0].active) {
+                var elapsedTimeFromCreation = moment(assignments[0].creationDate).fromNow(true);
+                assignments[0].elapsedTimeFromCreation = elapsedTimeFromCreation;
+                style = config.map.styles.warning;
+                popupText += '<p class="m-t-0 m-b-5">Started: <b>' + elapsedTimeFromCreation + '</b> geleden</p>';
+              }
+              else if (assignments.length > 0 && !assignments[0].active) {
+                style = config.map.styles.default;
+                popupText += '<p class="m-t-0 m-b-5">Completed: <b>' + moment(assignments[0].closeDate).fromNow(true) + '</b> geleden</p>';
+              }
+              else {
+                style = config.map.styles.waiting;
+              }
+
+              popupText += '<p class="m-t-0 m-b-5">Assignments: <b>' + assignments.length + '</b></p>';
+
               feature.properties = {
-                label: area.number + ' <span class="label label-default">' + area.assignments.length + '</span>',
-                popup: '<a href="#/admin/areas/' + area.id + '"><b>' + area.city.name + ' ' + area.number + '</b></a>'
+                label: '<span class="area">' + area.number + '</span>',
+                popup: popupText,
+                style: style
               };
             });
 

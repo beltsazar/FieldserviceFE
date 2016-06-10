@@ -59,7 +59,7 @@ body {}
 }
 
 .m-t-0 {
-  margin-top: 10px !important;
+  margin-top: 0px !important;
 }
 
 .m-t-10 {
@@ -144,10 +144,6 @@ body {}
   opacity: 0.6;
 }
 
-.area-div-icon {
-  xborder:2px solid #000;
-}
-
 .zoom-0 .area-div-icon,
 .zoom-1 .area-div-icon,
 .zoom-2 .area-div-icon,
@@ -171,12 +167,12 @@ body {}
 
 .zoom-14 .area-div-icon,
 .zoom-14 .area-div-icon .label {
-  font-size:20px;
+  font-size:14px;
 }
 
 .zoom-15 .area-div-icon,
 .zoom-15 .area-div-icon .label {
-  font-size:30px;
+  font-size:22px;
 }
 .zoom-16 .area-div-icon,
 .zoom-16 .area-div-icon .label {

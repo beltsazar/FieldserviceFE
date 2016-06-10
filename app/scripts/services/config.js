@@ -11,7 +11,7 @@ angular.module('fieldserviceFeApp')
   .service('config', function ($location) {
 
     this.api = {
-      hostname: $location.protocol() + '://' + $location.host() + ':8080' + '/api',
+      hostname: $location.protocol() + '://' + $location.host() + ':8080' + '/api'
     };
 
     this.map = {
@@ -25,7 +25,34 @@ angular.module('fieldserviceFeApp')
           stroke: true,
           weight: 5,
           color: 'blue',
+          fillOpacity: 0.1,
+          opacity: 0.4
+        },
+        warning: {
+          stroke: true,
+          weight: 5,
+          color: 'orange',
+          opacity: 0.7,
+          fillOpacity: 0.2
+        },
+        success: {
+          stroke: true,
+          weight: 5,
+          color: 'darkgreen',
+          fillOpacity: 0.2
+        },
+        danger: {
+          stroke: true,
+          weight: 5,
+          color: 'red',
           fillOpacity: 0.1
+        },
+        waiting: {
+          stroke: true,
+          weight: 5,
+          color: 'gray',
+          opacity: 0.5,
+          fillOpacity: 0.2
         }
       }
     };

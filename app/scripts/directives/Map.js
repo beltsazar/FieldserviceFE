@@ -88,7 +88,14 @@ angular.module('fieldserviceFeApp')
     Map.prototype.getGeoJsonLayer = function () {
 
       var geoJsonLayer = L.geoJson(undefined, {
-
+        style: function(feature) {
+          if (angular.isDefined(feature.properties.style)) {
+            return feature.properties.style;
+          }
+          else {
+            return config.map.styles.default;
+          }
+        },
         onEachFeature: function (feature, layer) {
           var popup = feature.properties.popup;
           if (popup) {
@@ -111,7 +118,7 @@ angular.module('fieldserviceFeApp')
         }
       });
 
-      geoJsonLayer.setStyle(config.map.styles.default);
+      //geoJsonLayer.setStyle(config.map.styles.warning);
 
       return geoJsonLayer;
     };
