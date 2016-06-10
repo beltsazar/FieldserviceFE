@@ -57,6 +57,15 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (Campaigns, 
       date: ctrl.model.creationDate
     };
 
+    if (!angular.isDefined(ctrl.model.selectedCampaign.id) && angular.isDefined(params.date) && params.date.length > 0) {
+      var splittedDate = ctrl.model.creationDate.split('-');
+      params.date = splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + 'T00:00:00.001';
+    }
+    else {
+      delete params.date;
+    }
+
+
     ViewAreas.query(params).$promise.then(function (result) {
       var shapes = [],
         areas = result;
