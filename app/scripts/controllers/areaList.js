@@ -88,9 +88,23 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (config, Cam
               popupText = '<p class="m-b-5"><a href="#/admin/areas/' + area.id + '"><b>' + area.city.name + ' ' + area.number + '</b></a></p>';
 
               if (assignments.length > 0 && assignments[0].active) {
-                var elapsedTimeFromCreation = moment(assignments[0].creationDate).fromNow(true);
+                var elapsedTimeFromCreation = moment(assignments[0].creationDate).fromNow(true),
+                    account = assignments[0].account;
+
                 assignments[0].elapsedTimeFromCreation = elapsedTimeFromCreation;
                 style = config.map.styles.warning;
+
+
+
+                if(angular.isDefined(account)) {
+                  var accountName = '';
+                  accountName += angular.isDefined(account.firstName) ? account.firstName : ' ';
+                  accountName += angular.isDefined(account.infix) ? account.infix : ' ';
+                  accountName += angular.isDefined(account.lastName) ? account.lastName : ' ';
+
+                  popupText += '<p class="m-t-0 m-b-5">Administrator: <b>' + accountName + '</b></p>';
+                }
+
                 popupText += '<p class="m-t-0 m-b-5">Started: <b>' + elapsedTimeFromCreation + '</b> geleden</p>';
               }
               else if (assignments.length > 0 && !assignments[0].active) {
