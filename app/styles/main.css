@@ -141,7 +141,12 @@ body {}
   background:none;
   border:none;
   box-shadow:none;
-  opacity: 0.6;
+  opacity: 0.8;
+}
+
+.area-div-icon .number {
+  vertical-align: super;
+  font-size:60%;
 }
 
 .zoom-0 .area-div-icon,

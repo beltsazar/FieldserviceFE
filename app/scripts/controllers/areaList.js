@@ -84,7 +84,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (config, Cam
               var assignments = area.assignments,
                   style,
                   popupText;
-              
+
               popupText = '<p class="m-b-5"><a href="#/admin/areas/' + area.id + '"><b>' + area.city.name + ' ' + area.number + '</b></a></p>';
 
               if (assignments.length > 0 && assignments[0].active) {
@@ -104,7 +104,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (config, Cam
               popupText += '<p class="m-t-0 m-b-5">Assignments: <b>' + assignments.length + '</b></p>';
 
               feature.properties = {
-                label: '<span class="area">' + area.number + '</span>',
+                label: '<span class="area">' + area.number + '</span> <span class="number">' + area.assignments.length + '</span>',
                 popup: popupText,
                 style: style
               };
