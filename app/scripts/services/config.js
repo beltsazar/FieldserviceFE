@@ -52,8 +52,16 @@ angular.module('fieldserviceFeApp')
           weight: 5,
           color: 'gray',
           opacity: 0.5,
-          fillOpacity: 0.2
-        }
+          fillOpacity: 0.25
+        },
+        city: {
+          stroke: true,
+          weight: 2,
+          color: 'blue',
+          opacity: 0.4,
+          fillOpacity: 0
+
+        },
       }
     };
   });

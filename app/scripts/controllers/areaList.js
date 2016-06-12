@@ -94,8 +94,6 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (config, Cam
                 assignments[0].elapsedTimeFromCreation = elapsedTimeFromCreation;
                 style = config.map.styles.warning;
 
-
-
                 if(angular.isDefined(account)) {
                   var accountName = '';
                   accountName += angular.isDefined(account.firstName) ? account.firstName : ' ';
@@ -108,7 +106,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (config, Cam
                 popupText += '<p class="m-t-0 m-b-5">Started: <b>' + elapsedTimeFromCreation + '</b> geleden</p>';
               }
               else if (assignments.length > 0 && !assignments[0].active) {
-                style = config.map.styles.default;
+                style = config.map.styles.success;
                 popupText += '<p class="m-t-0 m-b-5">Completed: <b>' + moment(assignments[0].closeDate).fromNow(true) + '</b> geleden</p>';
               }
               else {

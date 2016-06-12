@@ -7,7 +7,7 @@
  * # isActiveMenu
  */
 angular.module('fieldserviceFeApp')
-  .directive('map', function ($timeout, config) {
+  .directive('map', function ($timeout, $http, config) {
 
     /**
      * Map object
@@ -176,7 +176,7 @@ angular.module('fieldserviceFeApp')
           else {
             var shapes = [];
             shapes.push(shape);
-            initShapes(shapes);
+            initShapes(shapes, false);
           }
         }
       });
@@ -184,7 +184,7 @@ angular.module('fieldserviceFeApp')
       $scope.$watch('ctrl.shapes', function (shapes) {
         if (angular.isDefined(shapes) && shapes.length > 0) {
           mapObject = getMap(mapObject);
-          initShapes(shapes);
+          initShapes(shapes, true);
         }
       });
 
@@ -200,7 +200,7 @@ angular.module('fieldserviceFeApp')
         return new Map(ctrl.id);
       }
 
-      function initShapes (shapes) {
+      function initShapes (shapes, showExtraLayers) {
         var shapeLayer = mapObject.getGeoJsonLayer();
 
         for(var i=0; i<shapes.length; i++) {
@@ -209,6 +209,56 @@ angular.module('fieldserviceFeApp')
 
         mapObject.focusLayer(shapeLayer);
         shapeLayer.addTo(mapObject.map);
+
+        /**
+         * TODO: Improve this
+         */
+
+        if(showExtraLayers) {
+
+          var control = L.control.layers({'OSM Map': mapObject.osmLayer}, {'Areas': shapeLayer}).addTo(mapObject.map);
+
+          getCityLayer('Katwoude');
+          getCityLayer('Monnickendam');
+          getCityLayer('Marken');
+          getCityLayer('Zuiderwoude');
+          getCityLayer('Broek in Waterland');
+          getCityLayer('Uitdam');
+          getCityLayer('Volendam');
+          getCityLayer('Edam');
+          getCityLayer('Middelie');
+          getCityLayer('Warder');
+          getCityLayer('Watergang');
+          getCityLayer('Ilpendam');
+          getCityLayer('Purmer');
+        }
+
+        function getCityLayer(city) {
+          $http.get('http://nominatim.openstreetmap.org/search', {
+            params: {
+              city: city,
+              country: 'The Netherlands',
+              format: 'json',
+              polygon_geojson: 1
+            },
+            withCredentials: false
+          }).then(function(response) {
+            var shapeLayer = L.geoJson(undefined, {
+              pointToLayer: function (feature, latlng) {
+                return L.circleMarker([latlng.lat, latlng.lng]);
+              }
+            });
+
+            for( var i=0; i<response.data.length; i++) {
+              shapeLayer.addData(response.data[i].geojson)
+            }
+
+            shapeLayer.addTo(mapObject.map);
+            shapeLayer.bringToBack();
+            shapeLayer.setStyle(config.map.styles.city)
+            control.addOverlay(shapeLayer, city);
+          });
+        }
       }
 
       function initEditor (geoJsonObject) {
