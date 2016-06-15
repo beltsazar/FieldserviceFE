@@ -11,14 +11,33 @@ angular.module('fieldserviceFeApp').controller('AddressList', function (Addresse
 
   var ctrl = this;
 
+  ctrl.model = {
+    sort: ['city.name', 'street.name', 'number', 'suffix']
+  }
+
   ctrl.addresses = [];
 
-  Addresses.query({
-    projection: 'entities',
-    size:1000,
-    sort: ['area.id', 'street.name', 'number']
-  }).$promise.then(function(result) {
-    ctrl.addresses = result;
-  });
+  ctrl.page = {
+    number: 1,
+    size: 10
+  };
+
+  ctrl.getAddresses = function () {
+
+    Addresses.query({
+      projection: 'entities',
+      sort: ctrl.model.sort,
+      page: (ctrl.page.number - 1),
+      size: ctrl.page.size
+    }).$promise.then(function(result) {
+      ctrl.addresses = result[0];
+      ctrl.page = result[1];
+      ctrl.page.number++;
+    });
+
+  };
+
+  ctrl.getAddresses();
+
 
 });

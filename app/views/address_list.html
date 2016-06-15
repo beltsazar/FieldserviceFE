@@ -5,23 +5,29 @@
     <thead>
     <tr>
       <th class="col-xs-1"></th>
+      <th>City</th>
+      <th>Street</th>
       <th class="col-xs-1">Number</th>
       <th class="col-xs-1">Suffix</th>
-      <th>Street</th>
-      <th>City</th>
       <th>Area</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="address in ctrl.addresses">
       <th class="col-xs-1" scope="row"><a ng-href="#/admin/addresses/{{address.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+      <td>{{address.city.name}}</td>
+      <td>{{address.street.name}}</td>
       <td class="col-xs-1">{{address.number}}</td>
       <td class="col-xs-1">{{address.suffix}}</td>
-      <td>{{address.street.name}}</td>
-      <td>{{address.city.name}}</td>
-      <td>{{address.area.number}}</td>
+      <td>{{address.areaCity}} {{address.area.number}} {{address.area.type}}</td>
     </tr>
     </tbody>
   </table>
+
+ <div class="text-center">
+   <p ng-if="ctrl.page.totalElements > 0"><b>Total results: {{ctrl.page.totalElements}}</b></p>
+   <p ng-if="ctrl.page.totalElements === 0"><b>No results!</b></p>
+   <uib-pagination ng-if="ctrl.page.totalPages > 1" boundary-links="true" items-per-page="ctrl.page.size" num-pages="ctrl.page.totalPages" total-items="ctrl.page.totalElements" ng-model="ctrl.page.number" ng-change="ctrl.getAddresses()"></uib-pagination>
+ </div>
 
  <a class="btn btn-default btn-primary" href="#/admin/addresses/create" role="button">Create</a>

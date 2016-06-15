@@ -14,7 +14,7 @@ angular.module('fieldserviceFeApp').factory('Addresses', function ($resource, co
       method: 'GET',
       isArray: true,
       transformResponse: function(response) {
-        return angular.fromJson(response)._embedded.addresses;
+        return [angular.fromJson(response)._embedded.addresses, angular.fromJson(response).page];
       }
     },
     create: {
