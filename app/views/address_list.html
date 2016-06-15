@@ -5,16 +5,20 @@
     <thead>
     <tr>
       <th class="col-xs-1"></th>
-      <th>Number</th>
+      <th class="col-xs-1">Number</th>
+      <th class="col-xs-1">Suffix</th>
       <th>Street</th>
+      <th>City</th>
       <th>Area</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="address in ctrl.addresses">
       <th class="col-xs-1" scope="row"><a ng-href="#/admin/addresses/{{address.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-      <td>{{address.number}}</td>
+      <td class="col-xs-1">{{address.number}}</td>
+      <td class="col-xs-1">{{address.suffix}}</td>
       <td>{{address.street.name}}</td>
+      <td>{{address.city.name}}</td>
       <td>{{address.area.number}}</td>
     </tr>
     </tbody>

@@ -17,7 +17,8 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
 
   ctrl.entities = {
     streets: [],
-    areas: []
+    areas: [],
+    cities: []
   };
 
   ctrl.id = $routeParams.id;
@@ -44,6 +45,12 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
     ctrl.entities.areas = result;
   });
 
+  Cities.query({
+    sort: 'name,asc'
+  }).$promise.then(function(result) {
+    ctrl.entities.cities = result;
+  });
+
   // Maak nieuwe resource
   this.create = function () {
     var generatedId = null;
@@ -53,9 +60,15 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
 
       Addresses.updateEntity({id: generatedId, entity: 'street'}, '/streets/' + ctrl.model.address.street.id).$promise.then(function () {
 
-          Addresses.updateEntity({id: generatedId, entity: 'area'}, '/areas/' + ctrl.model.address.area.id).$promise.then(function () {
-            $location.path('/admin/addresses');
+        Addresses.updateEntity({id: generatedId, entity: 'area'}, '/areas/' + ctrl.model.address.area.id).$promise.then(function () {
+
+          Addresses.updateEntity({id: generatedId, entity: 'city'}, '/cities/' + ctrl.model.address.city.id).$promise.then(function () {
+
+            $location.path('/admin/addresses/' + generatedId);
+
           });
+
+        });
 
       });
 
@@ -78,7 +91,13 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
         Addresses.updateEntity({
           id: ctrl.id,
           entity: 'area' }, '/areas/' + ctrl.model.address.area.id).$promise.then(function () {
-          $location.path('/admin/addresses');
+
+          Addresses.updateEntity({
+            id: ctrl.id,
+            entity: 'city' }, '/cities/' + ctrl.model.address.city.id).$promise.then(function () {
+
+          });
+
         });
 
       });

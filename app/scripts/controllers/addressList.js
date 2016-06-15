@@ -15,6 +15,7 @@ angular.module('fieldserviceFeApp').controller('AddressList', function (Addresse
 
   Addresses.query({
     projection: 'entities',
+    size:1000,
     sort: ['area.id', 'street.name', 'number']
   }).$promise.then(function(result) {
     ctrl.addresses = result;

@@ -18,6 +18,11 @@
   </div>
 
   <div class="form-group">
+    <label for="city">City</label>
+    <select id="city" name="city" class="form-control" ng-model="ctrl.model.address.city" ng-options="city as city.name for city in ctrl.entities.cities track by city.id"></select>
+  </div>
+
+  <div class="form-group">
     <label for="area">Area</label>
     <select id="area" name="area" class="form-control" ng-model="ctrl.model.address.area.id">
       <option ng-repeat="area in ctrl.entities.areas" value="{{area.id}}">{{area.number}} - {{area.city.name}}</option>
