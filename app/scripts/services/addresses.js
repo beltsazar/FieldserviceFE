@@ -27,14 +27,14 @@ angular.module('fieldserviceFeApp').factory('Addresses', function ($resource, co
       method:'PUT',
       headers: { 'Content-Type': 'text/uri-list' }
     },
-    findByArea: {
+    findByAreas: {
       isArray: true,
       transformResponse: function(response) {
         return angular.fromJson(response)._embedded.addresses;
       },
       params: {
         search: 'search',
-        findBy: 'findByArea'
+        findBy: 'findByAreas'
       }
     }
   });

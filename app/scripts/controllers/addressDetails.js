@@ -27,8 +27,6 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
   if (ctrl.id !== 'create') {
     Addresses.get({id: ctrl.id, projection: 'entities'}).$promise.then(function (response) {
       ctrl.model.address = response;
-      ctrl.model.address.street.id += '';
-      ctrl.model.address.area.id += '';
     });
   }
 
@@ -78,11 +76,14 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
 
   // Save de bewerkte resource
   this.update = function () {
-    var address = angular.copy(ctrl.model.address);
-    delete address.area;
-    delete address.city;
+    var address = angular.copy(ctrl.model.address),
+        areas = '';
 
-    Addresses.update({id: ctrl.id}, ctrl.model.address).$promise.then(function () {
+    angular.forEach(address.areas, function (area) {
+      areas += '/areas/' + area.id + '\n';
+    });
+
+    Addresses.update({id: ctrl.id}, address).$promise.then(function () {
 
       Addresses.updateEntity({
         id: ctrl.id,
@@ -90,7 +91,7 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
 
         Addresses.updateEntity({
           id: ctrl.id,
-          entity: 'area' }, '/areas/' + ctrl.model.address.area.id).$promise.then(function () {
+          entity: 'areas' }, areas).$promise.then(function () {
 
           Addresses.updateEntity({
             id: ctrl.id,

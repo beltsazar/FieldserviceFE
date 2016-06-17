@@ -19,7 +19,7 @@
       <td>{{address.street.name}}</td>
       <td class="col-xs-1">{{address.number}}</td>
       <td class="col-xs-1">{{address.suffix}}</td>
-      <td>{{address.areaCity}} {{address.area.number}} {{address.area.type}}</td>
+      <td><span ng-repeat="area in address.areas">{{area.city.name}} {{area.number}} {{area.type}}<br/></span></td>
     </tr>
     </tbody>
   </table>

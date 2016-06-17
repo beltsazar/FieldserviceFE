@@ -36,7 +36,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
 
   // Get the related addresses
   this.getAddresses = function() {
-    Addresses.findByArea({
+    Addresses.findByAreas({
       area: 'areas/' + ctrl.id,
       projection: 'entities',
       sort: ['street.name','number']}).$promise.then(function (response) {

@@ -12,9 +12,7 @@
 
   <div class="form-group">
     <label for="street">Street</label>
-    <select id="street" name="street" class="form-control" ng-model="ctrl.model.address.street.id">
-      <option ng-repeat="street in ctrl.entities.streets" value="{{street.id}}">{{street.name}}</option>
-    </select>
+    <select id="street" name="street" class="form-control" ng-model="ctrl.model.address.street" ng-options="street as street.name for street in ctrl.entities.streets track by street.id"></select>
   </div>
 
   <div class="form-group">
@@ -24,9 +22,7 @@
 
   <div class="form-group">
     <label for="area">Area</label>
-    <select id="area" name="area" class="form-control" ng-model="ctrl.model.address.area.id">
-      <option ng-repeat="area in ctrl.entities.areas" value="{{area.id}}">{{area.number}} - {{area.city.name}}</option>
-    </select>
+    <select multiple size="10" id="area" name="area" class="form-control" ng-model="ctrl.model.address.areas" ng-options="area as (area.city.name + ' ' + area.number + ' ' + area.type) for area in ctrl.entities.areas track by area.id"></select>
   </div>
 
   <div class="form-group">
