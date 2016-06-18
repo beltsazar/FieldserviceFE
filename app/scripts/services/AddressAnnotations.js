@@ -7,9 +7,9 @@
  * # city
  * Factory in the fieldserviceFeApp.
  */
-angular.module('fieldserviceFeApp').factory('Annotations', function ($resource, config) {
+angular.module('fieldserviceFeApp').factory('AddressAnnotations', function ($resource, config) {
 
-  return $resource(config.api.hostname + '/annotations/:id', {}, {
+  return $resource(config.api.hostname + '/addressAnnotations/:id', {}, {
     query: {
       method: 'GET',
       isArray: true,

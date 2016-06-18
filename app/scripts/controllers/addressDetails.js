@@ -51,14 +51,20 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
 
   // Maak nieuwe resource
   this.create = function () {
-    var generatedId = null;
+    var generatedId = null,
+        address = angular.copy(ctrl.model.address),
+        areas;
+
+    angular.forEach(address.areas, function (area) {
+      areas += '/areas/' + area.id + '\n';
+    });
 
     Addresses.create({}, ctrl.model.address).$promise.then(function (response) {
       generatedId = response.id;
 
       Addresses.updateEntity({id: generatedId, entity: 'street'}, '/streets/' + ctrl.model.address.street.id).$promise.then(function () {
 
-        Addresses.updateEntity({id: generatedId, entity: 'area'}, '/areas/' + ctrl.model.address.area.id).$promise.then(function () {
+        Addresses.updateEntity({id: generatedId, entity: 'areas'}, areas).$promise.then(function () {
 
           Addresses.updateEntity({id: generatedId, entity: 'city'}, '/cities/' + ctrl.model.address.city.id).$promise.then(function () {
 

@@ -8,7 +8,7 @@
  * # city
  * Factory in the fieldserviceFeApp.
  */
-angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $timeout, Worksheets, Addresses, Visits, Assignments, Annotations) {
+angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $timeout, Worksheets, Addresses, Visits, Assignments, AddressAnnotations) {
 
   /**
    * Worksheet Class
@@ -398,7 +398,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
     this.number = address.number;
     this.suffix = address.suffix;
     this.visits = address.visits;
-    this.annotations = address.annotations;
+    this.annotations = address.addressAnnotations;
     this.worksheet = worksheet;
     this.menuOpen = false;
   }
@@ -528,7 +528,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
 
     if (angular.isDefined(annotation)) {
 
-      Annotations.delete({id : annotation.id}).$promise.then(function() {
+      AddressAnnotations.delete({id : annotation.id}).$promise.then(function() {
 
         for (var i=0; i<worksheetAddress.annotations.length; i++) {
           if (angular.equals(worksheetAddress.annotations[i].id, annotation.id)) {
@@ -543,7 +543,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
       });
     }
     else {
-      Annotations.create({
+      AddressAnnotations.create({
         type: 'DO_NOT_VISIT',
         address: '/addresses/' + worksheetAddress.id
       }).$promise.then(function(response) {
