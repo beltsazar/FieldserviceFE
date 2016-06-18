@@ -56,17 +56,21 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
         areas;
 
     angular.forEach(address.areas, function (area) {
-      areas += '/areas/' + area.id + '\n';
+      areas += 'areas/' + area.id + '\n';
     });
 
-    Addresses.create({}, ctrl.model.address).$promise.then(function (response) {
+    delete address.city;
+    delete address.areas;
+    delete address.street;
+
+    Addresses.create({}, address).$promise.then(function (response) {
       generatedId = response.id;
 
-      Addresses.updateEntity({id: generatedId, entity: 'street'}, '/streets/' + ctrl.model.address.street.id).$promise.then(function () {
+      Addresses.updateEntity({id: generatedId, entity: 'street'}, 'streets/' + ctrl.model.address.street.id).$promise.then(function () {
 
         Addresses.updateEntity({id: generatedId, entity: 'areas'}, areas).$promise.then(function () {
 
-          Addresses.updateEntity({id: generatedId, entity: 'city'}, '/cities/' + ctrl.model.address.city.id).$promise.then(function () {
+          Addresses.updateEntity({id: generatedId, entity: 'city'}, 'cities/' + ctrl.model.address.city.id).$promise.then(function () {
 
             $location.path('/admin/addresses/' + generatedId);
 
@@ -89,11 +93,15 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
       areas += '/areas/' + area.id + '\n';
     });
 
+    delete address.city;
+    delete address.areas;
+    delete address.street;
+
     Addresses.update({id: ctrl.id}, address).$promise.then(function () {
 
       Addresses.updateEntity({
         id: ctrl.id,
-        entity: 'street' }, '/streets/' + ctrl.model.address.street.id).$promise.then(function () {
+        entity: 'street' }, 'streets/' + ctrl.model.address.street.id).$promise.then(function () {
 
         Addresses.updateEntity({
           id: ctrl.id,
@@ -101,7 +109,7 @@ angular.module('fieldserviceFeApp').controller('AddressDetails', function ($reso
 
           Addresses.updateEntity({
             id: ctrl.id,
-            entity: 'city' }, '/cities/' + ctrl.model.address.city.id).$promise.then(function () {
+            entity: 'city' }, 'cities/' + ctrl.model.address.city.id).$promise.then(function () {
 
           });
 
