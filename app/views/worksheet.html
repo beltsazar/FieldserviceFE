@@ -111,7 +111,7 @@
       <uib-accordion-group ng-repeat="group in worksheet.groups" is-open="status.open" class="m-b-10">
 
         <uib-accordion-heading>
-          {{group.street.name}} <span ng-show="group.getNumberOfEditableAddresses() > 0" class="badge">{{group.getNumberOfEditableAddresses()}}</span>
+          <p ng-if="worksheet.multipleCities" class="font-size-12 m-b-0">{{group.city.name}}</p> <span>{{group.street.name}}</span> <span ng-show="group.getNumberOfEditableAddresses() > 0" class="badge">{{group.getNumberOfEditableAddresses()}}</span>
           <i ng-show="group.getNumberOfEditableAddresses() == 0" class="glyphicon glyphicon-ok text-success"></i>
           <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
         </uib-accordion-heading>

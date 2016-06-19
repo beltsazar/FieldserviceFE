@@ -28,9 +28,12 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
     this.area = data.assignment.area;
     this.shape = undefined;
     this.assignment = data.assignment;
+    this.multipleCities = false;
+    this.groups = [];
+    this.summary = [];
+
     this.groups = this.createGroups(data.groups);
     this.summary = this.getIterationSummary();
-
     this.processShape(this.area.shape);
   };
 
@@ -53,10 +56,22 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
   };
 
   Worksheet.prototype.createGroups = function(groups) {
-    var groupList = [];
+    var scope = this,
+        groupList = [],
+        uniqueCities = {},
+        uniqueCitiesLength = 0;
 
     for (var i=0; i<groups.length; i++) {
+      uniqueCities[groups[i].city.name] = groups[i].city.name;
       groupList.push(new WorksheetGroup(groups[i], this));
+    }
+
+    angular.forEach(uniqueCities, function (value) {
+      uniqueCitiesLength++;
+    });
+
+    if (uniqueCitiesLength > 1) {
+      scope.multipleCities = true;
     }
 
     return groupList;
@@ -294,6 +309,7 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
   function WorksheetGroup(group, worksheet) {
     this.worksheet = worksheet;
     this.street = group.street;
+    this.city = group.city;
     this.addresses = this.parseAddresses(group.addresses);
     this.menuOpen = false;
   }
@@ -359,15 +375,32 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
 
   WorksheetGroup.prototype.addAddress = function(number, suffix) {
     var worksheet = this.worksheet,
-      address = {
-        number: number,
-        suffix: suffix,
-        street: 'streets/' + this.street.id,
-        area: 'areas/' + worksheet.area.id
-      };
+        generatedId,
+        address = {
+          number: number,
+          suffix: suffix
+        },
+        street = 'streets/' + this.street.id,
+        city = 'cities/' + this.city.id,
+        areas = 'areas/' + worksheet.area.id;
 
-    Addresses.create({}, address).$promise.then(function () {
-      worksheet.refresh();
+    Addresses.create({}, address).$promise.then(function (response) {
+      generatedId = response.id;
+
+      Addresses.updateEntity({id: generatedId, entity: 'street'}, street).$promise.then(function () {
+
+        Addresses.updateEntity({id: generatedId, entity: 'areas'}, areas).$promise.then(function () {
+
+          Addresses.updateEntity({id: generatedId, entity: 'city'}, city).$promise.then(function () {
+
+            worksheet.refresh();
+
+          });
+
+        });
+
+      });
+
     });
 
   };
