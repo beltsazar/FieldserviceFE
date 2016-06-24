@@ -1,3 +1,4 @@
+/* global L */
 'use strict';
 
 /**
@@ -15,7 +16,9 @@ angular.module('fieldserviceFeApp')
      * @constructor
      */
     function Map(mapId) {
+      this.map = undefined;
       this.osmLayer = undefined;
+      this.locationLayer = undefined;
       this.mapId = mapId;
       this.initialize();
     }
@@ -47,11 +50,47 @@ angular.module('fieldserviceFeApp')
 
       this.osmLayer.addTo(this.map);
 
+      this.map.locate({
+        watch: true,
+        enableHighAccuracy: true
+      });
+
+      this.map.on('locationfound', function (e) {
+        scope.showLocation (e, scope);
+      });
+
       this.map.on('zoomend', function (e) {
         scope.adjustZoomStyling();
       });
 
       return this;
+    };
+
+    Map.prototype.showLocation = function (locationevent) {
+      var radius = locationevent.accuracy / 2;
+      this.setLocationLayer(locationevent.latlng, radius);
+    };
+
+    Map.prototype.setLocationLayer = function (latlng, radius) {
+      if (angular.isDefined(this.locationLayer)) {
+        this.map.removeLayer(this.locationLayer);
+      }
+
+      this.locationLayer = L.featureGroup();
+
+      L.circleMarker(latlng, {
+        radius: 5,
+        color: 'red',
+        fillOpacity: 0.5,
+        weight: 1
+      }).addTo(this.locationLayer);
+
+      L.circle(latlng, radius, {
+        color: 'red',
+        weight: 2
+      }).addTo(this.locationLayer);
+
+      this.map.addLayer(this.locationLayer);
     };
 
     /**
