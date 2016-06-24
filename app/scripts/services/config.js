@@ -50,9 +50,9 @@ angular.module('fieldserviceFeApp')
         waiting: {
           stroke: true,
           weight: 5,
-          color: 'gray',
-          opacity: 0.5,
-          fillOpacity: 0.25
+          color: 'indigo',
+          opacity: 0.4,
+          fillOpacity: 0.1
         },
         city: {
           stroke: true,
@@ -61,7 +61,7 @@ angular.module('fieldserviceFeApp')
           opacity: 0.4,
           fillOpacity: 0
 
-        },
+        }
       }
     };
   });

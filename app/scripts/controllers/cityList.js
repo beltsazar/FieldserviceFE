@@ -13,7 +13,16 @@ angular.module('fieldserviceFeApp').controller('CityList', function (Cities, $re
 
   ctrl.cities = [];
 
-  Cities.query().$promise.then(function(result) {
+  /**
+   * Get shapes from Nominatim:
+   * http://nominatim.openstreetmap.org/search?city=Monnickendam&country=The%20Netherlands&format=json&polygon_geojson=1
+   *
+   * Returns array of OSM objects with embedded geojson
+   */
+  
+  Cities.query({
+    sort: ['name,asc']
+  }).$promise.then(function(result) {
     ctrl.cities = result;
   });
 

@@ -7,7 +7,7 @@
  * # isActiveMenu
  */
 angular.module('fieldserviceFeApp')
-  .directive('map', function ($timeout, $http, config) {
+  .directive('map', function ($timeout, $http, config, MapService) {
 
     /**
      * Map object
@@ -157,34 +157,31 @@ angular.module('fieldserviceFeApp')
 
     };
 
-
     /**
      * Controller
      * @param $scope
      */
     var mapController = function ($scope) {
       var ctrl = this,
-          mapObject;
+          mapObject,
+          shapeLayer;
 
       $scope.$watch('ctrl.shape', function (shape) {
         if (angular.isDefined(shape)) {
-          mapObject = getMap(mapObject);
-
           if(angular.equals(ctrl.mode, 'edit')) {
             initEditor(shape);
           }
           else {
             var shapes = [];
             shapes.push(shape);
-            initShapes(shapes, false);
+            initShapes(shapes);
           }
         }
       });
 
       $scope.$watch('ctrl.shapes', function (shapes) {
         if (angular.isDefined(shapes) && shapes.length > 0) {
-          mapObject = getMap(mapObject);
-          initShapes(shapes, true);
+          initShapes(shapes);
         }
       });
 
@@ -192,16 +189,9 @@ angular.module('fieldserviceFeApp')
         mapObject.map.remove();
       });
 
-      function getMap (mapObject) {
-        if (angular.isDefined(mapObject)) {
-          mapObject.map.remove();
-        }
-
-        return new Map(ctrl.id);
-      }
-
-      function initShapes (shapes, showExtraLayers) {
-        var shapeLayer = mapObject.getGeoJsonLayer();
+      function initShapes (shapes) {
+        mapObject = getMap(mapObject);
+        shapeLayer = mapObject.getGeoJsonLayer();
 
         for(var i=0; i<shapes.length; i++) {
           shapeLayer.addData(shapes[i]);
@@ -209,60 +199,12 @@ angular.module('fieldserviceFeApp')
 
         mapObject.focusLayer(shapeLayer);
         shapeLayer.addTo(mapObject.map);
-
-        /**
-         * TODO: Improve this
-         */
-
-        if(showExtraLayers) {
-
-          var control = L.control.layers({'OSM Map': mapObject.osmLayer}, {'Areas': shapeLayer}).addTo(mapObject.map);
-
-          getCityLayer('Katwoude');
-          getCityLayer('Monnickendam');
-          getCityLayer('Marken');
-          getCityLayer('Zuiderwoude');
-          getCityLayer('Broek in Waterland');
-          getCityLayer('Uitdam');
-          getCityLayer('Volendam');
-          getCityLayer('Edam');
-          getCityLayer('Middelie');
-          getCityLayer('Warder');
-          getCityLayer('Watergang');
-          getCityLayer('Ilpendam');
-          getCityLayer('Purmer');
-        }
-
-        function getCityLayer(city) {
-          $http.get('http://nominatim.openstreetmap.org/search', {
-            params: {
-              city: city,
-              country: 'The Netherlands',
-              format: 'json',
-              polygon_geojson: 1
-            },
-            withCredentials: false
-          }).then(function(response) {
-            var shapeLayer = L.geoJson(undefined, {
-              pointToLayer: function (feature, latlng) {
-                return L.circleMarker([latlng.lat, latlng.lng]);
-              }
-            });
-
-            for( var i=0; i<response.data.length; i++) {
-              shapeLayer.addData(response.data[i].geojson)
-            }
-
-            shapeLayer.addTo(mapObject.map);
-            shapeLayer.bringToBack();
-            shapeLayer.setStyle(config.map.styles.city)
-            control.addOverlay(shapeLayer, city);
-          });
-        }
       }
 
       function initEditor (geoJsonObject) {
         var editorLayer;
+
+        mapObject = getMap(mapObject);
 
         if (angular.equals(geoJsonObject.type, 'FeatureCollection')) {
           editorLayer = mapObject.getSimpleGeoJsonLayer(geoJsonObject);
@@ -275,10 +217,29 @@ angular.module('fieldserviceFeApp')
         editorLayer.addTo(mapObject.map);
 
         mapObject.getEditor(editorLayer, function (geoJsonObject) {
-          ctrl.shape = geoJsonObject;
+          ctrl.shape = angular.copy(geoJsonObject);
           $scope.$apply();
         });
 
+      }
+
+      function getMap (mapObject) {
+        if (angular.isDefined(mapObject)) {
+
+          if (angular.isDefined(shapeLayer) && !angular.equals(ctrl.mode, 'edit')) {
+            mapObject.map.removeLayer(shapeLayer);
+            return mapObject;
+          }
+          else {
+            mapObject.map.remove();
+            return new Map(ctrl.id);
+          }
+        }
+        else {
+          var newMap = new Map(ctrl.id);
+          MapService.resolve(newMap);
+          return newMap;
+        }
       }
     };
 
@@ -298,7 +259,11 @@ angular.module('fieldserviceFeApp')
       controllerAs: 'ctrl'
     };
 
-  });
+  }).factory('MapService', function ($resource, config, $q) {
+
+  return $q.defer();
+
+});
 
 
 

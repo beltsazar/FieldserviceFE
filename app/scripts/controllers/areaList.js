@@ -8,7 +8,7 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaList', function (config, Campaigns, Areas, ViewAreas) {
+angular.module('fieldserviceFeApp').controller('AreaList', function ($http, config, Campaigns, Areas, ViewAreas, Cities, MapService) {
 
   var ctrl = this;
 
@@ -133,6 +133,44 @@ angular.module('fieldserviceFeApp').controller('AreaList', function (config, Cam
     });
   };
 
+  MapService.promise.then(function(mapObject) {
+    var control = L.control.layers({'OSM Map': mapObject.osmLayer}).addTo(mapObject.map);
+
+    Cities.query({
+      sort: ['name,asc']
+    }).$promise.then(function(cities) {
+      angular.forEach(cities, function (city) {
+        if (angular.isDefined(city.shape)) {
+          city.shape = JSON.parse(city.shape);
+          addCityLayer(city);
+        }
+      });
+    });
+
+    function addCityLayer(city) {
+      var cityLayer = L.geoJson(undefined, {
+        pointToLayer: function (feature, latlng) {
+          return L.circleMarker([latlng.lat, latlng.lng]);
+        }
+      });
+
+     for( var i=0; i<city.shape.length; i++) {
+      cityLayer.addData(city.shape[i].geojson);
+     }
+
+     cityLayer.addTo(mapObject.map);
+     cityLayer.bringToBack();
+     cityLayer.setStyle(config.map.styles.city)
+     control.addOverlay(cityLayer, city.name);
+    }
+
+  });
+
   ctrl.getCampaigns();
 
 });
+
+
+
+
+
