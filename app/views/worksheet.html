@@ -1,3 +1,29 @@
+<div xng-controller="ModalDemoCtrl">
+  <script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+      <h3 class="modal-title">I'm a modal!</h3>
+    </div>
+    <div class="modal-body">
+      <ul>
+        <li ng-repeat="item in ctrl.items">
+          <a href="#" ng-click="$event.preventDefault(); ctrl.selected.item = item">{{ item }}</a>
+        </li>
+      </ul>
+      Selected: <b>{{ ctrl.selected.item }}</b>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="ctrl.ok()">OK</button>
+      <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <button type="button" class="btn btn-default" ng-click="ctrl.open()">Open me!</button>
+  <button type="button" class="btn btn-default" ng-click="ctrl.open('lg')">Large modal</button>
+  <button type="button" class="btn btn-default" ng-click="ctrl.open('sm')">Small modal</button>
+  <button type="button" class="btn btn-default" ng-click="toggleAnimation()">Toggle Animation ({{ ctrl.animationsEnabled }})</button>
+  <div ng-show="selected">Selection from a modal: {{ ctrl.selected }}</div>
+</div>
+
 <div class="panel panel-primary">
     <div class="panel-heading">
       <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap font-size-20 p-l-5"><b>{{worksheet.area.number}}</b></span> <a ng-href="#/admin/assignments/{{worksheet.assignment.id}}"><span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></a></h1>
