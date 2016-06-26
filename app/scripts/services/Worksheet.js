@@ -275,16 +275,18 @@ angular.module('fieldserviceFeApp').factory('Worksheet', function ($route, $time
   Worksheet.prototype.closeWorksheet = function () {
     var worksheet = this,
         assignment = angular.copy(worksheet.assignment);
-    worksheet.active = false;
+
     worksheet.closeDate = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
     worksheet.shared = false;
     worksheet.assignment = 'assignment/' + worksheet.assignment.id;
 
     Worksheets.update({id: worksheet.id}, worksheet).$promise.then(function() {
+      
       assignment.active = false;
       assignment.closeDate = worksheet.closeDate;
       assignment.area = '/areas/' + assignment.area.id;
       assignment.account = '/accounts/' + assignment.account.id;
+      assignment.campaign = '/campaigns/' + assignment.campaign.id;
 
       Assignments.update({id : assignment.id}, assignment).$promise.then(function() {
 

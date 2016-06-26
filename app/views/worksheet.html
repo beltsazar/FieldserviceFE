@@ -1,29 +1,3 @@
-<div xng-controller="ModalDemoCtrl">
-  <script type="text/ng-template" id="myModalContent.html">
-    <div class="modal-header">
-      <h3 class="modal-title">I'm a modal!</h3>
-    </div>
-    <div class="modal-body">
-      <ul>
-        <li ng-repeat="item in ctrl.items">
-          <a href="#" ng-click="$event.preventDefault(); ctrl.selected.item = item">{{ item }}</a>
-        </li>
-      </ul>
-      Selected: <b>{{ ctrl.selected.item }}</b>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-primary" type="button" ng-click="ctrl.ok()">OK</button>
-      <button class="btn btn-warning" type="button" ng-click="ctrl.cancel()">Cancel</button>
-    </div>
-  </script>
-
-  <button type="button" class="btn btn-default" ng-click="ctrl.open()">Open me!</button>
-  <button type="button" class="btn btn-default" ng-click="ctrl.open('lg')">Large modal</button>
-  <button type="button" class="btn btn-default" ng-click="ctrl.open('sm')">Small modal</button>
-  <button type="button" class="btn btn-default" ng-click="toggleAnimation()">Toggle Animation ({{ ctrl.animationsEnabled }})</button>
-  <div ng-show="selected">Selection from a modal: {{ ctrl.selected }}</div>
-</div>
-
 <div class="panel panel-primary">
     <div class="panel-heading">
       <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="no-wrap font-size-20 p-l-5"><b>{{worksheet.area.number}}</b></span> <a ng-href="#/admin/assignments/{{worksheet.assignment.id}}"><span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></a></h1>
@@ -101,16 +75,16 @@
       <div class="panel-body" ng-if="!ctrl.isListView && worksheet.assignment.active && (worksheet.owner || application.hasRole('ROOT'))">
         <div class="row">
           <div class="col-xs-12">
-              <button ng-if="!worksheet.shared" class="btn btn-success btn-block m-b-10" ng-click="worksheet.setVisibility(true)" type="button">
+              <button ng-if="!worksheet.shared" class="btn btn-success btn-block m-b-10" ng-click="ctrl.confirm({ title:'Gebied delen', body: 'Als je dit gebied deelt, is het voor de hele gemeente zichtbaar en kan het door de hele gemeente worden bewerkt.' }, worksheet, 'setVisibility', [true])" type="button">
                 <b>Deel met de gemeente</b>
               </button>
-              <button ng-if="worksheet.shared" class="btn btn-warning btn-block m-b-10" ng-click="worksheet.setVisibility(false)" type="button">
+              <button ng-if="worksheet.shared" class="btn btn-warning btn-block m-b-10" ng-click="ctrl.confirm({ title:'Gebied verbergen', body: 'Als je dit gebied verbergt, is het alleen zichtbaar voor jou en kan het alleen door jou worden bewerkt.' }, worksheet, 'setVisibility', [false])" type="button">
                 <b>Verberg voor de gemeente</b>
               </button>
-              <button class="btn btn-primary btn-block m-b-10" ng-click="worksheet.newIteration()" type="button">
+              <button class="btn btn-primary btn-block m-b-10" ng-click="ctrl.confirm({ title:'Nieuwe ronde', body: 'Als je een nieuwe ronde begint, worden de addressen die deze ronde als afwezig zijn geregistreerd meegenomen naar de nieuwe ronde. Let op! Addressen die nog openstaan worden gezien als bezocht en niet meegenomen naar de volgende ronde.' }, worksheet, 'newIteration')" type="button">
                 <b>Nieuwe Ronde</b>
               </button>
-              <button class="btn btn-danger btn-block m-b-5" ng-click="worksheet.closeWorksheet()" type="button">
+              <button class="btn btn-danger btn-block m-b-5" ng-click="ctrl.confirm({ title:'Gebied afsluiten', body: 'Als dit gebied volledig is bewerkt, kun je het afsluiten. Let op! Het gebied is dan niet meer zichtbaar en kan niet meer worden bewerkt. Dit kan niet ongedaan worden gemaakt!' }, worksheet, 'closeWorksheet')" type="button">
                 Afsluiten
               </button>
             </div>

@@ -38,7 +38,7 @@
       </select>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" ng-if="ctrl.model.assignment.creationDate">
       <label for="personal1">Creation Date</label>
       <p class="form-control-static">{{ctrl.model.assignment.creationDate | formatDate}}</p>
     </div>

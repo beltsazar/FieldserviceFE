@@ -30,56 +30,38 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
   ctrl.init();
 
-  ctrl.items = ['item1', 'item2', 'item3'];
-
-  ctrl.animationsEnabled = true;
-
-  ctrl.open = function (size) {
+  /**
+   * Confirmation Modal
+   * @param worksheet
+   * @returns {*}
+     */
+  ctrl.confirm = function (content, worksheet, callback, callbackArgs) {
+    console.log(worksheet)
 
     var modalInstance = $uibModal.open({
-      animation: ctrl.animationsEnabled,
-      templateUrl: 'myModalContent.html',
+      animation: true,
+      templateUrl: 'views/worksheet_modal.html',
       bindToController: true,
       controller: 'ModalInstanceCtrl',
       controllerAs: 'ctrl',
-      size: size,
+      size: 'lg',
       resolve: {
-        items: function () {
-          return ctrl.items;
+        worksheet: function () {
+          return worksheet;
+        },
+        content: function () {
+          return content;
         }
       }
     });
 
-    modalInstance.result.then(function (selectedItem) {
-      ctrl.selected = selectedItem;
+    modalInstance.result.then(function (result) {
+      worksheet[callback].apply(worksheet, callbackArgs);
     }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
+      /* TODO: ? */
     });
+
+    return modalInstance.result;
   };
 
-  ctrl.toggleAnimation = function () {
-    ctrl.animationsEnabled = !ctrl.animationsEnabled;
-  };
-
-
-});
-
-angular.module('fieldserviceFeApp').controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
-
-  var ctrl = this;
-
-  console.log(items)
-
-  ctrl.items = items;
-  ctrl.selected = {
-    item: ctrl.items[0]
-  };
-
-  ctrl.ok = function () {
-    $uibModalInstance.close(ctrl.selected.item);
-  };
-
-  ctrl.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
 });
