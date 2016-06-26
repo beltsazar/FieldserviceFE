@@ -48,12 +48,14 @@ Gegeven het digitale rapportage systeem
   Doel: zodat de openstaande gebieden zo efficient mogelijk kunnen worden bewerkt
 
 Backlog:
-- Bevestigingspopup bij bepaalde (gevaarlijke) acties
+- DONE Bevestigingspopup bij bepaalde (gevaarlijke) acties
 - Vanuit area view => Create assignment
 - Assignment datums handmatig aanpassen
 - Gebied overdragen
-- Admin module: accounts + annotaties
+- Admin module: accounts + annotaties + campaigns
 - Automatisch import script voor straten
 - TAAL Functionaliteit !!!
 - Per gebied opmerkingsveld
+- Toon adres op kaart
+- In worksheet view, kaart niet pinchen!
 
