@@ -49,13 +49,17 @@ Gegeven het digitale rapportage systeem
 
 Backlog:
 - DONE Bevestigingspopup bij bepaalde (gevaarlijke) acties
-- Vanuit area view => Create assignment
-- Assignment datums handmatig aanpassen
-- Gebied overdragen
+- Assignment datums handmatig aanpassen => Directive
 - Admin module: accounts + annotaties + campaigns
-- Automatisch import script voor straten
-- TAAL Functionaliteit !!!
 - Per gebied opmerkingsveld
 - Toon adres op kaart
 - In worksheet view, kaart niet pinchen!
+- In worksheet view, type gebied tonen (Z)
+- Automatisch import script voor straten en steden
+----------------------------------------
+- Vanuit area view => Create assignment
+- Gebied overdragen
+- TAAL Functionaliteit !!!
+
+
 

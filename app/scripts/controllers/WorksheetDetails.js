@@ -42,7 +42,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
       animation: true,
       templateUrl: 'views/worksheet_modal.html',
       bindToController: true,
-      controller: 'ModalInstanceCtrl',
+      controller: 'WorksheetModalInstanceCtrl',
       controllerAs: 'ctrl',
       size: 'lg',
       resolve: {

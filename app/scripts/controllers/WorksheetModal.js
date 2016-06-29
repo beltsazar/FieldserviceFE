@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fieldserviceFeApp').controller('ModalInstanceCtrl', function ($uibModalInstance, worksheet, content) {
+angular.module('fieldserviceFeApp').controller('WorksheetModalInstanceCtrl', function ($uibModalInstance, worksheet, content) {
 
   var ctrl = this;
 
