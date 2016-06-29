@@ -92,6 +92,11 @@ angular
         controller: 'WorksheetDetails',
         controllerAs: 'ctrl'
       })
+      .when('/admin/annotations', {
+        templateUrl: 'views/address_annotations_list.html',
+        controller: 'AddressAnnotationList',
+        controllerAs: 'ctrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

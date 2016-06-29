@@ -1,0 +1,29 @@
+ <h1>Annotations</h1>
+
+  <table class="table">
+    <caption>List of Annotations</caption>
+    <thead>
+    <tr>
+      <!--<th class="col-xs-1"></th>-->
+      <th>Type</th>
+      <th>Creation Date</th>
+      <th>Address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="annotation in ctrl.annotations">
+      <!--<th class="col-xs-1" scope="row"><a ng-href="#/admin/addressAnnotations/{{annotation.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>-->
+      <td>{{annotation.type}}</td>
+      <td><nobr>{{annotation.creationDate | formatShortDate}}</nobr></td>
+      <td><a ng-if="annotation.address" ng-href="#/admin/addresses/{{annotation.address.id}}">{{annotation.address.city}}, {{annotation.address.street}} {{annotation.address.number}}<sup ng-if="annotation.address.suffix"> {{annotation.address.suffix}}</sup></a></td>
+    </tr>
+    </tbody>
+  </table>
+
+ <div class="text-center">
+   <p ng-if="ctrl.page.totalElements > 0"><b>Total results: {{ctrl.page.totalElements}}</b></p>
+   <p ng-if="ctrl.page.totalElements === 0"><b>No results!</b></p>
+   <uib-pagination ng-if="ctrl.page.totalPages > 1" boundary-links="true" items-per-page="ctrl.page.size" num-pages="ctrl.page.totalPages" total-items="ctrl.page.totalElements" ng-model="ctrl.page.number" ng-change="ctrl.getAddressAnnotations()"></uib-pagination>
+ </div>
+
+ <!--<a class="btn btn-default btn-primary" href="#/admin/addresses/create" role="button">Create</a>-->
