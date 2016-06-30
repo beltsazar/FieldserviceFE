@@ -61,13 +61,15 @@
         <th class="col-xs-1"></th>
         <th>Number</th>
         <th>Street</th>
+        <th>City</th>
       </tr>
       </thead>
       <tbody>
       <tr ng-repeat="address in ctrl.entities.addresses">
         <th class="col-xs-1" scope="row"><a ng-href="#/admin{{address._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-        <td>{{address.number}}</td>
+        <td>{{address.number}}<sup ng-if="address.suffix"> {{address.suffix}}</sup></td>
         <td>{{address.street.name}}</td>
+        <td>{{address.city.name}}</td>
       </tr>
       </tbody>
     </table>

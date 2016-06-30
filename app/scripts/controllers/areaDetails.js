@@ -39,7 +39,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
     Addresses.findByAreas({
       area: 'areas/' + ctrl.id,
       projection: 'entities',
-      sort: ['street.name','number']}).$promise.then(function (response) {
+      sort: ['city.name', 'street.name','number']}).$promise.then(function (response) {
       ctrl.entities.addresses = response;
     });
   };

@@ -79,15 +79,15 @@ angular.module('fieldserviceFeApp')
       this.locationLayer = L.featureGroup();
 
       L.circleMarker(latlng, {
-        radius: 5,
+        radius: 2,
         color: 'red',
         fillOpacity: 0.5,
-        weight: 1
+        weight: 2
       }).addTo(this.locationLayer);
 
       L.circle(latlng, radius, {
         color: 'red',
-        weight: 2
+        weight: 1
       }).addTo(this.locationLayer);
 
       this.map.addLayer(this.locationLayer);
