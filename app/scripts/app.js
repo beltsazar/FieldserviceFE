@@ -97,6 +97,11 @@ angular
         controller: 'AddressAnnotationList',
         controllerAs: 'ctrl'
       })
+      .when('/admin/campaigns', {
+        templateUrl: 'views/campaigns_list.html',
+        controller: 'CampaignList',
+        controllerAs: 'ctrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

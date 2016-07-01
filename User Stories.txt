@@ -56,6 +56,7 @@ Backlog:
 - In worksheet view, kaart niet pinchen!
 - In worksheet view, type gebied tonen (Z)
 - Automatisch import script voor straten en steden
+- Basic foutafhandeling frontend
 ----------------------------------------
 - Annotations (CRUD) in Address details admin scherm
 - Vanuit area view => Create assignment

@@ -1,0 +1,33 @@
+ <h1>Campaigns</h1>
+
+ <form class="m-b-">
+  <table class="table">
+    <caption>List of Campaigns</caption>
+    <thead>
+    <tr>
+      <th class="col-xs-1">Active</th>
+      <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="campaign in ctrl.campaigns">
+      <th class="col-xs-1" scope="row"><input type="radio" ng-model="ctrl.selectedCampaign" ng-value="campaign"></th>
+      <td>{{campaign.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+ </form>
+
+ <h2 class="font-size-18">New Campaign</h2>
+
+ <form>
+
+   <div class="form-group">
+     <!--<label for="name">Name</label>-->
+     <input type="text" class="form-control" id="name" placeholder="enter campaign name" ng-model="ctrl.newCampaign.name">
+   </div>
+
+   <div class="form-group">
+     <button type="submit" class="btn btn-primary" ng-click="ctrl.create();">Create</button>
+   </div>
+ </form>
