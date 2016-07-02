@@ -49,9 +49,9 @@ Gegeven het digitale rapportage systeem
 
 Backlog:
 - DONE Bevestigingspopup bij bepaalde (gevaarlijke) acties
-- Assignment datums handmatig aanpassen => Directive
-- Admin module: accounts + annotaties + campaigns
+- DONE Admin module: accounts + annotaties + campaigns
 - Per gebied opmerkingsveld
+- Assignment datums handmatig aanpassen => Directive
 - Toon adres op kaart
 - In worksheet view, kaart niet pinchen!
 - In worksheet view, type gebied tonen (Z)

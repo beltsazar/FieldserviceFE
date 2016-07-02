@@ -97,6 +97,8 @@
 
   <form ng-if="!ctrl.isListView && worksheet.assignment.active">
 
+    <uib-alert ng-show="worksheet.assignment.area.comment" type="info">{{worksheet.assignment.area.comment}}</uib-alert>
+
     <uib-accordion close-others="oneAtATime">
       <uib-accordion-group is-open=true class="m-b-0">
         <uib-accordion-heading>

@@ -68,7 +68,8 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
     var area = {
       number: ctrl.model.area.number,
       shape: ctrl.model.area.shape,
-      type: ctrl.model.area.type.key
+      type: ctrl.model.area.type.key,
+      comment: ctrl.model.area.comment
     };
 
     if (!angular.equals(ctrl.model.area.shape.type, 'FeatureCollection')) {
@@ -92,7 +93,8 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
     var area = {
       number: ctrl.model.area.number,
       shape: ctrl.model.area.shape,
-      type: ctrl.model.area.type.key
+      type: ctrl.model.area.type.key,
+      comment: ctrl.model.area.comment
     };
 
     if (!angular.equals(ctrl.model.area.shape.type, 'FeatureCollection')) {
