@@ -132,7 +132,7 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
         if (angular.equals(ctrl.entities.types[i].key, ctrl.model.area.type)) {
           ctrl.model.area.type = ctrl.entities.types[i];
         }
-      };
+      }
 
       if (angular.isDefined(ctrl.model.area.shape)) {
         ctrl.model.area.shape = JSON.parse(ctrl.model.area.shape);

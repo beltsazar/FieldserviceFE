@@ -102,6 +102,16 @@ angular
         controller: 'CampaignList',
         controllerAs: 'ctrl'
       })
+      .when('/admin/accounts', {
+        templateUrl: 'views/account_list.html',
+        controller: 'AccountList',
+        controllerAs: 'ctrl'
+      })
+      .when('/admin/accounts/:id', {
+        templateUrl: 'views/account_details.html',
+        controller: 'AccountDetails',
+        controllerAs: 'ctrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

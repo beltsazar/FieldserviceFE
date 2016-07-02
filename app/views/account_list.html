@@ -1,0 +1,19 @@
+<h1>Accounts</h1>
+
+<table class="table">
+  <caption>List of Accounts</caption>
+  <thead>
+  <tr>
+    <th class="col-xs-1"></th>
+    <th>Account</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="account in ctrl.accounts">
+    <th class="col-xs-1" scope="row"><a ng-href="#/admin/accounts/{{account.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+    <td>{{account.firstName}} {{account.infix}} {{account.lastName}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<a class="btn btn-default btn-primary" href="#/admin/accounts/create" role="button">Create</a>

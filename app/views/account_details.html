@@ -1,0 +1,48 @@
+
+  <h1>Account</h1>
+
+  <form>
+
+    <div class="form-group">
+      <label for="first_name">First Name</label>
+      <input type="text" class="form-control" id="first_name" placeholder="enter first name" ng-model="ctrl.model.account.firstName">
+    </div>
+
+    <div class="form-group">
+      <label for="infix">Infix</label>
+      <input type="text" class="form-control" id="infix" placeholder="enter infix" ng-model="ctrl.model.account.infix">
+    </div>
+
+    <div class="form-group">
+      <label for="first_name">Last Name</label>
+      <input type="text" class="form-control" id="first_name" placeholder="enter last name" ng-model="ctrl.model.account.lastName">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="text" class="form-control" id="email" placeholder="enter email address" ng-model="ctrl.model.account.email">
+    </div>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" placeholder="enter username" ng-model="ctrl.model.account.username">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="reset password" ng-model="ctrl.model.account.password">
+    </div>
+
+    <div class="form-group">
+      <label>Role</label>
+      <select id="type" name="role" class="form-control" ng-model="ctrl.model.account.role" ng-options="role as role.label for role in ctrl.entities.roles track by role.key">
+      </select>
+    </div>
+
+    <div class="form-group">
+      <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.create();">Create</button>
+      <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.update();">Update</button>
+      <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.delete();">Delete</button>
+      <a class="btn btn-link" ng-href="#/admin/accounts">Back to list</a>
+    </div>
+  </form>
