@@ -41,7 +41,6 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
    * @returns {*}
      */
   ctrl.confirm = function (content, worksheet, callback, callbackArgs) {
-    console.log(worksheet)
 
     var modalInstance = $uibModal.open({
       animation: true,
