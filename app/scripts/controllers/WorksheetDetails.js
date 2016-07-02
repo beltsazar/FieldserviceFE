@@ -14,6 +14,11 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
   ctrl.id = $routeParams.id;
   ctrl.worksheets = [];
   ctrl.isListView = false;
+  ctrl.mapOptions = {
+    scrollWheelZoom: false,
+    touchZoom: true,
+    dragging: false
+  };
 
 	/**
    * Initialize

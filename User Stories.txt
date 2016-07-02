@@ -50,14 +50,15 @@ Gegeven het digitale rapportage systeem
 Backlog:
 - DONE Bevestigingspopup bij bepaalde (gevaarlijke) acties
 - DONE Admin module: accounts + annotaties + campaigns
-- Per gebied opmerkingsveld
+- DONE Per gebied opmerkingsveld
 - Assignment datums handmatig aanpassen => Directive
-- Toon adres op kaart
 - In worksheet view, kaart niet pinchen!
-- In worksheet view, type gebied tonen (Z)
+- DONE In worksheet view, type gebied tonen (Z)
 - Automatisch import script voor straten en steden
 - Basic foutafhandeling frontend
+- Knopje voor 'show on map'
 ----------------------------------------
+- Toon adres op kaart
 - Annotations (CRUD) in Address details admin scherm
 - Vanuit area view => Create assignment
 - Gebied overdragen

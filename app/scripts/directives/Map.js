@@ -15,33 +15,34 @@ angular.module('fieldserviceFeApp')
      * @param mapId
      * @constructor
      */
-    function Map(mapId) {
+    function Map(mapId, options) {
       this.map = undefined;
       this.osmLayer = undefined;
       this.locationLayer = undefined;
       this.mapId = mapId;
-      this.initialize();
+      this.initialize(options);
     }
 
     /**
      * Initialize map
      * @returns {Map}
      */
-    Map.prototype.initialize = function () {
-      var scope = this;
+    Map.prototype.initialize = function (options) {
+      var scope = this,
+          defaultOptions = {
+            center: [config.map.center.lat, config.map.center.lng],
+            zoom: config.map.center.zoom,
+            //scrollWheelZoom: false,
+            fullscreenControl: true
+          };
 
       // Initialize map with defaults
-      this.map = L.map(this.mapId, {
-        center: [config.map.center.lat, config.map.center.lng],
-        zoom: config.map.center.zoom,
-        //scrollWheelZoom: false,
-        fullscreenControl: true
-      });
+      this.map = L.map(this.mapId, angular.extend(defaultOptions, options));
 
       scope.adjustZoomStyling();
 
       this.osmLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        attribution: 'Map data &copy; OpenStreetMap',
         maxZoom: 19,
         opacity: 1,
         detectRetina: true,
@@ -271,15 +272,20 @@ angular.module('fieldserviceFeApp')
           }
           else {
             mapObject.map.remove();
-            return new Map(ctrl.id);
+            return createMap();
           }
         }
         else {
-          var newMap = new Map(ctrl.id);
-          MapService.resolve(newMap);
-          return newMap;
+          return createMap();
         }
       }
+
+      function createMap() {
+        var newMap = new Map(ctrl.id, ctrl.options);
+        MapService.resolve(newMap);
+        return newMap;
+      }
+
     };
 
     /**
@@ -292,7 +298,8 @@ angular.module('fieldserviceFeApp')
         shape: '=',
         shapes: '=',
         mode: '@',
-        id: '@'
+        id: '@',
+        options: '='
       },
       controller: mapController,
       controllerAs: 'ctrl'
