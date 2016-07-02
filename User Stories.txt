@@ -51,16 +51,16 @@ Backlog:
 - DONE Bevestigingspopup bij bepaalde (gevaarlijke) acties
 - DONE Admin module: accounts + annotaties + campaigns
 - DONE Per gebied opmerkingsveld
-- Assignment datums handmatig aanpassen => Directive
-- In worksheet view, kaart niet pinchen!
+- DONE In worksheet view, kaart niet pinchen!
 - DONE In worksheet view, type gebied tonen (Z)
+- Assignment datums handmatig aanpassen => Directive
 - Automatisch import script voor straten en steden
 - Basic foutafhandeling frontend
 - Knopje voor 'show on map'
+- Vanuit area view => Create assignment
 ----------------------------------------
 - Toon adres op kaart
 - Annotations (CRUD) in Address details admin scherm
-- Vanuit area view => Create assignment
 - Gebied overdragen
 - TAAL Functionaliteit !!!
 - QR Code

@@ -8,7 +8,7 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaList', function ($http, config, Campaigns, Areas, ViewAreas, Cities, MapService) {
+angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $scope, $timeout, config, Campaigns, Areas, ViewAreas, Cities, MapService) {
 
   var ctrl = this;
 
@@ -133,7 +133,16 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, conf
     });
   };
 
-  MapService.promise.then(function(mapObject) {
+
+  $scope.$watch(function () {
+      return MapService.mapObject;
+    }, function(mapObject) {
+      if(mapObject !== null) {
+        initMapLayers(mapObject);
+      }
+    });
+
+  function initMapLayers(mapObject) {
     var control = L.control.layers({'OSM Map': mapObject.osmLayer}).addTo(mapObject.map);
 
     Cities.query({
@@ -164,7 +173,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, conf
      control.addOverlay(cityLayer, city.name);
     }
 
-  });
+  }
 
   ctrl.getCampaigns();
 

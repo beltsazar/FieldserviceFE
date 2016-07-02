@@ -272,18 +272,14 @@ angular.module('fieldserviceFeApp')
           }
           else {
             mapObject.map.remove();
-            return createMap();
+            return  new Map(ctrl.id, ctrl.options);
           }
         }
         else {
-          return createMap();
+          var newMap = new Map(ctrl.id, ctrl.options);
+          MapService.mapObject = newMap;
+          return newMap;
         }
-      }
-
-      function createMap() {
-        var newMap = new Map(ctrl.id, ctrl.options);
-        MapService.resolve(newMap);
-        return newMap;
       }
 
     };
@@ -307,7 +303,9 @@ angular.module('fieldserviceFeApp')
 
   }).factory('MapService', function ($resource, config, $q) {
 
-  return $q.defer();
+  return {
+    mapObject: null
+  };
 
 });
 

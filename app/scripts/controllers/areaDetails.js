@@ -16,6 +16,10 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
     area: {}
   };
 
+  ctrl.mapOptions = {
+    scrollWheelZoom: false
+  };
+
   ctrl.entities = {
     assignments: [],
     addresses: [],
