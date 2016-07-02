@@ -62,6 +62,8 @@ Backlog:
 - Vanuit area view => Create assignment
 - Gebied overdragen
 - TAAL Functionaliteit !!!
+- QR Code
+- Verversen Worksheet
 
 
 
