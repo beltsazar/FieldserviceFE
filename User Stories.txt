@@ -53,18 +53,19 @@ Backlog:
 - DONE Per gebied opmerkingsveld
 - DONE In worksheet view, kaart niet pinchen!
 - DONE In worksheet view, type gebied tonen (Z)
-- Assignment datums handmatig aanpassen => Directive
-- Automatisch import script voor straten en steden
-- Basic foutafhandeling frontend
 - Knopje voor 'show on map'
 - Vanuit area view => Create assignment
+- Assignment datums handmatig aanpassen => Directive
+- Automatisch import script voor straten en steden
+- QR Code
+- Verversen Worksheet
+- Basic foutafhandeling frontend
 ----------------------------------------
 - Toon adres op kaart
 - Annotations (CRUD) in Address details admin scherm
 - Gebied overdragen
 - TAAL Functionaliteit !!!
-- QR Code
-- Verversen Worksheet
+
 
 
 
