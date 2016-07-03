@@ -7,13 +7,15 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q, $uibModal, $resource, $routeParams, $location, $filter, $interval, Worksheet, Worksheets, Assignments) {
+angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($scope, $q, $uibModal, $resource, $routeParams, $location, $filter, $interval, Worksheet, Worksheets, Assignments) {
 
-  var ctrl = this;
+  var ctrl = this,
+      interval;
 
   ctrl.id = $routeParams.id;
   ctrl.worksheets = [];
   ctrl.isListView = false;
+  ctrl.isDialogOpen = false;
   ctrl.mapOptions = {
     scrollWheelZoom: false,
     touchZoom: true,
@@ -29,6 +31,12 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
       id: ctrl.id,
       mode: 'view'}).$promise.then(function(response) {
         ctrl.worksheets.push(new Worksheet(response));
+
+      interval = $interval(function () {
+        if (!ctrl.isDialogOpen) {
+          ctrl.worksheets[0].refresh();
+        }
+      }, 20000);
     });
 
   };
@@ -41,6 +49,8 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
    * @returns {*}
      */
   ctrl.confirm = function (content, worksheet, callback, callbackArgs) {
+
+    ctrl.isDialogOpen = true;
 
     var modalInstance = $uibModal.open({
       animation: true,
@@ -61,11 +71,19 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
 
     modalInstance.result.then(function (result) {
       worksheet[callback].apply(worksheet, callbackArgs);
+      ctrl.isDialogOpen = false;
     }, function () {
+      ctrl.isDialogOpen = false;
       /* TODO: ? */
     });
 
     return modalInstance.result;
   };
+
+  $scope.$on('$destroy', function () {
+     if (angular.isDefined(interval)) {
+       $interval.cancel(interval);
+     }
+  });
 
 });
