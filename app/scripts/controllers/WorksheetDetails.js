@@ -17,7 +17,7 @@ angular.module('fieldserviceFeApp').controller('WorksheetDetails', function ($q,
   ctrl.mapOptions = {
     scrollWheelZoom: false,
     touchZoom: true,
-    dragging: false
+    dragging: true
   };
 
 	/**

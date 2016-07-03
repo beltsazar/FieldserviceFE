@@ -53,7 +53,7 @@ Backlog:
 - DONE Per gebied opmerkingsveld
 - DONE In worksheet view, kaart niet pinchen!
 - DONE In worksheet view, type gebied tonen (Z)
-- Knopje voor 'show on map'
+- DONE Knopje voor 'show on map'
 - Vanuit area view => Create assignment
 - Assignment datums handmatig aanpassen => Directive
 - Automatisch import script voor straten en steden

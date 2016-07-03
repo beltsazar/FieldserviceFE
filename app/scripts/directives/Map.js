@@ -20,6 +20,7 @@ angular.module('fieldserviceFeApp')
       this.osmLayer = undefined;
       this.locationLayer = undefined;
       this.mapId = mapId;
+      this.zoomToLocation = true;
       this.initialize(options);
     }
 
@@ -39,6 +40,8 @@ angular.module('fieldserviceFeApp')
       // Initialize map with defaults
       this.map = L.map(this.mapId, angular.extend(defaultOptions, options));
 
+      this.map.addControl(new this.LocationControl(this));
+
       scope.adjustZoomStyling();
 
       this.osmLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -50,15 +53,6 @@ angular.module('fieldserviceFeApp')
       });
 
       this.osmLayer.addTo(this.map);
-
-      this.map.locate({
-        watch: true,
-        enableHighAccuracy: true
-      });
-
-      this.map.on('locationfound', function (e) {
-        scope.showLocation (e, scope);
-      });
 
       this.map.on('zoomend', function (e) {
         scope.adjustZoomStyling();
@@ -79,7 +73,7 @@ angular.module('fieldserviceFeApp')
 
       this.locationLayer = L.featureGroup();
 
-      L.circleMarker(latlng, {
+      var location = L.circleMarker(latlng, {
         radius: 2,
         color: 'red',
         fillOpacity: 0.5,
@@ -92,6 +86,15 @@ angular.module('fieldserviceFeApp')
       }).addTo(this.locationLayer);
 
       this.map.addLayer(this.locationLayer);
+
+      if (this.zoomToLocation === true) {
+        this.map.panTo(location.getLatLng(), {
+          animate: true,
+          duration: 1
+        });
+        this.zoomToLocation = false;
+      }
+
     };
 
     /**
@@ -196,6 +199,42 @@ angular.module('fieldserviceFeApp')
       });
 
     };
+
+    Map.prototype.LocationControl = L.Control.extend({
+
+      initialize: function (mapObject, options) {
+        this.mapObject = mapObject;
+        L.Util.setOptions(this, options);
+      },
+
+      options: {
+        position: 'topleft'
+      },
+
+      onAdd: function (map) {
+        var mapObject = this.mapObject,
+            container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+
+        L.DomUtil.create('a', 'glyphicon glyphicon-screenshot', container);
+
+        container.onclick = function () {
+          mapObject.zoomToLocation = true;
+
+          map.on('locationfound', function (e) {
+            mapObject.showLocation(e, mapObject);
+          });
+
+          map.locate({
+            watch: true,
+            enableHighAccuracy: true
+          });
+
+        };
+
+        return container;
+      }
+    });
+
 
     /**
      * Controller
