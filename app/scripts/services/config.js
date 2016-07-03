@@ -31,15 +31,16 @@ angular.module('fieldserviceFeApp')
         warning: {
           stroke: true,
           weight: 5,
-          color: 'orange',
-          opacity: 0.7,
-          fillOpacity: 0.2
+          color: 'darkorange',
+          opacity: 1,
+          fillOpacity: 0.1
         },
         success: {
           stroke: true,
           weight: 5,
-          color: 'darkgreen',
-          fillOpacity: 0.2
+          color: 'blue',
+          opacity: 0.5,
+          fillOpacity: 0.1
         },
         danger: {
           stroke: true,
@@ -50,15 +51,15 @@ angular.module('fieldserviceFeApp')
         waiting: {
           stroke: true,
           weight: 5,
-          color: 'indigo',
+          color: 'darkgreen',
           opacity: 0.4,
           fillOpacity: 0.1
         },
         city: {
           stroke: true,
-          weight: 2,
+          weight: 1,
           color: 'blue',
-          opacity: 0.4,
+          opacity: 0.5,
           fillOpacity: 0
 
         }
