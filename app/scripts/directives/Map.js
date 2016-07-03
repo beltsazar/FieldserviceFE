@@ -31,8 +31,8 @@ angular.module('fieldserviceFeApp')
     Map.prototype.initialize = function (options) {
       var scope = this,
           defaultOptions = {
-            center: [config.map.center.lat, config.map.center.lng],
-            zoom: config.map.center.zoom,
+            //center: [config.map.center.lat, config.map.center.lng],
+            //zoom: config.map.center.zoom,
             //scrollWheelZoom: false,
             fullscreenControl: true
           };

@@ -85,7 +85,8 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
                   style,
                   popupText;
 
-              popupText = '<p class="m-b-5"><a href="#/admin/areas/' + area.id + '"><b>' + area.city.name + ' ' + area.number + '</b></a></p>';
+              popupText = '<p class="m-b-5"><a href="#/admin/areas/' + area.id + '"><b>' + area.city.name + ' ' + area.number + '</b></a></p>' +
+                '<p class="m-t-0 m-b-5">Type: ' + area.type + '</p>';
 
               if (assignments.length > 0 && assignments[0].active) {
                 var elapsedTimeFromCreation = moment(assignments[0].creationDate).fromNow(true),
