@@ -55,7 +55,7 @@ Backlog:
 - DONE In worksheet view, type gebied tonen (Z)
 - DONE Knopje voor 'show on map'
 - DONE Verversen Worksheet
-- Assignment datums handmatig aanpassen => Directive
+- DONE Assignment datums handmatig aanpassen => Directive
 - Vanuit area view => Create assignment
 - Basic foutafhandeling frontend
 - Automatisch import script voor straten en steden
