@@ -79,7 +79,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function ($scop
     else if (angular.isDefined(ctrl.model.creationDate) && ctrl.model.creationDate.length > 0) {
       var splittedDate = ctrl.model.creationDate.split('-');
       queryParams.search = 'search';
-      queryParams.findBy = 'findByCreationDateGreaterThan';
+      queryParams.findBy = 'findByCreationDateGreaterThanEqual';
       queryParams.date = splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + 'T00:00:00.001';
     }
     else {}
