@@ -18,10 +18,13 @@ angular.module('fieldserviceFeApp')
         });
 
         ngModel.$parsers.push(function (viewValue) {
-          var splittedDate = viewValue.split('-');
-          return splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + 'T00:00:00.001';
+          var splittedDate = viewValue.split('-'),
+              time = moment().format("THH:mm:ss.SSS");
+
+
+          return splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + time;
         });
-        
+
       }
     };
   });
