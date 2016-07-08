@@ -8,7 +8,7 @@
  * # ArealistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $timeout, $resource, $routeParams, $location, $filter, Areas, Addresses, Cities, Assignments) {
+angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, $timeout, $resource, $routeParams, $location, $filter, config, Areas, Addresses, Cities, Assignments) {
 
   var ctrl = this;
 
@@ -17,6 +17,8 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
   };
 
   ctrl.mapOptions = {
+    center: [config.map.center.lat, config.map.center.lng],
+    zoom: config.map.center.zoom,
     scrollWheelZoom: false
   };
 

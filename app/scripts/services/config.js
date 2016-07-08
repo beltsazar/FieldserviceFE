@@ -12,6 +12,7 @@ angular.module('fieldserviceFeApp')
 
     this.api = {
       hostname: $location.protocol() + '://' + $location.host() + ':8080' + '/api'
+      //hostname: '/api'
     };
 
     this.map = {

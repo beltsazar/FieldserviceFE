@@ -58,6 +58,7 @@ Backlog:
 - DONE Assignment datums handmatig aanpassen => Directive
 - DONE Basic foutafhandeling frontend
 ----------------------------------------
+- BUG security op admin paden
 - Automatisch import script voor straten en steden
 - QR Code
 - Vanuit area view => Create assignment
