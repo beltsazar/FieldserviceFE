@@ -58,7 +58,9 @@ Backlog:
 - DONE Assignment datums handmatig aanpassen => Directive
 - DONE Basic foutafhandeling frontend
 ----------------------------------------
-- BUG security op admin paden
+- BUG security op admin paden!
+- BUG straten in adres details alfabetisch
+- BUG in worksheet modus is edit assignment knop zichtbaar voor USER
 - Automatisch import script voor straten en steden
 - QR Code
 - Vanuit area view => Create assignment
