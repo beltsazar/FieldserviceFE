@@ -18,6 +18,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngAnimate',
     'ui.bootstrap'
   ])
   .config(function ($routeProvider, $httpProvider) {

@@ -56,11 +56,11 @@ Backlog:
 - DONE Knopje voor 'show on map'
 - DONE Verversen Worksheet
 - DONE Assignment datums handmatig aanpassen => Directive
-- Vanuit area view => Create assignment
-- Basic foutafhandeling frontend
+- DONE Basic foutafhandeling frontend
+----------------------------------------
 - Automatisch import script voor straten en steden
 - QR Code
-----------------------------------------
+- Vanuit area view => Create assignment
 - Toon adres op kaart
 - Annotations (CRUD) in Address details admin scherm
 - Gebied overdragen

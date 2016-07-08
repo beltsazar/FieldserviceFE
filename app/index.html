@@ -72,6 +72,8 @@
 
               <div ng-if="application.showLogin" ng-include="'views/login.html'" ng-cloak></div>
 
+              <uib-alert class="fade-in error-alert" ng-if="application.showErrorMessage" type="danger" close="application.closeShowErrorMessage()" dismiss-on-timeout="5000">Er is iets misgegaan, probeer het opnieuw ... <span ng-bind="application.errorMessageText" /></uib-alert>
+
             </div>
         </div>
       </div>

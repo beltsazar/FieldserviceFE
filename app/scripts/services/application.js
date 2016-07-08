@@ -34,6 +34,11 @@ angular.module('fieldserviceFeApp').factory('Application', function () {
     account: null,
     isAuthorized: false,
     showLogin: false,
+    showErrorMessage: false,
+    errorMessageText: '',
+    closeShowErrorMessage : function () {
+      this.showErrorMessage = false;
+    },
     hasRole: hasRole
   };
 
