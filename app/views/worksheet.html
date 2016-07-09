@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-      <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <nobr><span class="no-wrap font-size-20 xp-l-5"><b>{{worksheet.area.number}}</b><b ng-if="worksheet.area.type === 'BUSINESS'"> Z</b></span></nobr> <a ng-href="#/admin/assignments/{{worksheet.assignment.id}}"><span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></a></h1>
+      <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <nobr><span class="no-wrap font-size-20 xp-l-5"><b>{{worksheet.area.number}}</b><b ng-if="worksheet.area.type === 'BUSINESS'"> Z</b></span></nobr> <a ng-if="application.hasRole('ADMIN')" ng-href="#/admin/assignments/{{worksheet.assignment.id}}"><span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></a></h1>
     </div>
 
     <div class="list-group">

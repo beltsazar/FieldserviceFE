@@ -9,11 +9,18 @@
  */
 angular.module('fieldserviceFeApp')
   .service('config', function ($location) {
+    this.environment = 'DEVELOP'; // DEVELOP|LIVE (Set from app js)
 
     this.api = {
-      hostname: $location.protocol() + '://' + $location.host() + ':8080' + '/api'
-      //hostname: '/api'
+      hostname: '/api'
     };
+
+    if (angular.equals(this.environment, 'DEVELOP')) {
+      this.api.hostname = $location.protocol() + '://' + $location.host() + ':8080' + '/api';
+    }
+    else {
+      L.Icon.Default.imagePath = '/styles/images/';
+    }
 
     this.map = {
       center: {
