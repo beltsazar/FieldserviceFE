@@ -71,7 +71,7 @@
       </thead>
       <tbody>
       <tr ng-repeat="address in ctrl.entities.addresses">
-        <th class="col-xs-1" scope="row"><a ng-href="#/admin{{address._links.self.href | path}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
+        <th class="col-xs-1" scope="row"><a ng-href="#/admin/addresses/{{address.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
         <td>{{address.number}}<sup ng-if="address.suffix"> {{address.suffix}}</sup></td>
         <td>{{address.street.name}}</td>
         <td>{{address.city.name}}</td>
