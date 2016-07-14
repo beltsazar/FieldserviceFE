@@ -58,11 +58,14 @@ Backlog:
 - DONE Assignment datums handmatig aanpassen => Directive
 - DONE Basic foutafhandeling frontend
 ----------------------------------------
-- BUG security op admin paden!
-- BUG straten in adres details alfabetisch
-- BUG in worksheet modus is edit assignment knop zichtbaar voor USER
-- Automatisch import script voor straten en steden
+- Email adres voor de app
+- Herstel optie voor verkeerde invoer thuis/afwezig
+- Huisnummer invoer verbeteren
 - QR Code
+- BUG security op admin paden!
+- DONE BUG straten in adres details alfabetisch
+- DONE BUG in worksheet modus is edit assignment knop zichtbaar voor USER
+- CANCEL Automatisch import script voor straten en steden
 - Vanuit area view => Create assignment
 - Toon adres op kaart
 - Annotations (CRUD) in Address details admin scherm
