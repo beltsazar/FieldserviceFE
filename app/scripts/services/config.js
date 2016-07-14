@@ -16,7 +16,7 @@ angular.module('fieldserviceFeApp')
     };
 
     if (angular.equals(this.environment, 'DEVELOP')) {
-      this.api.hostname = $location.protocol() + '://' + $location.host() + ':8080' + '/api';
+      this.api.hostname = 'https://' + $location.host() + ':8080' + '/api';
     }
     else {
       L.Icon.Default.imagePath = '/styles/images/';
