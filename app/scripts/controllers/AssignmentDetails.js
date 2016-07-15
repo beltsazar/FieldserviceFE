@@ -12,6 +12,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
   var ctrl = this;
 
   ctrl.id = $routeParams.id;
+  ctrl.areaId = $routeParams.areaId;
 
   ctrl.model = {
     assignment: {}
@@ -27,9 +28,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
   if(ctrl.id !== 'create') {
     Assignments.get({id: ctrl.id, projection: 'entities'}).$promise.then(function (response) {
       ctrl.model.assignment = response;
-      if (angular.isDefined(ctrl.model.assignment.area)) {
-        ctrl.model.assignment.area.id += '';
-      }
+
       if (angular.isDefined(ctrl.model.assignment.account)) {
         ctrl.model.assignment.account.id += '';
       }
@@ -52,6 +51,15 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
       sort: ['city.name', 'number']
     }).$promise.then(function (result) {
       ctrl.entities.areas = result;
+
+      if (angular.equals(mode, 'create')) {
+        angular.forEach(ctrl.entities.areas, function (value) {
+          if (angular.equals(value.id, parseInt(ctrl.areaId))) {
+            ctrl.model.assignment.area = value;
+          }
+        });
+      }
+
     });
 
     // Get the accounts

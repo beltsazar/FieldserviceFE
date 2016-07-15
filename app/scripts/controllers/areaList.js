@@ -116,6 +116,11 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
 
               popupText += '<p class="m-t-0 m-b-5">Assignments: <b>' + assignments.length + '</b></p>';
 
+              if (assignments.length === 0 || assignments.length > 0 && !assignments[0].active) {
+                var createAssignmentLink = '#/admin/assignments/create?areaId=' + area.id;
+                popupText +=  '<p class="m-t-0 m-b-5" xstyle="cursor:pointer"><a href="' + createAssignmentLink + ' "><b>Create assignment</b></a></p>';
+              }
+
               feature.properties = {
                 label: '<span class="area">' + area.number + '</span> <span class="number">' + area.assignments.length + '</span>',
                 popup: popupText,
@@ -133,7 +138,6 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
 
     });
   };
-
 
   $scope.$watch(function () {
       return MapService.mapObject;

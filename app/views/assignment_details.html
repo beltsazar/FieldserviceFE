@@ -33,9 +33,7 @@
 
     <div class="form-group">
       <label for="area"><a ng-href="#/admin/areas/{{ctrl.model.assignment.area.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a> Area</label>
-      <select id="area" name="area" class="form-control" ng-model="ctrl.model.assignment.area.id">
-        <option ng-repeat="area in ctrl.entities.areas" value="{{area.id}}">{{area.city.name}} {{area.number}}</option>
-      </select>
+      <select id="area" name="area" class="form-control" ng-model="ctrl.model.assignment.area" ng-options="area as (area.city.name + ' ' + area.number) for area in ctrl.entities.areas track by area.id"></select>
     </div>
 
     <div class="form-group" ng-if="ctrl.model.assignment.creationDate">
