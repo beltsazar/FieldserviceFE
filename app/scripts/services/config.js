@@ -31,36 +31,36 @@ angular.module('fieldserviceFeApp')
       styles: {
         default: {
           stroke: true,
-          weight: 5,
+          weight: 2,
           color: 'blue',
           fillOpacity: 0.1,
           opacity: 0.4
         },
         warning: {
           stroke: true,
-          weight: 5,
+          weight: 4,
           color: 'darkorange',
           opacity: 1,
           fillOpacity: 0.1
         },
         success: {
           stroke: true,
-          weight: 5,
+          weight: 2,
           color: 'blue',
           opacity: 0.5,
           fillOpacity: 0.1
         },
         danger: {
           stroke: true,
-          weight: 5,
+          weight: 2,
           color: 'red',
           fillOpacity: 0.1
         },
         waiting: {
           stroke: true,
-          weight: 5,
-          color: 'darkgreen',
-          opacity: 0.4,
+          weight: 2,
+          color: 'gray',
+          opacity: 0.5,
           fillOpacity: 0.1
         },
         city: {

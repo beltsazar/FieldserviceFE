@@ -118,11 +118,11 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
 
               if (assignments.length === 0 || assignments.length > 0 && !assignments[0].active) {
                 var createAssignmentLink = '#/admin/assignments/create?areaId=' + area.id;
-                popupText +=  '<p class="m-t-0 m-b-5" xstyle="cursor:pointer"><a href="' + createAssignmentLink + ' "><b>Create assignment</b></a></p>';
+                popupText +=  '<p class="m-t-0 m-b-5"><a href="' + createAssignmentLink + ' "><b>Create assignment</b></a></p>';
               }
 
               feature.properties = {
-                label: '<span class="area">' + area.number + '</span> <span class="number">' + area.assignments.length + '</span>',
+                label: '<span class="area" style="padding-right:0.1em">' + area.number + '</span><span class="number">' + area.assignments.length + '</span>',
                 popup: popupText,
                 style: style
               };
