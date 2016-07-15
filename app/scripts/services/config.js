@@ -41,7 +41,7 @@ angular.module('fieldserviceFeApp')
           weight: 4,
           color: 'darkorange',
           opacity: 1,
-          fillOpacity: 0.1
+          fillOpacity: 0
         },
         success: {
           stroke: true,
@@ -59,7 +59,7 @@ angular.module('fieldserviceFeApp')
         waiting: {
           stroke: true,
           weight: 2,
-          color: 'gray',
+          color: 'black',
           opacity: 0.5,
           fillOpacity: 0.1
         },
