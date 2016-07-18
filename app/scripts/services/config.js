@@ -9,7 +9,11 @@
  */
 angular.module('fieldserviceFeApp')
   .service('config', function ($location) {
-    this.environment = 'DEVELOP'; // DEVELOP|LIVE (Set from app js)
+    this.environment = 'LIVE';
+
+    if (angular.equals($location.port(), 9000)) {
+      this.environment = 'DEVELOP';
+    }
 
     this.api = {
       hostname: '/api'
@@ -38,17 +42,17 @@ angular.module('fieldserviceFeApp')
         },
         warning: {
           stroke: true,
-          weight: 4,
+          weight: 2,
           color: 'darkorange',
           opacity: 1,
-          fillOpacity: 0
+          fillOpacity: 0.3
         },
         success: {
           stroke: true,
           weight: 2,
           color: 'blue',
           opacity: 0.5,
-          fillOpacity: 0.1
+          fillOpacity: 0.2
         },
         danger: {
           stroke: true,
@@ -65,7 +69,7 @@ angular.module('fieldserviceFeApp')
         },
         city: {
           stroke: true,
-          weight: 1,
+          weight: 2,
           color: 'blue',
           opacity: 0.5,
           fillOpacity: 0

@@ -58,15 +58,17 @@ Backlog:
 - DONE Assignment datums handmatig aanpassen => Directive
 - DONE Basic foutafhandeling frontend
 ----------------------------------------
+- Voorkomen dubbele invoer adressen
+- Huisnummer invoer verbeteren
 - Email adres voor de app
 - Herstel optie voor verkeerde invoer thuis/afwezig
-- Huisnummer invoer verbeteren
 - QR Code
 - Toon adres op kaart
 - Annotations (CRUD) in Address details admin scherm
 - Gebied overdragen
 - TAAL Functionaliteit !!!
 
+- BUG Area label op maps beter uitlijnen en NIET klikbaar
 - BUG security op admin paden!
 
 - CANCEL Automatisch import script voor straten en steden

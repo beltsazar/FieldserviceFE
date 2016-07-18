@@ -129,15 +129,9 @@ body {}
 }
 
 .area-div-icon {
-  width:200px;
-  height:60px;
-  left:-100px;
-  top:-30px;
-  font-size:30px;
   font-weight:bold;
   text-align: center;
   color: black;
-  line-height:60px;
   background:none;
   border:none;
   box-shadow:none;
@@ -146,7 +140,8 @@ body {}
 
 .area-div-icon .number {
   vertical-align: super;
-  font-size:60%;
+  font-size:50%;
+  line-height:50%;
 }
 
 .zoom-0 .area-div-icon,
@@ -161,41 +156,58 @@ body {}
 .zoom-9 .area-div-icon,
 .zoom-10 .area-div-icon,
 .zoom-11 .area-div-icon,
-.zoom-12 .area-div-icon {
-  display: none;
-}
-
+.zoom-12 .area-div-icon,
 .zoom-13 .area-div-icon,
-.zoom-13 .area-div-icon .label {
-  font-size:12px;
-}
-
-.zoom-14 .area-div-icon,
-.zoom-14 .area-div-icon .label {
-  font-size:14px;
+.zoom-14 .area-div-icon {
+  display: none;
 }
 
 .zoom-15 .area-div-icon,
 .zoom-15 .area-div-icon .label {
-  font-size:22px;
+  font-size:20px;
+  line-height:20px;
+  left:-25px;
+  top:-10px;
+  width:50px;
+  height:20px;
 }
 .zoom-16 .area-div-icon,
 .zoom-16 .area-div-icon .label {
   font-size:32px;
+  line-height:32px;
+  left:-35px;
+  top:-16px;
+  width:70px;
+  height:32px;
 }
 .zoom-17 .area-div-icon,
 .zoom-17 .area-div-icon .label {
-  font-size:55px;
+  font-size:56px;
+  line-height:56px;
+  left:-60px;
+  top:-28px;
+  width:120px;
+  height:56px;
   opacity: 0.5;
 }
 .zoom-18 .area-div-icon,
 .zoom-18 .area-div-icon .label {
-  font-size:75px;
+  font-size:72px;
+  line-height:72px;
+  left:-90px;
+  top:-36px;
+  width:180px;
+  height:72px;
   opacity: 0.4;
 }
 .zoom-19 .area-div-icon,
 .zoom-19 .area-div-icon .label {
   font-size:100px;
+  line-height:100px;
+  left:-110px;
+  top:-50px;
+  width:220px;
+  height:100px;
   opacity: 0.3;
 }
 
