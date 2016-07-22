@@ -69,7 +69,7 @@
             <td class="col-xs-2" ng-class="{'embedded-table-first-row' : $index === 0}"><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
             <td ng-class="{'embedded-table-first-row' : $index === 0}">{{assignment.campaign.name}}</td>
             <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}">{{assignment.creationDate | formatShortDate}}</td>
-            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}"><span ng-if="assignment.closeDate">{{assignment.closeDate  | formatShortDate}}</span><span ng-if="assignment.elapsedTimeFromCreation"><b>{{assignment.elapsedTimeFromCreation}}</b></span></td>
+            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}"><span ng-if="assignment.closeDate">{{assignment.closeDate  | formatShortDate}}</span><span ng-if="!assignment.closeDate"><b>{{assignment.elapsedTimeFromCreation}}</b></span></td>
           </tr>
           </tbody>
         </table>

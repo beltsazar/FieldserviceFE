@@ -85,13 +85,16 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
                   style,
                   popupText;
 
+              angular.forEach(assignments, function(assignment) {
+                var elapsedTimeFromCreation = moment(assignment.creationDate).fromNow(true);
+                  assignment.elapsedTimeFromCreation = elapsedTimeFromCreation;
+              });
+
               popupText = '<p class="m-b-5"><a href="#/admin/areas/' + area.id + '"><b>' + $filter('displayAreaName')(area) + '</b></a></p>';
 
               if (assignments.length > 0 && assignments[0].active) {
-                var elapsedTimeFromCreation = moment(assignments[0].creationDate).fromNow(true),
-                    account = assignments[0].account;
+                var account = assignments[0].account;
 
-                assignments[0].elapsedTimeFromCreation = elapsedTimeFromCreation;
                 style = config.map.styles.warning;
 
                 if(angular.isDefined(account)) {
@@ -103,7 +106,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
                   popupText += '<p class="m-t-0 m-b-5">Administrator: <b>' + accountName + '</b></p>';
                 }
 
-                popupText += '<p class="m-t-0 m-b-5">Started: <b>' + elapsedTimeFromCreation + '</b> geleden</p>';
+                popupText += '<p class="m-t-0 m-b-5">Started: <b>' + assignments[0].elapsedTimeFromCreation + '</b> geleden</p>';
               }
               else if (assignments.length > 0 && !assignments[0].active) {
                 style = config.map.styles.success;
