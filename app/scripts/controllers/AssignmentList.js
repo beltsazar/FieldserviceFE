@@ -15,7 +15,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function ($scop
     selectedCampaign: {},
     active: true,
     sort: ['area.city.name,asc', 'area.number,asc'],
-    creationDate: undefined,
+    creationDate: moment().subtract(1, 'years').format("DD-MM-YYYY"),
     creationDateDisabled: 'disabled'
   };
   ctrl.campaigns = [{
@@ -26,7 +26,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function ($scop
 
   ctrl.page = {
     number: 1,
-    size: 10
+    size: 50
   };
 
   ctrl.getCampaigns = function () {
@@ -117,6 +117,10 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function ($scop
 
     ctrl.getAssignments();
   };
+
+  ctrl.getElapsedTime = function(date) {
+    return moment(date).fromNow(true);
+  }
 
   ctrl.getCampaigns();
 

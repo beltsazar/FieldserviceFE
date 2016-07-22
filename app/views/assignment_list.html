@@ -59,13 +59,13 @@
        <tbody>
        <tr ng-repeat="assignment in ctrl.assignments">
          <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-         <td>{{assignment.area.city.name}} {{assignment.area.number}} {{assignment.area.type}}</td>
+         <td>{{assignment.area | displayAreaName}}</td>
          <td><nobr>{{assignment.campaign.name}}</nobr></td>
          <td>{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>
          <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
          <td><span ng-if="assignment.personal" class="label label-danger">private</span><span ng-if="!assignment.personal" class="label label-success">public</span></td>
          <td><nobr>{{assignment.creationDate | formatShortDate}}</nobr></td>
-         <td><nobr>{{assignment.closeDate | formatShortDate}}</nobr></td>
+         <td><nobr><span ng-if="assignment.closeDate">{{assignment.closeDate | formatShortDate}}</span><span ng-if="!assignment.closeDate"><b>{{ctrl.getElapsedTime(assignment.creationDate)}}</b></span></nobr></td>
        </tr>
        </tbody>
      </table>

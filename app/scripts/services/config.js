@@ -69,7 +69,7 @@ angular.module('fieldserviceFeApp')
         },
         city: {
           stroke: true,
-          weight: 2,
+          weight: 1,
           color: 'blue',
           opacity: 0.5,
           fillOpacity: 0

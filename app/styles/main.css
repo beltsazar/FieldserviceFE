@@ -135,13 +135,20 @@ body {}
   background:none;
   border:none;
   box-shadow:none;
-  opacity: 0.8;
 }
 
+.area-div-icon .area-type {}
+
 .area-div-icon .number {
+  margin-left:0.1em;
   vertical-align: super;
   font-size:50%;
-  line-height:50%;
+}
+
+.area-div-icon .type {
+  margin-left:0.1em;
+  vertical-align: super;
+  font-size:40%;
 }
 
 .zoom-0 .area-div-icon,
@@ -157,17 +164,26 @@ body {}
 .zoom-10 .area-div-icon,
 .zoom-11 .area-div-icon,
 .zoom-12 .area-div-icon,
-.zoom-13 .area-div-icon,
-.zoom-14 .area-div-icon {
+.zoom-13 .area-div-icon {
   display: none;
 }
 
+
+.zoom-14 .area-div-icon,
+.zoom-14 .area-div-icon .label {
+  font-size:12px;
+  line-height:12px;
+  left:-15px;
+  top:-8px;
+  width:30px;
+  height:12px;
+}
 .zoom-15 .area-div-icon,
 .zoom-15 .area-div-icon .label {
   font-size:20px;
   line-height:20px;
   left:-25px;
-  top:-10px;
+  top:-12px;
   width:50px;
   height:20px;
 }
@@ -176,7 +192,7 @@ body {}
   font-size:32px;
   line-height:32px;
   left:-35px;
-  top:-16px;
+  top:-20px;
   width:70px;
   height:32px;
 }

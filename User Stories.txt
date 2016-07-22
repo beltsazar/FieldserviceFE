@@ -58,6 +58,10 @@ Backlog:
 - DONE Assignment datums handmatig aanpassen => Directive
 - DONE Basic foutafhandeling frontend
 ----------------------------------------
+- DONE In assignment en area overview, standaard creationdate jaar geleden
+- DONE In assignment scherm bij actieve gebieden, closedate kolom tijd in bewerking tonen
+- DONE In area view prive gebied tonen
+- DONE In area view completed date tonen
 - Voorkomen dubbele invoer adressen
 - Huisnummer invoer verbeteren
 - Email adres voor de app

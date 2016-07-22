@@ -8,7 +8,7 @@
  * # CitylistCtrl
  * Controller of the fieldserviceFeApp
  */
-angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $scope, $timeout, config, Campaigns, Areas, ViewAreas, Cities, MapService) {
+angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $scope, $timeout, $filter, config, Campaigns, Areas, ViewAreas, Cities, MapService) {
 
   var ctrl = this;
 
@@ -28,7 +28,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
   ctrl.model = {
     type: ctrl.types[0],
     selectedCampaign: {},
-    creationDate: undefined,
+    creationDate: moment().subtract(1, 'years').format("DD-MM-YYYY"),
     creationDateDisabled: 'disabled'
   };
 
@@ -85,8 +85,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
                   style,
                   popupText;
 
-              popupText = '<p class="m-b-5"><a href="#/admin/areas/' + area.id + '"><b>' + area.city.name + ' ' + area.number + '</b></a></p>' +
-                '<p class="m-t-0 m-b-5">Type: ' + area.type + '</p>';
+              popupText = '<p class="m-b-5"><a href="#/admin/areas/' + area.id + '"><b>' + $filter('displayAreaName')(area) + '</b></a></p>';
 
               if (assignments.length > 0 && assignments[0].active) {
                 var elapsedTimeFromCreation = moment(assignments[0].creationDate).fromNow(true),
@@ -97,9 +96,9 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
 
                 if(angular.isDefined(account)) {
                   var accountName = '';
-                  accountName += angular.isDefined(account.firstName) ? account.firstName : ' ';
-                  accountName += angular.isDefined(account.infix) ? account.infix : ' ';
-                  accountName += angular.isDefined(account.lastName) ? account.lastName : ' ';
+                  accountName += angular.isDefined(account.firstName) ? account.firstName + ' ' : ' ';
+                  accountName += angular.isDefined(account.infix) ? account.infix + ' ' : ' ';
+                  accountName += angular.isDefined(account.lastName) ? account.lastName + ' ' : ' ';
 
                   popupText += '<p class="m-t-0 m-b-5">Administrator: <b>' + accountName + '</b></p>';
                 }
@@ -118,11 +117,21 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
 
               if (assignments.length === 0 || assignments.length > 0 && !assignments[0].active) {
                 var createAssignmentLink = '#/admin/assignments/create?areaId=' + area.id;
-                popupText +=  '<p class="m-t-0 m-b-5"><a href="' + createAssignmentLink + ' "><b>Create assignment</b></a></p>';
+                popupText +=  '<p class="m-t-0 m-b-5" style="margin-left:-15px"><a href="' + createAssignmentLink + ' "><b><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Create assignment</b></a></p>';
+              }
+
+              /**
+               * Show area on map
+               */
+
+              var areaLabel = '<span class="area">' + area.number + '</span><span class="area-type">' + $filter('displayAreaNameType')(area) + '</span><span class="number">' + area.assignments.length + '</span>'
+
+              if (assignments.length > 0 && assignments[0].active && assignments[0].personal) {
+                areaLabel += '<span class="type"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>';
               }
 
               feature.properties = {
-                label: '<span class="area" style="padding-right:0.1em">' + area.number + '</span><span class="number">' + area.assignments.length + '</span>',
+                label: areaLabel,
                 popup: popupText,
                 style: style
               };
