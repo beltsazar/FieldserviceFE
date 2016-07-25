@@ -116,11 +116,15 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
                 style = config.map.styles.waiting;
               }
 
+              if (assignments.length > 0) {
+                popupText += '<p class="m-t-0 m-b-5">Campaign: <b>' + assignments[0].campaign.name + '</b></p>';
+              }
+
               popupText += '<p class="m-t-0 m-b-5">Assignments: <b>' + assignments.length + '</b></p>';
 
               if (assignments.length === 0 || assignments.length > 0 && !assignments[0].active) {
                 var createAssignmentLink = '#/admin/assignments/create?areaId=' + area.id;
-                popupText +=  '<p class="m-t-0 m-b-5" style="margin-left:-15px"><a href="' + createAssignmentLink + ' "><b><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> Create assignment</b></a></p>';
+                popupText +=  '<p class="m-t-0 m-b-5"><a href="' + createAssignmentLink + ' "><b>Create assignment</b></a></p>';
               }
 
               /**
