@@ -44,7 +44,7 @@ angular.module('fieldserviceFeApp')
 
       scope.adjustZoomStyling();
 
-      this.osmLayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      this.osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; OpenStreetMap',
         maxZoom: 19,
         opacity: 1,
