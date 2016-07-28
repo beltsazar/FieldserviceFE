@@ -131,11 +131,44 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
                * Show area on map
                */
 
-              var areaLabel = '<span class="area">' + area.number + '</span><span class="area-type">' + $filter('displayAreaNameType')(area) + '</span><span class="number">' + area.assignments.length + '</span>'
+
+              var meter = ''
+
+              function getMeter(date, duration) {
+                var theDate = moment(date);
+                var percentageTime = Math.floor((moment().diff(theDate, 'days') / duration) * 100);
+                var styles = '';
+                var cssClass = 'value';
+
+                if (percentageTime > 100) {
+                  percentageTime = 100;
+                  styles = 'background-color:red;';
+                  cssClass += ' blink';
+
+                }
+
+                percentageTime = 100 - percentageTime;
+
+                styles += 'top:' + percentageTime + '%';
+
+                return '<div class="meter"><div class="' + cssClass + '" style="' + styles + '"></div></div>';
+              }
+
+              if (assignments.length > 0 && assignments[0].closeDate) {
+                meter = getMeter(assignments[0].closeDate, 365);
+              }
+
+              if (assignments.length > 0 && assignments[0].active) {
+                meter = getMeter(assignments[0].creationDate, 4*30);
+              }
+
+              var areaLabel = '<div class="area">' + meter + area.number + '<span class="area-type">' + $filter('displayAreaNameType')(area) + '</span><span class="number">' + area.assignments.length + '</span>'
 
               if (assignments.length > 0 && assignments[0].active && assignments[0].personal) {
                 areaLabel += '<span class="type"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>';
               }
+
+              areaLabel += '</div>';
 
               feature.properties = {
                 label: areaLabel,
