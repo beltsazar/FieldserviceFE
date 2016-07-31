@@ -197,7 +197,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
     });
 
   function initMapLayers(mapObject) {
-    var control = L.control.layers({'OSM Map': mapObject.osmLayer}).addTo(mapObject.map);
+    var control = L.control.layers({'OSM Map': mapObject.osmLayer, 'Areal Map' : mapObject.Esri_WorldImagery}).addTo(mapObject.map);
 
     Cities.query({
       sort: ['name,asc']

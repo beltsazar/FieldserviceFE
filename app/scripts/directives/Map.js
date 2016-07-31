@@ -21,6 +21,7 @@ angular.module('fieldserviceFeApp')
       this.locationLayer = undefined;
       this.mapId = mapId;
       this.zoomToLocation = true;
+      this.initialized = false;
       this.initialize(options);
     }
 
@@ -46,6 +47,14 @@ angular.module('fieldserviceFeApp')
 
       this.osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; OpenStreetMap',
+        maxZoom: 19,
+        opacity: 1,
+        detectRetina: true,
+        reuseTiles: true
+      });
+
+      this.Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
         maxZoom: 19,
         opacity: 1,
         detectRetina: true,
@@ -126,7 +135,7 @@ angular.module('fieldserviceFeApp')
       if (bounds.isValid()) {
         this.map.fitBounds(bounds);
       }
-    }
+    };
 
     Map.prototype.getGeoJsonLayer = function () {
 
@@ -276,8 +285,13 @@ angular.module('fieldserviceFeApp')
           shapeLayer.addData(shapes[i]);
         }
 
-        mapObject.focusLayer(shapeLayer);
+        if (!mapObject.initialized) {
+          mapObject.focusLayer(shapeLayer);
+          mapObject.initialized = true;
+        }
+
         shapeLayer.addTo(mapObject.map);
+
       }
 
       function initEditor (geoJsonObject) {
