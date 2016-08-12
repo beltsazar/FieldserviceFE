@@ -46,8 +46,7 @@
        <caption>List of Assignments</caption>
        <thead>
        <tr>
-         <th class="col-xs-1"></th>
-         <th><a href="" ng-click="ctrl.sortByProperty('area.city.name')">Area</a> <span ng-if="ctrl.model.sort[0].indexOf('city') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'area.city.name,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'area.city.name,desc'}" aria-hidden="true"></span></th>
+         <th class="col-xs-2"><a href="" ng-click="ctrl.sortByProperty('area.city.name')">Area</a> <span ng-if="ctrl.model.sort[0].indexOf('city') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'area.city.name,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'area.city.name,desc'}" aria-hidden="true"></span></th>
          <th>Campaign</th>
          <th>Account</th>
          <th><a href="" ng-click="ctrl.sortByProperty('active')">Status</a> <span ng-if="ctrl.model.sort[0].indexOf('active') > -1" class="glyphicon" ng-class="{'glyphicon-sort-by-attributes': ctrl.model.sort[0] === 'active,asc', 'glyphicon-sort-by-attributes-alt': ctrl.model.sort[0] === 'active,desc'}" aria-hidden="true"></span></th>
@@ -58,14 +57,14 @@
        </thead>
        <tbody>
        <tr ng-repeat="assignment in ctrl.assignments">
-         <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-         <td>{{assignment.area | displayAreaName}}</td>
+         <td class="col-xs-2" scope="row"><a class="p-r-5" ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+           {{assignment.area | displayAreaName}}</td>
          <td><nobr>{{assignment.campaign.name}}</nobr></td>
          <td>{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>
          <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
          <td><span ng-if="assignment.personal" class="label label-danger">private</span><span ng-if="!assignment.personal" class="label label-success">public</span></td>
-         <td><nobr>{{assignment.creationDate | formatShortDate}}</nobr></td>
-         <td><nobr><span ng-if="assignment.closeDate">{{assignment.closeDate | formatShortDate}}</span><span ng-if="!assignment.closeDate"><b>{{ctrl.getElapsedTime(assignment.creationDate)}}</b></span></nobr></td>
+         <td xclass="col-xs-3"><span>{{assignment.creationDate | formatShortDate}}</span><span class="p-l-5 p-r-5">|</span><span ng-class="{'bold': !assignment.closeDate}">{{assignment.creationDate | daysFromNow}}</span></td>
+         <td xclass="col-xs-3" ><span>{{assignment.closeDate  | formatShortDate}}</span><span class="p-l-5 p-r-5" ng-if="assignment.closeDate">|</span><span>{{assignment.closeDate | daysFromNow}}</span></td>
        </tr>
        </tbody>
      </table>

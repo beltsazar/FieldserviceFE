@@ -1,3 +1,4 @@
+/* globals moment */
 'use strict';
 
 /**
@@ -9,6 +10,13 @@
  * Filter in the fieldserviceFeApp.
  */
 angular.module('fieldserviceFeApp')
+  .filter('daysFromNow', function () {
+    return function (input) {
+      if(angular.isDefined(input)) {
+        return moment(input).fromNow(true);
+      }
+    };
+  })
   .filter('formatDate', function () {
     return function (input) {
       if(angular.isDefined(input)) {

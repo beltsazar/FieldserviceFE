@@ -50,29 +50,30 @@
     <caption>List of Areas</caption>
     <thead>
     <tr>
-      <th class="col-xs-1"></th>
-      <th>City</th>
+      <th></th>
+      <th xclass="col-xs-2">City</th>
       <th>Number</th>
       <th>Type</th>
-      <th>Assignments</th>
+      <th class="col-xs-9">Assignments</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="area in ctrl.areas">
-      <th class="col-xs-1" scope="row"><a ng-href="#/admin/areas/{{area.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-      <td>{{area.city.name}}</td>
+      <td scope="row"><a ng-href="#/admin/areas/{{area.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></td>
+      <td><nobr>{{area.city.name}}</nobr></td>
       <td>{{area.number}}</td>
-      <td>{{area.type}}</td>
+      <td>{{area.type | displayAreaType}}</td>
       <td class="p-b-0 p-r-0">
 
         <table class="table m-b-0">
           <tbody>
           <tr ng-repeat="assignment in area.assignments">
-            <td class="col-xs-1" ng-class="{'embedded-table-first-row' : $index === 0}" class="col-xs-1"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></td>
-            <td class="col-xs-2" ng-class="{'embedded-table-first-row' : $index === 0}"><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
-            <td ng-class="{'embedded-table-first-row' : $index === 0}">{{assignment.campaign.name}}</td>
-            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}">{{assignment.creationDate | formatShortDate}}</td>
-            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}"><span ng-if="assignment.closeDate">{{assignment.closeDate  | formatShortDate}}</span><span ng-if="!assignment.closeDate"><b>{{assignment.elapsedTimeFromCreation}}</b></span></td>
+            <td style="padding-left:0" class="col-xs-1"  ng-class="{'embedded-table-first-row' : $index === 0}"><nobr><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right p-r-10" aria-hidden="true"></span></a>
+            <span style="display:inline-block;width:50px;"  ng-if="assignment.active" class="label label-warning">active</span><span style="display:inline-block;width:50px;" ng-if="!assignment.active" class="label label-default">closed</span></nobr></td>
+            <td class="col-xs-2" ng-class="{'embedded-table-first-row' : $index === 0}">{{assignment.campaign.name}}</td>
+            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}">{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>
+            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}"><span>{{assignment.creationDate | formatShortDate}}</span><span class="p-l-5 p-r-5">|</span><span ng-class="{'bold': !assignment.closeDate}">{{assignment.creationDate | daysFromNow}}</span></td>
+            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}"><span>{{assignment.closeDate  | formatShortDate}}</span><span class="p-l-5 p-r-5" ng-if="assignment.closeDate">|</span><span>{{assignment.closeDate | daysFromNow}}</span></td>
           </tr>
           </tbody>
         </table>
@@ -81,5 +82,6 @@
     </tr>
     </tbody>
   </table>
+
 
 
