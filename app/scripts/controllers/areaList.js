@@ -27,7 +27,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
 
   ctrl.model = {
     type: ctrl.types[0],
-    selectedCampaign: {},
+    selectedCampaigns: [],
     creationDate: moment().subtract(1, 'years').format("DD-MM-YYYY"),
     creationDateDisabled: 'disabled'
   };
@@ -38,7 +38,8 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
       sort: ['active,desc','name,asc']
     }).$promise.then(function(result) {
       Array.prototype.push.apply(ctrl.campaigns, result);
-      ctrl.model.selectedCampaign = ctrl.campaigns[1];
+
+      ctrl.model.selectedCampaigns[0] = ctrl.campaigns[1];
 
       ctrl.getAreas();
     });
@@ -53,13 +54,18 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
   ctrl.getAreas = function () {
     var params = {
       type: ctrl.model.type.id,
-      campaign: ctrl.model.selectedCampaign.id,
+      campaign: [],
       date: ctrl.model.creationDate
     };
 
-    if (!angular.isDefined(ctrl.model.selectedCampaign.id) && angular.isDefined(params.date) && params.date.length > 0) {
+    angular.forEach(ctrl.model.selectedCampaigns, function(campaign) {
+      params.campaign.push(campaign.id);
+    });
+
+    if (!angular.isDefined(ctrl.model.selectedCampaigns[0].id) && angular.isDefined(params.date) && params.date.length > 0) {
       var splittedDate = ctrl.model.creationDate.split('-');
       params.date = splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + 'T00:00:00.001';
+      delete params.campaign;
     }
     else {
       delete params.date;

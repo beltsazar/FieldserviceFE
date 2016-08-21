@@ -1,4 +1,28 @@
-Als gemeente wil ik het gebied op een efficiente manier bewerken
+Backlog:
+- In area view popup, alle bewerkingen en campaigns tonen
+- In area view sterretje als bewerkt tijdens reguliere bewerking?
+- In campaign domein model onderscheid tussen acties en reguliere bewerking
+- In area view: meerdere campaigns selecteren
+- In area view: bij meerdere campaigns, actieve campaign highlighten met sterretje
+- In assignment view: sorteren op account
+- In assignment details: delete optie
+- Voorkomen dubbele invoer adressen
+- Huisnummer invoer verbeteren
+- Email adres voor de app
+- Herstel optie voor verkeerde invoer thuis/afwezig
+- QR Code
+- Toon adres op kaart
+- Annotations (CRUD) in Address details admin scherm
+- Gebied overdragen
+- TAAL Functionaliteit !!!
+
+- BUG Area label op maps beter uitlijnen en NIET klikbaar
+- BUG security op admin paden!
+
+
+/**
+ * Als gemeente wil ik het gebied op een efficiente manier bewerken
+ */
 
 Als beheerder wil ik overzicht in de status van de gebieden
 - DONE Ik wil zien welke gebieden bewerkt worden.
@@ -62,24 +86,6 @@ Backlog:
 - DONE In area view prive gebied tonen
 - DONE In area view completed date tonen
 ----------------------------------------
-- In area view popup, alle bewerkingen en campaigns tonen
-- In area view sterretje als bewerkt tijdens reguliere bewerking?
-- In campaign domein model onderscheid tussen acties en reguliere bewerking
-- In area view: meerdere campaigns selecteren
-- In area view: bij meerdere campaigns, actieve campaign highlighten met sterretje
-- In assignment view: sorteren op account
-- Voorkomen dubbele invoer adressen
-- Huisnummer invoer verbeteren
-- Email adres voor de app
-- Herstel optie voor verkeerde invoer thuis/afwezig
-- QR Code
-- Toon adres op kaart
-- Annotations (CRUD) in Address details admin scherm
-- Gebied overdragen
-- TAAL Functionaliteit !!!
-
-- BUG Area label op maps beter uitlijnen en NIET klikbaar
-- BUG security op admin paden!
 
 - CANCEL Automatisch import script voor straten en steden
 
