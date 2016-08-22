@@ -1,5 +1,4 @@
 Backlog:
-- In Campaign view: toon shortname
 - In area view popup, alle bewerkingen en campaigns tonen
 - In area view sterretje als bewerkt tijdens reguliere bewerking?
 - In campaign domein model onderscheid tussen acties en reguliere bewerking
@@ -72,6 +71,7 @@ Gegeven het digitale rapportage systeem
   Doel: zodat de openstaande gebieden zo efficient mogelijk kunnen worden bewerkt
 
 Backlog:
+- DONE In Campaign view: toon shortname
 - DONE In area view: meerdere campaigns selecteren
 - DONE Campagnelijst sorteren op meest recent
 - DONE Bevestigingspopup bij bepaalde (gevaarlijke) acties

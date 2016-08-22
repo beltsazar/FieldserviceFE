@@ -19,6 +19,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
     id: undefined,
     name: '-- All Campaigns --'
   }];
+
   ctrl.types = [
     { id: undefined, name: '-- All Types --' },
     { id: 'PRIVATE', name: 'Private' },
@@ -30,6 +31,8 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
     selectedCampaigns: [],
     creationDate: moment().subtract(1, 'years').format('DD-MM-YYYY')
   };
+
+  ctrl.showSimpleView = false;
 
   ctrl.getCampaigns = function () {
     Campaigns.query({
@@ -231,6 +234,10 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
     }
 
   }
+
+  ctrl.toggleSimpleView = function () {
+    ctrl.showSimpleView = !ctrl.showSimpleView;
+  };
 
   ctrl.getCampaigns();
 

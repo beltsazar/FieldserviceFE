@@ -7,12 +7,14 @@
     <tr>
       <th class="col-xs-1">Active</th>
       <th>Name</th>
+      <th>Short Name</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="campaign in ctrl.campaigns">
       <th class="col-xs-1" scope="row"><input type="radio" ng-model="ctrl.selectedCampaign" ng-value="campaign"></th>
       <td>{{campaign.name}}</td>
+      <td>{{campaign.shortName}}</td>
     </tr>
     </tbody>
   </table>
