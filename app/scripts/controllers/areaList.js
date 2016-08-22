@@ -32,17 +32,13 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
   };
 
   ctrl.getCampaigns = function () {
-
     Campaigns.query({
       sort: ['active,desc','shortName,desc']
     }).$promise.then(function(result) {
       Array.prototype.push.apply(ctrl.campaigns, result);
-
       ctrl.model.selectedCampaigns[0] = ctrl.campaigns[1];
-
       ctrl.getAreas();
     });
-
   };
 
   /**
@@ -140,7 +136,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
                */
 
 
-              var meter = ''
+              var meter = '';
 
               function getMeter(date, duration) {
                 var theDate = moment(date);
@@ -152,7 +148,6 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
                   percentageTime = 100;
                   styles = 'background-color:red;';
                   cssClass += ' blink';
-
                 }
 
                 percentageTime = 100 - percentageTime;

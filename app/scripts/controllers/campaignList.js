@@ -23,7 +23,7 @@ angular.module('fieldserviceFeApp').controller('CampaignList', function (Campaig
    */
 
   Campaigns.query({
-    sort: ['active,desc', 'name,asc']
+    sort: ['active,desc', 'shortName,desc']
   }).$promise.then(function(result) {
     ctrl.campaigns = result;
 
@@ -52,7 +52,8 @@ angular.module('fieldserviceFeApp').controller('CampaignList', function (Campaig
 
     Campaigns.create({},{
       active: false,
-      name: ctrl.newCampaign.name
+      name: ctrl.newCampaign.name,
+      shortName: ctrl.newCampaign.shortName
     }).$promise.then(function() {
       $route.reload();
     });
