@@ -32,7 +32,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function ($scop
   ctrl.getCampaigns = function () {
 
     Campaigns.query({
-      sort: ['active,desc','name,asc']
+      sort: ['active,desc','shortName,desc']
     }).$promise.then(function(result) {
       Array.prototype.push.apply(ctrl.campaigns, result);
       ctrl.model.selectedCampaign = ctrl.campaigns[1];

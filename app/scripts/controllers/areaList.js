@@ -28,14 +28,13 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
   ctrl.model = {
     type: ctrl.types[0],
     selectedCampaigns: [],
-    creationDate: moment().subtract(1, 'years').format("DD-MM-YYYY"),
-    creationDateDisabled: 'disabled'
+    creationDate: moment().subtract(1, 'years').format('DD-MM-YYYY')
   };
 
   ctrl.getCampaigns = function () {
 
     Campaigns.query({
-      sort: ['active,desc','name,asc']
+      sort: ['active,desc','shortName,desc']
     }).$promise.then(function(result) {
       Array.prototype.push.apply(ctrl.campaigns, result);
 
@@ -55,22 +54,25 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
     var params = {
       type: ctrl.model.type.id,
       campaign: [],
-      date: ctrl.model.creationDate
+      date: null
     };
 
-    angular.forEach(ctrl.model.selectedCampaigns, function(campaign) {
-      params.campaign.push(campaign.id);
-    });
+    if (angular.isDefined(ctrl.model.selectedCampaigns[0].id)) {
+      angular.forEach(ctrl.model.selectedCampaigns, function (campaign) {
+        params.campaign.push(campaign.id);
+      });
+    }
+    else {
+      delete params.campaign;
+    }
 
-    if (!angular.isDefined(ctrl.model.selectedCampaigns[0].id) && angular.isDefined(params.date) && params.date.length > 0) {
+    if (angular.isDefined(ctrl.model.creationDate)) {
       var splittedDate = ctrl.model.creationDate.split('-');
       params.date = splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + 'T00:00:00.001';
-      delete params.campaign;
     }
     else {
       delete params.date;
     }
-
 
     ViewAreas.query(params).$promise.then(function (result) {
       var shapes = [],

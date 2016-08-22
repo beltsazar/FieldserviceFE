@@ -71,7 +71,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentDetails', function ($r
 
     // Get the accounts
     Campaigns.query({
-      sort: ['active,desc','name,asc']
+      sort: ['active,desc','shortName,desc']
     }).$promise.then(function (result) {
       ctrl.entities.campaigns = result;
 

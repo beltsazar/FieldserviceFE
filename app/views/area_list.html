@@ -24,9 +24,9 @@
 
    <div class="row">
      <div class="col-xs-12 col-sm-3">
-       <fieldset xng-attr-disabled="{{ctrl.model.selectedCampaigns[0].id}}">
+       <fieldset>
          <div class="form-group m-b-0">
-           <label for="creationDate">Start Date</label>
+           <label for="creationDate">From Start/Close Date</label>
            <input id="creationDate" name="creationDate" class="form-control" ng-model="ctrl.model.creationDate" placeholder="dd-mm-yyyy"></input>
          </div>
        </fieldset>
@@ -51,7 +51,7 @@
     <thead>
     <tr>
       <th></th>
-      <th xclass="col-xs-2">City</th>
+      <th>City</th>
       <th>Number</th>
       <th>Type</th>
       <th class="col-xs-9">Assignments</th>
