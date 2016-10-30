@@ -83,34 +83,34 @@
     </tbody>
   </table>
 
- <p class="text-center m-b-20"><button type="submit" class="btn btn-primary" ng-click="ctrl.toggleSimpleView();">Toggle Simple View</button></p>
+ <!--<p class="text-center m-b-20"><button type="submit" class="btn btn-primary" ng-click="ctrl.toggleSimpleView();">Toggle Simple View</button></p>-->
 
- <table class="table" ng-if="ctrl.showSimpleView">
-   <caption>Gebieden en hun bewerking vanaf: {{ctrl.model.creationDate}}</caption>
-   <thead>
-   <tr>
-     <th>Gebied</th>
-     <th>Toewijzingen</th>
-   </tr>
-   </thead>
-   <tbody>
-   <tr ng-repeat="area in ctrl.areas">
-     <td>{{area.city.name}} {{area.number}} {{area.type | displayAreaType}}</td>
-     <td>
-       <table>
-         <tbody>
-         <tr ng-repeat="assignment in area.assignments">
-           <td>{{assignment.campaign.name}}</td>
-           <td>{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>
-           <td>{{assignment.creationDate | formatShortDate}}</td>
-           <td>{{assignment.closeDate  | formatShortDate}}</td>
-         </tr>
-         </tbody>
-       </table>
-     </td>
-   </tr>
-   </tbody>
- </table>
+ <!--<table class="table" ng-if="ctrl.showSimpleView">-->
+   <!--<caption>Gebieden en hun bewerking vanaf: {{ctrl.model.creationDate}}</caption>-->
+   <!--<thead>-->
+   <!--<tr>-->
+     <!--<th>Gebied</th>-->
+     <!--<th>Toewijzingen</th>-->
+   <!--</tr>-->
+   <!--</thead>-->
+   <!--<tbody>-->
+   <!--<tr ng-repeat="area in ctrl.areas">-->
+     <!--<td>{{area.city.name}} {{area.number}} {{area.type | displayAreaType}}</td>-->
+     <!--<td>-->
+       <!--<table>-->
+         <!--<tbody>-->
+         <!--<tr ng-repeat="assignment in area.assignments">-->
+           <!--<td>{{assignment.campaign.name}}</td>-->
+           <!--<td>{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>-->
+           <!--<td>{{assignment.creationDate | formatShortDate}}</td>-->
+           <!--<td>{{assignment.closeDate  | formatShortDate}}</td>-->
+         <!--</tr>-->
+         <!--</tbody>-->
+       <!--</table>-->
+     <!--</td>-->
+   <!--</tr>-->
+   <!--</tbody>-->
+ <!--</table>-->
 
 
 
