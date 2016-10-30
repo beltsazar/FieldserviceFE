@@ -1,9 +1,10 @@
 Backlog:
+- In assignment view: sorteren op account
+
 - In area view popup, alle bewerkingen en campaigns tonen
 - In area view sterretje als bewerkt tijdens reguliere bewerking?
 - In campaign domein model onderscheid tussen acties en reguliere bewerking
 - In area view: bij meerdere campaigns, actieve campaign highlighten met sterretje
-- In assignment view: sorteren op account
 - In assignment details: delete optie
 - Voorkomen dubbele invoer adressen
 - Huisnummer invoer verbeteren

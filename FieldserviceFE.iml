@@ -5,7 +5,6 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="FieldserviceFE node_modules" level="project" />
     <orderEntry type="library" name="jasmine-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="moment-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="leaflet-DefinitelyTyped" level="application" />
