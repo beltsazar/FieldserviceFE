@@ -29,7 +29,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
   ctrl.model = {
     type: ctrl.types[0],
     selectedCampaigns: [],
-    creationDate: moment().subtract(1, 'years').format('DD-MM-YYYY')
+    creationCloseDate: moment().subtract(1, 'years').format('DD-MM-YYYY')
   };
 
   ctrl.showSimpleView = false;
@@ -53,7 +53,8 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
     var params = {
       type: ctrl.model.type.id,
       campaign: [],
-      date: null
+      creationDate: null,
+      creationCloseDate: null
     };
 
     if (angular.isDefined(ctrl.model.selectedCampaigns[0].id)) {
@@ -67,10 +68,18 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
 
     if (angular.isDefined(ctrl.model.creationDate) && ctrl.model.creationDate.length > 0) {
       var splittedDate = ctrl.model.creationDate.split('-');
-      params.date = splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + 'T00:00:00.001';
+      params.creationDate = splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + 'T00:00:00.001';
     }
     else {
-      delete params.date;
+      delete params.creationDate;
+    }
+
+    if (angular.isDefined(ctrl.model.creationCloseDate) && ctrl.model.creationCloseDate.length > 0) {
+      var splittedDate = ctrl.model.creationCloseDate.split('-');
+      params.creationCloseDate = splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + 'T00:00:00.001';
+    }
+    else {
+      delete params.creationCloseDate;
     }
 
     ViewAreas.query(params).$promise.then(function (result) {
