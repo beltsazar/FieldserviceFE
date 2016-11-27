@@ -65,7 +65,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
       delete params.campaign;
     }
 
-    if (angular.isDefined(ctrl.model.creationDate)) {
+    if (angular.isDefined(ctrl.model.creationDate) && ctrl.model.creationDate.length > 0) {
       var splittedDate = ctrl.model.creationDate.split('-');
       params.date = splittedDate[2] + '-' + splittedDate[1] + '-' + splittedDate[0] + 'T00:00:00.001';
     }

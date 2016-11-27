@@ -22,6 +22,9 @@
   "appPath": "app",
   "moduleName": "fieldserviceFeApp",
   "overrides": {
+    "leaflet-dist": {
+      "main": []
+    },
     "leaflet-fullscreen": {
       "main": [
         "Leaflet.fullscreen.js",
