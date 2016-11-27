@@ -58,8 +58,8 @@
       <button ng-if="ctrl.id== 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.create();">Create</button>
       <button ng-if="ctrl.id!= 'create'" type="submit" class="btn btn-primary" ng-click="ctrl.update();">Update</button>
       <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.close();">Close</button>
-      <!--<button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger" ng-click="ctrl.delete();">Delete</button>-->
       <a class="btn btn-link" ng-href="#/admin/assignments">Back to list</a>
+      <button ng-if="ctrl.id!='create'" type="submit" class="btn btn-danger pull-right" ng-click="ctrl.delete();">Delete</button>
     </div>
 
   </form>
