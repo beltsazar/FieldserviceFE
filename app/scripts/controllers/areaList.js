@@ -40,7 +40,7 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
     }).$promise.then(function(result) {
       Array.prototype.push.apply(ctrl.campaigns, result);
       ctrl.model.selectedCampaigns[0] = ctrl.campaigns[1];
-      ctrl.getAreas();
+      //ctrl.getAreas();
     });
   };
 

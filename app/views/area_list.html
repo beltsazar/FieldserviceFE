@@ -58,9 +58,9 @@
 
  <br/>
 
- <div map id="Overview" mode="view" shapes="ctrl.shapes" style="width:100%; height:800px;"></div>
+ <div map id="Overview" mode="view" shapes="ctrl.shapes" style="width:100%; height:800px;" ng-if="ctrl.shapes.length > 0"></div>
 
-  <table class="table">
+  <table class="table" ng-if="ctrl.areas.length > 0">
     <caption>List of Areas</caption>
     <thead>
     <tr>
