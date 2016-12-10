@@ -196,6 +196,16 @@ angular.module('fieldserviceFeApp').controller('AreaList', function ($http, $sco
           }
         });
 
+        angular.forEach(areas, function(area) {
+          if(area.assignments.length > 0) {
+            area.lastAssignment = angular.copy(area.assignments[0]);
+            area.assignmentNumber = area.assignments.length;
+          }
+
+          delete area.assignments;
+
+        });
+
         ctrl.areas = result;
         ctrl.shapes = shapes;
       }

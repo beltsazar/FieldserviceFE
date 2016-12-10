@@ -52,7 +52,7 @@
 
    <div class="form-group m-t-10">
      <button type="submit" class="btn btn-primary m-r-5" ng-click="ctrl.getAreas();">Search</button>
-     <a class="btn btn-default btn-primary" href="#/admin/areas/create" role="button">Create Area</a>
+     <a class="btn btn-default btn-primary pull-right" href="#/admin/areas/create" role="button">Create Area</a>
    </div>
  </form>
 
@@ -66,9 +66,13 @@
     <tr>
       <th></th>
       <th>City</th>
-      <th>Number</th>
+      <th>Nr</th>
       <th>Type</th>
-      <th class="col-xs-9">Assignments</th>
+      <th>Status</th>
+      <th>Campaign</th>
+      <th>Administrator</th>
+      <th>Started</th>
+      <th>Closed</th>
     </tr>
     </thead>
     <tbody>
@@ -77,54 +81,17 @@
       <td><nobr>{{area.city.name}}</nobr></td>
       <td>{{area.number}}</td>
       <td>{{area.type | displayAreaType}}</td>
-      <td class="p-b-0 p-r-0">
-
-        <table class="table m-b-0">
-          <tbody>
-          <tr ng-repeat="assignment in area.assignments">
-            <td style="padding-left:0" class="col-xs-1"  ng-class="{'embedded-table-first-row' : $index === 0}"><nobr><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right p-r-10" aria-hidden="true"></span></a>
-            <span style="display:inline-block;width:50px;"  ng-if="assignment.active" class="label label-warning">active</span><span style="display:inline-block;width:50px;" ng-if="!assignment.active" class="label label-default">closed</span></nobr></td>
-            <td class="col-xs-2" ng-class="{'embedded-table-first-row' : $index === 0}">{{assignment.campaign.name}}</td>
-            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}">{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>
-            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}"><span>{{assignment.creationDate | formatShortDate}}</span><span class="p-l-5 p-r-5">|</span><span ng-class="{'bold': !assignment.closeDate}">{{assignment.creationDate | daysFromNow}}</span></td>
-            <td class="col-xs-3" ng-class="{'embedded-table-first-row' : $index === 0}"><span>{{assignment.closeDate  | formatShortDate}}</span><span class="p-l-5 p-r-5" ng-if="assignment.closeDate">|</span><span>{{assignment.closeDate | daysFromNow}}</span></td>
-          </tr>
-          </tbody>
-        </table>
-
+      <td>
+        <a ng-href="#/admin/assignments/{{area.lastAssignment.id}}" ng-if="area.lastAssignment.active === true" class="btn btn-xs btn-warning">active <span class="badge" ng-bind="area.assignmentNumber"></span></a>
+        <a ng-href="#/admin/assignments/{{area.lastAssignment.id}}" ng-if="area.lastAssignment.active === false" class="btn btn-xs btn-info">closed <span class="badge" ng-bind="area.assignmentNumber"></span></a>
       </td>
+      <td><nobr><span ng-bind="area.lastAssignment.campaign.name"></span></nobr></td>
+      <td><span ng-bind="area.lastAssignment.account.firstName"></span> <span ng-bind="area.lastAssignment.account.infix"></span> <span ng-bind="area.lastAssignment.account.lastName"></span></td>
+      <td><nobr><span ng-bind="area.lastAssignment.creationDate | daysFromNow" title="{{area.lastAssignment.creationDate | formatShortDate}}"></span></nobr></td>
+      <td><nobr><span ng-bind="area.lastAssignment.closeDate | daysFromNow" title="{{area.lastAssignment.closeDate | formatShortDate}}"></span></nobr></td>
     </tr>
     </tbody>
   </table>
-
- <!--<p class="text-center m-b-20"><button type="submit" class="btn btn-primary" ng-click="ctrl.toggleSimpleView();">Toggle Simple View</button></p>-->
-
- <!--<table class="table" ng-if="ctrl.showSimpleView">-->
-   <!--<caption>Gebieden en hun bewerking vanaf: {{ctrl.model.creationDate}}</caption>-->
-   <!--<thead>-->
-   <!--<tr>-->
-     <!--<th>Gebied</th>-->
-     <!--<th>Toewijzingen</th>-->
-   <!--</tr>-->
-   <!--</thead>-->
-   <!--<tbody>-->
-   <!--<tr ng-repeat="area in ctrl.areas">-->
-     <!--<td>{{area.city.name}} {{area.number}} {{area.type | displayAreaType}}</td>-->
-     <!--<td>-->
-       <!--<table>-->
-         <!--<tbody>-->
-         <!--<tr ng-repeat="assignment in area.assignments">-->
-           <!--<td>{{assignment.campaign.name}}</td>-->
-           <!--<td>{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>-->
-           <!--<td>{{assignment.creationDate | formatShortDate}}</td>-->
-           <!--<td>{{assignment.closeDate  | formatShortDate}}</td>-->
-         <!--</tr>-->
-         <!--</tbody>-->
-       <!--</table>-->
-     <!--</td>-->
-   <!--</tr>-->
-   <!--</tbody>-->
- <!--</table>-->
 
 
 
