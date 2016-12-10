@@ -63,8 +63,8 @@
          <td>{{assignment.account.firstName}} {{assignment.account.infix}} {{assignment.account.lastName}}</td>
          <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
          <td><span ng-if="assignment.personal" class="label label-danger">private</span><span ng-if="!assignment.personal" class="label label-success">public</span></td>
-         <td><span>{{assignment.creationDate | formatShortDate}}</span><span class="p-l-5 p-r-5">|</span><span ng-class="{'bold': !assignment.closeDate}">{{assignment.creationDate | daysFromNow}}</span></td>
-         <td><span>{{assignment.closeDate  | formatShortDate}}</span><span class="p-l-5 p-r-5" ng-if="assignment.closeDate">|</span><span>{{assignment.closeDate | daysFromNow}}</span></td>
+         <td><span ng-class="{'bold': !assignment.closeDate}" title="{{assignment.creationDate | formatShortDate}}">{{assignment.creationDate | daysFromNow}}</span></td>
+         <td><span title="{{assignment.closeDate  | formatShortDate}}">{{assignment.closeDate | daysFromNow}}</span></td>
        </tr>
        </tbody>
      </table>

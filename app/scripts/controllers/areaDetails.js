@@ -54,8 +54,8 @@ angular.module('fieldserviceFeApp').controller('AreaDetails', function ($scope, 
   this.getAssignments = function() {
     Assignments.findByArea({
       area: 'areas/' + ctrl.id,
-      //projection: 'entities',
-      sort: ['active,desc', 'creationDate']}).$promise.then(function (response) {
+      projection: 'areaDetailsList',
+      sort: ['active,desc', 'creationDate,desc']}).$promise.then(function (response) {
       ctrl.entities.assignments = response;
     });
   };

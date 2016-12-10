@@ -47,14 +47,20 @@
       <tr>
         <th class="col-xs-1"></th>
         <th>Status</th>
-        <th>Start Date</th>
+        <th>Campaign</th>
+        <th>Administrator</th>
+        <th>Started</th>
+        <th>Closed</th>
       </tr>
       </thead>
       <tbody>
       <tr ng-repeat="assignment in ctrl.entities.assignments">
         <th class="col-xs-1" scope="row"><a ng-href="#/admin/assignments/{{assignment.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>
-        <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-default">closed</span></td>
-        <td>{{assignment.creationDate | formatDate}}</td>
+        <td><span ng-if="assignment.active" class="label label-warning">active</span><span ng-if="!assignment.active" class="label label-info">closed</span></td>
+        <td>{{assignment.campaign.name}}</td>
+        <td><span ng-bind="assignment.account.firstName"></span> <span ng-bind="assignment.account.infix"></span> <span ng-bind="assignment.account.lastName"></span></td>
+        <td>{{assignment.creationDate | formatShortDate}}</td>
+        <td>{{assignment.closeDate | formatShortDate}}</td>
       </tr>
       </tbody>
     </table>
