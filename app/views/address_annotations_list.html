@@ -14,7 +14,7 @@
     <tr ng-repeat="annotation in ctrl.annotations">
       <!--<th class="col-xs-1" scope="row"><a ng-href="#/admin/addressAnnotations/{{annotation.id}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a></th>-->
       <td>{{annotation.type}}</td>
-      <td><nobr>{{annotation.creationDate | formatShortDate}}</nobr></td>
+      <td><span class="text-nowrap">{{annotation.creationDate | formatShortDate}}</span></td>
       <td><a ng-if="annotation.address" ng-href="#/admin/addresses/{{annotation.address.id}}">{{annotation.address.city}}, {{annotation.address.street}} {{annotation.address.number}}<sup ng-if="annotation.address.suffix"> {{annotation.address.suffix}}</sup></a></td>
     </tr>
     </tbody>
