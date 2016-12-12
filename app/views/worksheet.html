@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-      <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="text-nowrap font-size-20 xp-l-5"><b>{{worksheet.area.number}}</b><b ng-if="worksheet.area.type === 'BUSINESS'"> Z</b></span></> <a ng-if="application.hasRole('ADMIN')" ng-href="#/admin/assignments/{{worksheet.assignment.id}}"><span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></a></h1>
+      <h1 class="panel-title font-size-18">{{worksheet.area.city.name}} <span class="text-nowrap font-size-20 xp-l-5"><b>{{worksheet.area.number}}</b><b ng-if="worksheet.area.type === 'BUSINESS'"> Z</b></span> <a ng-if="application.hasRole('ADMIN')" ng-href="#/admin/assignments/{{worksheet.assignment.id}}"><span class="glyphicon glyphicon-pencil pull-right" aria-hidden="true"></span></a></h1>
     </div>
 
     <div class="list-group">
@@ -170,7 +170,7 @@
             <div ng-repeat="annotation in address.annotations">
 
               <div ng-if="annotation.type=='DO_NOT_VISIT'">
-                <uib-alert type="danger" class="font-size-18 m-b-10">Op <b>{{annotation.creationDate | formatDate}}</b> is gemeld dat dit adres <span class="text-nowrap"><b>niet meer bezocht</b></span></> mag worden!</uib-alert>
+                <uib-alert type="danger" class="font-size-18 m-b-10">Op <b>{{annotation.creationDate | formatDate}}</b> is gemeld dat dit adres <span class="text-nowrap"><b>niet meer bezocht</b></span> mag worden!</uib-alert>
 
                 <button type="button" class="btn btn-lg btn-block text-center btn-success" ng-click="ctrl.confirm({ title:'Mag bezocht worden', body: 'Deze melding is niet (meer) terecht. Dit adres mag wel (weer) bezocht worden.' }, address, 'setDoNotVisitAnnotation', [annotation])">
                   <span class="font-size-16"><b>Niet meer van toepassing</b></span></button>

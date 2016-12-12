@@ -85,10 +85,10 @@
         <a ng-href="#/admin/assignments/{{area.lastAssignment.id}}" ng-if="area.lastAssignment.active === true" class="btn btn-xs btn-warning">active <span class="badge" ng-bind="area.assignmentNumber"></span></a>
         <a ng-href="#/admin/assignments/{{area.lastAssignment.id}}" ng-if="area.lastAssignment.active === false" class="btn btn-xs btn-info">closed <span class="badge" ng-bind="area.assignmentNumber"></span></a>
       </td>
-      <td><span class="text-nowrap" ng-bind="area.lastAssignment.campaign.name"></span></></td>
+      <td><span class="text-nowrap" ng-bind="area.lastAssignment.campaign.name"></span></td>
       <td><span ng-bind="area.lastAssignment.account.firstName"></span> <span ng-bind="area.lastAssignment.account.infix"></span> <span ng-bind="area.lastAssignment.account.lastName"></span></td>
-      <td><span class="text-nowrap"ng-bind="area.lastAssignment.creationDate | daysFromNow" title="{{area.lastAssignment.creationDate | formatShortDate}}"></span></></td>
-      <td><span class="text-nowrap" ng-bind="area.lastAssignment.closeDate | daysFromNow" title="{{area.lastAssignment.closeDate | formatShortDate}}"></span></></td>
+      <td><span class="text-nowrap" ng-bind="area.lastAssignment.creationDate | daysFromNow" title="{{area.lastAssignment.creationDate | formatShortDate}}"></span></td>
+      <td><span class="text-nowrap" ng-bind="area.lastAssignment.closeDate | daysFromNow" title="{{area.lastAssignment.closeDate | formatShortDate}}"></span></td>
     </tr>
     </tbody>
   </table>
