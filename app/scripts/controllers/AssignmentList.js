@@ -35,7 +35,7 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function ($scop
       sort: ['active,desc','shortName,desc']
     }).$promise.then(function(result) {
       Array.prototype.push.apply(ctrl.campaigns, result);
-      ctrl.model.selectedCampaign = ctrl.campaigns[1];
+      // ctrl.model.selectedCampaign = ctrl.campaigns[1];
       ctrl.getAssignments();
     });
 
@@ -59,6 +59,11 @@ angular.module('fieldserviceFeApp').controller('AssignmentList', function ($scop
       page: (ctrl.page.number - 1),
       size: ctrl.page.size
     };
+
+    if(queryParams.sort[0].indexOf('area.city.name') === -1) {
+      queryParams.sort.push('area.city.name,asc');
+      queryParams.sort.push('area.number,asc');
+    }
 
     if (angular.isDefined(ctrl.model.selectedCampaign.id) && angular.isDefined(ctrl.model.active)) {
       queryParams.search = 'search';
