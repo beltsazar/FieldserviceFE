@@ -87,8 +87,8 @@
       </td>
       <td><span class="text-nowrap" ng-bind="area.lastAssignment.campaign.name"></span></td>
       <td><span ng-bind="area.lastAssignment.account.firstName"></span> <span ng-bind="area.lastAssignment.account.infix"></span> <span ng-bind="area.lastAssignment.account.lastName"></span></td>
-      <td><span class="text-nowrap" ng-bind="area.lastAssignment.creationDate | daysFromNow" title="{{area.lastAssignment.creationDate | formatShortDate}}"></span></td>
-      <td><span class="text-nowrap" ng-bind="area.lastAssignment.closeDate | daysFromNow" title="{{area.lastAssignment.closeDate | formatShortDate}}"></span></td>
+      <td><span class="text-nowrap" ng-bind="area.lastAssignment.creationDate | formatShortDate" title="{{area.lastAssignment.creationDate | daysFromNow}}"></span></td>
+      <td><span class="text-nowrap" ng-bind="area.lastAssignment.closeDate | formatShortDate" title="{{area.lastAssignment.closeDate | daysFromNow}}"></span></td>
     </tr>
     </tbody>
   </table>
